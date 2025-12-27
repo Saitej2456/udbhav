@@ -1,97 +1,252 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Play, Users } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
-import SectionHeading from '@/components/SectionHeading';
+// Assuming these components exist based on your previous code
+import SectionHeading from '@/components/SectionHeading'; 
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
 
 const projects = [
   {
     id: 1,
-    name: 'AI-Powered Healthcare Platform',
-    team: 'TechTitans',
-    iiit: 'IIIT Sonepat',
-    description: 'An intelligent healthcare platform that uses machine learning to predict diseases, recommend treatments, and connect patients with specialists.',
-    domain: 'AI/ML',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
+    name: 'Problem Statement: 2',
+    team: 'DAOMINATORS',
+    iiit: 'IIIT Allahabad',
+    description: '',
+    domain: 'Blockchain',
+    github: '',
+    demo: '',
     image: null,
   },
   {
     id: 2,
-    name: 'Decentralized Identity System',
-    team: 'CodeBreakers',
-    iiit: 'IIIT Hyderabad',
-    description: 'A blockchain-based identity verification system that gives users complete control over their personal data while ensuring security and privacy.',
-    domain: 'Blockchain',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
+    name: 'Problem Statement: 1',
+    team: 'Bancode',
+    iiit: 'IIIT Bhubaneswar',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
     image: null,
   },
   {
     id: 3,
-    name: 'Secure Voting Blockchain',
-    team: 'CryptoKnights',
-    iiit: 'IIIT Guwahati',
-    description: 'A tamper-proof electronic voting system built on blockchain technology, ensuring transparent and secure elections.',
-    domain: 'Blockchain',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
+    name: 'Problem Statement: 1',
+    team: 'Nocturnal_Code',
+    iiit: 'IIIT Kurnool',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
     image: null,
   },
   {
     id: 4,
-    name: 'Smart City Traffic Management',
-    team: 'ByteForce',
-    iiit: 'IIIT Delhi',
-    description: 'An AI-driven traffic management system that optimizes signal timing, predicts congestion, and provides real-time routing.',
+    name: 'Problem Statement: 1',
+    team: 'SINISTER-6',
+    iiit: 'IIIT Dharwad',
+    description: '',
     domain: 'AI/ML',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
+    github: '',
+    demo: '',
     image: null,
   },
   {
     id: 5,
-    name: 'Quantum-Safe Encryption',
-    team: 'QuantumLeap',
-    iiit: 'IIIT Vadodara',
-    description: 'A post-quantum cryptography library that protects data against future quantum computing threats.',
-    domain: 'Cybersecurity',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
+    name: 'Problem Statement: 1',
+    team: 'Kaizen',
+    iiit: 'IIIT Manipur',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
     image: null,
   },
   {
     id: 6,
-    name: 'NLP-Based Legal Assistant',
-    team: 'NeuralNinjas',
-    iiit: 'IIIT Bangalore',
-    description: 'An AI-powered legal assistant that analyzes documents, provides case law references, and helps draft legal documents.',
+    name: 'Problem Statement: 1',
+    team: 'Zero-Deadlock',
+    iiit: 'IIIT Raichur',
+    description: '',
     domain: 'AI/ML',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
+    github: '',
+    demo: '',
     image: null,
   },
   {
     id: 7,
-    name: 'Threat Detection System',
-    team: 'SecureShield',
+    name: 'Problem Statement: 1',
+    team: 'KanyaRaasi',
     iiit: 'IIIT Kottayam',
-    description: 'Real-time cybersecurity threat detection using machine learning to identify and neutralize attacks.',
-    domain: 'Cybersecurity',
-    github: 'https://github.com',
-    demo: null,
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
     image: null,
   },
   {
     id: 8,
-    name: 'Edge Computing Framework',
-    team: 'CloudChasers',
-    iiit: 'IIIT Nagpur',
-    description: 'A lightweight framework for deploying AI models on edge devices with minimal latency.',
+    name: 'Problem Statement: 2',
+    team: "Bohar's Bit",
+    iiit: 'IIIT Sri City',
+    description: '',
+    domain: 'Blockchain',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 9,
+    name: 'Problem Statement: 2',
+    team: 'DivFlow',
+    iiit: 'IIIT Vadodara-ICD',
+    description: '',
+    domain: 'Blockchain',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 10,
+    name: 'Problem Statement: 1',
+    team: 'HackSmith',
+    iiit: 'IIIT Kota',
+    description: '',
     domain: 'AI/ML',
-    github: 'https://github.com',
-    demo: 'https://demo.com',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 11,
+    name: 'Problem Statement: 1',
+    team: 'Team notFound',
+    iiit: 'IIIT Bhagalpur',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 12,
+    name: 'Problem Statement: 1',
+    team: 'CBOW',
+    iiit: 'IIIT Naya Raipur',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 13,
+    name: 'Problem Statement: 1',
+    team: 'The Hawkings',
+    iiit: 'IIIT Tiruchirappalli',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 14,
+    name: 'Problem Statement: 1',
+    team: '404 Found',
+    iiit: 'IIIT Bhopal',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 15,
+    name: 'Problem Statement: 2',
+    team: 'DBDT',
+    iiit: 'IIIT Surat',
+    description: '',
+    domain: 'Blockchain',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 16,
+    name: 'Problem Statement: 1',
+    team: 'SnackOverflow',
+    iiit: 'IIIT Kancheepuram',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 17,
+    name: 'Problem Statement: 1',
+    team: 'PromptOps',
+    iiit: 'IIIT Una',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 18,
+    name: 'Problem Statement: 3',
+    team: 'Techtonics_IIITA',
+    iiit: 'IIIT Agartala',
+    description: '',
+    domain: 'Cybersecurity',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 19,
+    name: 'Problem Statement: 2',
+    team: 'Block E-state',
+    iiit: 'IIIT Delhi',
+    description: '',
+    domain: 'Blockchain',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 20,
+    name: 'Problem Statement: 1',
+    team: 'Swarnprasth Super',
+    iiit: 'IIIT Sonepat',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 21,
+    name: 'Problem Statement: 1',
+    team: 'Neuronix',
+    iiit: 'IIIT Nagpur',
+    description: '',
+    domain: 'AI/ML',
+    github: '',
+    demo: '',
+    image: null,
+  },
+  {
+    id: 22,
+    name: 'Problem Statement: 2',
+    team: 'Zodiac Z408',
+    iiit: 'IIIT Vadodara',
+    description: '',
+    domain: 'Blockchain',
+    github: '',
+    demo: '',
     image: null,
   },
 ];
@@ -171,35 +326,47 @@ const Projects = () => {
                     <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                       {project.name}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                      {project.description}
+                    {/* Description is currently empty, but space is preserved */}
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-3 min-h-[1.25rem]">
+                      {project.description || "Description coming soon..."}
                     </p>
                   </div>
 
                   {/* Team Info */}
                   <div className="flex items-center gap-2 py-3 border-t border-border/50 text-sm text-muted-foreground">
                     <Users className="w-4 h-4" />
-                    <span className="font-medium">{project.team}</span>
+                    <span className="font-medium truncate">{project.team}</span>
                     <span>•</span>
-                    <span>{project.iiit}</span>
+                    <span className="truncate">{project.iiit}</span>
                   </div>
 
                   {/* Links */}
                   <div className="flex gap-2 pt-3 border-t border-border/50">
-                    {project.github && (
+                    {project.github ? (
                       <Button asChild variant="outline" size="sm" className="flex-1">
                         <a href={project.github} target="_blank" rel="noopener noreferrer">
                           <Github className="w-4 h-4 mr-1" />
                           Code
                         </a>
                       </Button>
+                    ) : (
+                      <Button variant="outline" size="sm" className="flex-1 opacity-50 cursor-not-allowed" disabled>
+                        <Github className="w-4 h-4 mr-1" />
+                        Code
+                      </Button>
                     )}
-                    {project.demo && (
+                    
+                    {project.demo ? (
                       <Button asChild variant="glow" size="sm" className="flex-1">
                         <a href={project.demo} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="w-4 h-4 mr-1" />
                           Demo
                         </a>
+                      </Button>
+                    ) : (
+                      <Button variant="glow" size="sm" className="flex-1 opacity-50 cursor-not-allowed" disabled>
+                         <ExternalLink className="w-4 h-4 mr-1" />
+                         Demo
                       </Button>
                     )}
                   </div>
