@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { MapPin, ExternalLink, Star, Map, User, Phone, Instagram, Linkedin, Search, X } from 'lucide-react';
+import { MapPin, ExternalLink, Star, Map, User, Phone, Instagram, Linkedin, Search, X, Mail } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
 import SectionHeading from '@/components/SectionHeading';
 import GlassCard from '@/components/GlassCard';
@@ -9,215 +9,215 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import IndiaMap3D from '@/components/IndiaMap3D';
 
-// Complete IIIT data with SPOCs and Club details from Masterdex
+// Updated IIIT data with SPOC details from the provided sheet
 const iiitsData = [
-  { 
-    id: 'iiit-sri-city', 
-    name: 'IIIT Sri City', 
-    location: 'Andhra Pradesh', 
-    established: 2013, 
-    organizing: true, 
+  {
+    id: 'iiit-sri-city',
+    name: 'IIIT Sri City',
+    location: 'Andhra Pradesh',
+    established: 2013,
+    organizing: true,
     students: 900,
-    spoc: { name: 'Sripathy Siddartha', phone: '8790327970' },
+    spoc: { name: 'Sripathy Siddartha', phone: '8790327970', email: 'sripathysiddartha.k24@iiits.in', department: '' },
     club: { name: 'ENIGMA', instagram: 'enigmaiiits', linkedin: 'https://www.linkedin.com/company/enigmaiiits/' }
   },
-  { 
-    id: 'iiit-agartala', 
-    name: 'IIIT Agartala', 
-    location: 'Tripura', 
-    established: 2018, 
+  {
+    id: 'iiit-agartala',
+    name: 'IIIT Agartala',
+    location: 'Tripura',
+    established: 2018,
     students: 350,
-    spoc: { name: 'Srishant Kumar', phone: '9471649526' },
+    spoc: { name: 'Srishant Kumar', phone: '9471649526', email: 'Srishant054@gmail.com', department: 'Design' },
     club: { name: 'GDG IIIT Agartala', instagram: 'gdgiiitagartala', linkedin: 'https://www.linkedin.com/company/gdg-iiit-agartala/' }
   },
-  { 
-    id: 'iiit-allahabad', 
-    name: 'IIIT Allahabad', 
-    location: 'Uttar Pradesh', 
-    established: 1999, 
+  {
+    id: 'iiit-allahabad',
+    name: 'IIIT Allahabad',
+    location: 'Uttar Pradesh',
+    established: 1999,
     students: 3000,
-    spoc: { name: 'Naitik Jain', phone: '7248119726' },
+    spoc: { name: 'Naitik Jain', phone: '7248119726', email: 'iib2023036@iiita.ac.in', department: 'Marketing' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiit-bhagalpur', 
-    name: 'IIIT Bhagalpur', 
-    location: 'Bihar', 
-    established: 2017, 
+  {
+    id: 'iiit-bhagalpur',
+    name: 'IIIT Bhagalpur',
+    location: 'Bihar',
+    established: 2017,
     students: 400,
-    spoc: { name: 'Ishaan Jha', phone: '6351051298' },
+    spoc: { name: 'Ishaan Jha', phone: '6351051298', email: 'ishaansjha@gmail.com', department: 'Sponsorship' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiit-bhopal', 
-    name: 'IIIT Bhopal', 
-    location: 'Madhya Pradesh', 
-    established: 2017, 
+  {
+    id: 'iiit-bhopal',
+    name: 'IIIT Bhopal',
+    location: 'Madhya Pradesh',
+    established: 2017,
     students: 450,
-    spoc: { name: 'Darsh Dave', phone: '7804021065' },
+    spoc: { name: 'Darsh Dave', phone: '7804021065', email: '23U02008@iiitbhopal.ac.in', department: 'Marketing' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiit-bhubaneshwar', 
-    name: 'IIIT Bhubaneshwar', 
-    location: 'Odisha', 
-    established: 2006, 
+  {
+    id: 'iiit-bhubaneshwar',
+    name: 'IIIT Bhubaneshwar',
+    location: 'Odisha',
+    established: 2006,
     students: 800,
-    spoc: { name: 'Shivansh Sisodia', phone: '6354607724' },
+    spoc: { name: 'Shivansh Sisodia', phone: '6354607724', email: 'b123120@iiit-bh.ac.in', department: 'Marketing' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiit-dharwad', 
-    name: 'IIIT Dharwad', 
-    location: 'Karnataka', 
-    established: 2015, 
+  {
+    id: 'iiit-dharwad',
+    name: 'IIIT Dharwad',
+    location: 'Karnataka',
+    established: 2015,
     students: 500,
-    spoc: { name: 'Savya Sanchi Sharma', phone: '6263786699' },
+    spoc: { name: 'Savya Sanchi Sharma', phone: '6263786699', email: 'savyasanchisharma.official@gmail.com', department: 'Sponsorship' },
     club: { name: 'DSAI Society', instagram: 'dsai_iiitdwd', linkedin: 'https://www.linkedin.com/company/dsai-society-iiit-dharwad/' }
   },
-  { 
-    id: 'iiit-kalyani', 
-    name: 'IIIT Kalyani', 
-    location: 'West Bengal', 
-    established: 2014, 
+  {
+    id: 'iiit-kalyani',
+    name: 'IIIT Kalyani',
+    location: 'West Bengal',
+    established: 2014,
     students: 550,
-    spoc: { name: 'Dhanavath Samith Raj', phone: '9848872618' },
+    spoc: { name: 'Dhanavath Samith Raj', phone: '9848872618', email: 'cse22042@iiitkalyani.ac.in', department: 'Marketing' },
     club: { name: "Student's GYMKHANA", instagram: 'iiitkalyani_gymkhana', linkedin: 'https://www.linkedin.com/company/gymkhana-iiit-kalyani/' }
   },
-  { 
-    id: 'iiit-kota', 
-    name: 'IIIT Kota', 
-    location: 'Rajasthan', 
-    established: 2013, 
+  {
+    id: 'iiit-kota',
+    name: 'IIIT Kota',
+    location: 'Rajasthan',
+    established: 2013,
     students: 600,
-    spoc: { name: 'Sanidhya Madheshia', phone: '8799015820' },
+    spoc: { name: 'Sanidhya Madheshia', phone: '8799015820', email: '2023kucp1156@iiitkota.ac.in', department: 'Website - Next JS' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiit-kottayam', 
-    name: 'IIIT Kottayam', 
-    location: 'Kerala', 
-    established: 2000, 
+  {
+    id: 'iiit-kottayam',
+    name: 'IIIT Kottayam',
+    location: 'Kerala',
+    established: 2000,
     students: 600,
-    spoc: { name: 'Jugal Kakkat', phone: '7592028073' },
+    spoc: { name: 'Jugal Kakkat', phone: '7592028073', email: 'jugal23bcs41@iiitkottayam.ac.in', department: 'Marketing' },
     club: { name: 'Beta Labs', instagram: 'betalabs_iiitk', linkedin: 'https://www.linkedin.com/company/betalabs-iiitkottayam/' }
   },
-  { 
-    id: 'iiit-manipur', 
-    name: 'IIIT Manipur', 
-    location: 'Manipur', 
-    established: 2015, 
+  {
+    id: 'iiit-manipur',
+    name: 'IIIT Manipur',
+    location: 'Manipur',
+    established: 2015,
     students: 350,
-    spoc: { name: 'Aaryan Sinha', phone: '9528314394' },
+    spoc: { name: 'Aaryan Sinha', phone: '9528314394', email: 'aary230104010@iiitmanipur.ac.in', department: 'Sponsorship' },
     club: { name: 'Development Club', instagram: 'iiitm_community', linkedin: 'https://www.linkedin.com/company/developers-club-iiit-manipur/' }
   },
-  { 
-    id: 'iiit-naya-raipur', 
-    name: 'IIIT Naya Raipur', 
-    location: 'Chhattisgarh', 
-    established: 2015, 
+  {
+    id: 'iiit-naya-raipur',
+    name: 'IIIT Naya Raipur',
+    location: 'Chhattisgarh',
+    established: 2015,
     students: 600,
-    spoc: { name: 'Siddharth', phone: '8640098960' },
+    spoc: { name: 'Siddharth', phone: '8640098960', email: 'siddharth24102@iiitnr.edu.in', department: 'Design' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiit-raichur', 
-    name: 'IIIT Raichur', 
-    location: 'Karnataka', 
-    established: 2019, 
+  {
+    id: 'iiit-raichur',
+    name: 'IIIT Raichur',
+    location: 'Karnataka',
+    established: 2019,
     students: 300,
-    spoc: { name: 'Amrita Kadam', phone: '8904220942' },
+    spoc: { name: 'Amrita Kadam', phone: '8904220942', email: 'cs23b1006@iiitr.ac.in', department: 'Website - Next JS' },
     club: { name: 'The CodeSoc Club', instagram: 'codesoc.iiitraichur', linkedin: 'https://www.linkedin.com/company/codesoc-iiitraichur/' }
   },
-  { 
-    id: 'iiit-sonepat', 
-    name: 'IIIT Sonepat', 
-    location: 'Haryana', 
-    established: 2014, 
+  {
+    id: 'iiit-sonepat',
+    name: 'IIIT Sonepat',
+    location: 'Haryana',
+    established: 2014,
     students: 500,
-    spoc: { name: 'Shivansh Agrawal', phone: '8349680308' },
+    spoc: { name: 'Shivansh Agrawal', phone: '8349680308', email: 'shivanshbit12312003@iiitsonepat.ac.in', department: 'Website - Next JS' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiit-surat', 
-    name: 'IIIT Surat', 
-    location: 'Gujarat', 
-    established: 2017, 
+  {
+    id: 'iiit-surat',
+    name: 'IIIT Surat',
+    location: 'Gujarat',
+    established: 2017,
     students: 400,
-    spoc: { name: 'Bhupendra Kumar', phone: '7850047076' },
+    spoc: { name: 'Bhupendra Kumar', phone: '7850047076', email: 'ui23cs13@iiitsurat.ac.in', department: 'Website - Next JS' },
     club: { name: 'GDG IIITSurat', instagram: 'gdg_iiitsurat', linkedin: 'https://www.linkedin.com/company/dsc-iiitsurat/' }
   },
-  { 
-    id: 'iiit-tiruchirappalli', 
-    name: 'IIIT Tiruchirappalli', 
-    location: 'Tamil Nadu', 
-    established: 2013, 
+  {
+    id: 'iiit-tiruchirappalli',
+    name: 'IIIT Tiruchirappalli',
+    location: 'Tamil Nadu',
+    established: 2013,
     students: 500,
-    spoc: { name: 'Ayush Soni', phone: '7339889592' },
+    spoc: { name: 'Ayush Soni', phone: '7339889592', email: 'Soniayush312@gmail.com', department: 'Sponsorship' },
     club: { name: 'Robotics Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiit-una', 
-    name: 'IIIT Una', 
-    location: 'Himachal Pradesh', 
-    established: 2014, 
+  {
+    id: 'iiit-una',
+    name: 'IIIT Una',
+    location: 'Himachal Pradesh',
+    established: 2014,
     students: 600,
-    spoc: { name: 'Nikhil Arora', phone: '9350419261' },
+    spoc: { name: 'Nikhil Arora', phone: '9350419261', email: '23140@iiitu.ac.in', department: 'Marketing' },
     club: { name: 'FORCE', instagram: 'force.iiitu', linkedin: 'https://www.linkedin.com/company/force-iiitu/' }
   },
-  { 
-    id: 'iiit-vadodara', 
-    name: 'IIIT Vadodara', 
-    location: 'Gujarat', 
-    established: 2013, 
+  {
+    id: 'iiit-vadodara',
+    name: 'IIIT Vadodara',
+    location: 'Gujarat',
+    established: 2013,
     students: 600,
-    spoc: { name: 'Darshan Patel', phone: '9427117467' },
+    spoc: { name: 'Darshan Patel', phone: '9427117467', email: '202451126@iiitvadodara.ac.in', department: 'Website - Next JS' },
     club: { name: 'IIITV Coding Club', instagram: 'codingclub_iiitv', linkedin: 'https://www.linkedin.com/company/iiitvcc/' }
   },
-  { 
-    id: 'iiitdm-kurnool', 
-    name: 'IIITDM Kurnool', 
-    location: 'Andhra Pradesh', 
-    established: 2015, 
+  {
+    id: 'iiitdm-kurnool',
+    name: 'IIITDM Kurnool',
+    location: 'Andhra Pradesh',
+    established: 2015,
     students: 500,
-    spoc: { name: 'Sujal Negi', phone: '7807609929' },
+    spoc: { name: 'Sujal Negi', phone: '7807609929', email: '123me0023@iiitk.ac.in', department: 'Marketing' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
-  { 
-    id: 'iiitv-icd', 
-    name: 'IIITV-ICD (Diu)', 
-    location: 'Diu', 
-    established: 2017, 
+  {
+    id: 'iiitv-icd',
+    name: 'IIITV-ICD (Diu)',
+    location: 'Diu',
+    established: 2017,
     students: 400,
-    spoc: { name: 'Akarshhan Kumar', phone: '8828072857' },
+    spoc: { name: 'Akarshhan Kumar', phone: '8828072857', email: 'technical@diu.iiitvadodara.ac.in', department: '' },
     club: { name: 'Technical Committee', instagram: 'technical_iiitvcd', linkedin: 'https://www.linkedin.com/company/technical-committee-iiitv/' }
   },
-  { 
-    id: 'iiit-nagpur', 
-    name: 'IIIT Nagpur', 
-    location: 'Maharashtra', 
-    established: 2016, 
+  {
+    id: 'iiit-nagpur',
+    name: 'IIIT Nagpur',
+    location: 'Maharashtra',
+    established: 2016,
     students: 700,
-    spoc: { name: 'Shivang', phone: '8103898190' },
+    spoc: { name: 'Shivang', phone: '8103898190', email: 'bt23csh014@iiitn.ac.in', department: '' },
     club: { name: 'Student Activity Center', instagram: 'crispr_iiitn', linkedin: 'https://www.linkedin.com/company/crispr-iiit-nagpur/' }
   },
-  { 
-    id: 'iiit-pune', 
-    name: 'IIIT Pune', 
-    location: 'Maharashtra', 
-    established: 2016, 
-    students: 500,
-    spoc: { name: 'Piyush Kulkarni', phone: '9405582136' },
-    club: { name: 'Localhost', instagram: 'localhost_iiitp', linkedin: 'https://www.linkedin.com/company/localhost-iiitp/' }
-  },
-  { 
-    id: 'iiitdm-kancheepuram', 
-    name: 'IIITDM Kancheepuram', 
-    location: 'Tamil Nadu', 
-    established: 2007, 
+  {
+    id: 'iiitdm-kancheepuram',
+    name: 'IIITDM Kancheepuram',
+    location: 'Tamil Nadu',
+    established: 2007,
     students: 1200,
-    spoc: { name: 'Contact TBA', phone: '' },
+    spoc: { name: 'Sharad Kumar Dubey', phone: '8960064987', email: 'cs23i1052@iiitdm.ac.in', department: 'Sponsorship' },
     club: { name: 'CS Club', instagram: 'cs.club.iiitdm', linkedin: 'https://www.linkedin.com/company/cs-club-iiitdm-kancheepuram/' }
+  },
+  {
+    id: 'iiit-delhi',
+    name: 'IIIT Delhi',
+    location: 'Delhi',
+    established: 2008,
+    students: 2000,
+    spoc: { name: 'Harsh', phone: '9998211204', email: 'harsh22200@iiitd.ac.in', department: '' },
+    club: { name: 'Tech Club', instagram: '', linkedin: '' }
   },
 ];
 
@@ -232,7 +232,9 @@ const IIITs = () => {
       iiit.name.toLowerCase().includes(query) ||
       iiit.location.toLowerCase().includes(query) ||
       iiit.club.name.toLowerCase().includes(query) ||
-      iiit.spoc.name.toLowerCase().includes(query)
+      iiit.spoc.name.toLowerCase().includes(query) ||
+      iiit.spoc.department?.toLowerCase().includes(query) ||
+      iiit.spoc.email?.toLowerCase().includes(query)
     );
   }, [searchQuery]);
 
@@ -518,18 +520,30 @@ const IIITs = () => {
                           <p className="text-xs text-muted-foreground truncate">SPOC - {iiit.name}</p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                          <MapPin className="w-3 h-3" />
-                          <span className="truncate">{iiit.location}</span>
-                        </div>
+                      {iiit.spoc.department && (
+                        <p className="text-xs font-medium text-primary mb-2 truncate">{iiit.spoc.department}</p>
+                      )}
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+                        <MapPin className="w-3 h-3" />
+                        <span className="truncate">{iiit.location}</span>
+                      </div>
+                      <div className="flex items-center gap-2 flex-wrap">
                         {iiit.spoc.phone && (
                           <a 
                             href={`tel:${iiit.spoc.phone}`}
                             className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors"
                           >
                             <Phone className="w-3 h-3 text-primary" />
-                            <span className="text-xs font-medium text-primary">Contact</span>
+                            <span className="text-xs font-medium text-primary">Call</span>
+                          </a>
+                        )}
+                        {iiit.spoc.email && (
+                          <a
+                            href={`mailto:${iiit.spoc.email}`}
+                            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-card border border-border hover:border-primary/40 transition-colors"
+                          >
+                            <Mail className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-xs font-medium text-foreground truncate">Email</span>
                           </a>
                         )}
                       </div>

@@ -1,40 +1,39 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Users, Calendar, ExternalLink, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 import GlassCard from './GlassCard';
+import { geoMercator } from 'd3-geo';
 
 // TopoJSON for India - states only (verified working URL)
 const INDIA_TOPO_JSON = "https://gist.githubusercontent.com/jbrobst/56c13bbbf9d97d187fea01ca62ea5112/raw/e388c4cae20aa53cb5090210a42ebb9b765c0a36/india_states.geojson";
 
-// IIIT data with lat/long coordinates
+// IIIT data with lat/long coordinates (only institutes from the provided CSV)
 const iiitsData = [
-  { id: 'iiit-hyderabad', name: 'IIIT Hyderabad', short: 'IIITH', location: 'Hyderabad, Telangana', coordinates: [78.3497, 17.4450] as [number, number], established: 1998, students: 2500, organizing: false },
-  { id: 'iiit-bangalore', name: 'IIIT Bangalore', short: 'IIITB', location: 'Bangalore, Karnataka', coordinates: [77.6633, 12.8399] as [number, number], established: 1999, students: 1200, organizing: false },
-  { id: 'iiit-allahabad', name: 'IIIT Allahabad', short: 'IIITA', location: 'Prayagraj, UP', coordinates: [81.7787, 25.4295] as [number, number], established: 1999, students: 2000, organizing: false },
-  { id: 'iiit-delhi', name: 'IIIT Delhi', short: 'IIITD', location: 'New Delhi', coordinates: [77.2707, 28.5449] as [number, number], established: 2008, students: 2200, organizing: false },
-  { id: 'iiit-guwahati', name: 'IIIT Guwahati', short: 'IIITG', location: 'Guwahati, Assam', coordinates: [91.5947, 26.1903] as [number, number], established: 2013, students: 600, organizing: false },
-  { id: 'iiit-kottayam', name: 'IIIT Kottayam', short: 'IIITK', location: 'Kottayam, Kerala', coordinates: [76.5221, 9.5916] as [number, number], established: 2015, students: 400, organizing: false },
-  { id: 'iiit-sri-city', name: 'IIIT Sri City', short: 'IIITS', location: 'Sri City, AP', coordinates: [80.0349, 13.5540] as [number, number], established: 2013, students: 800, organizing: true },
-  { id: 'iiit-vadodara', name: 'IIIT Vadodara', short: 'IIITV', location: 'Vadodara, Gujarat', coordinates: [73.1812, 22.3119] as [number, number], established: 2013, students: 500, organizing: false },
-  { id: 'iiit-gwalior', name: 'IIIT Gwalior', short: 'IIITM', location: 'Gwalior, MP', coordinates: [78.1828, 26.2183] as [number, number], established: 1997, students: 1800, organizing: false },
-  { id: 'iiit-jabalpur', name: 'IIIT Jabalpur', short: 'IIITDMJ', location: 'Jabalpur, MP', coordinates: [79.9864, 23.1815] as [number, number], established: 2005, students: 1000, organizing: false },
-  { id: 'iiit-kancheepuram', name: 'IIIT Kancheepuram', short: 'IIITDM-K', location: 'Chennai, TN', coordinates: [80.0469, 12.8387] as [number, number], established: 2007, students: 1200, organizing: false },
-  { id: 'iiit-trichy', name: 'IIIT Trichy', short: 'IIITT', location: 'Trichy, TN', coordinates: [78.6854, 10.7619] as [number, number], established: 2013, students: 500, organizing: false },
-  { id: 'iiit-lucknow', name: 'IIIT Lucknow', short: 'IIITL', location: 'Lucknow, UP', coordinates: [80.9462, 26.8467] as [number, number], established: 2015, students: 600, organizing: false },
-  { id: 'iiit-dharwad', name: 'IIIT Dharwad', short: 'IIITDWD', location: 'Dharwad, Karnataka', coordinates: [75.0065, 15.4589] as [number, number], established: 2015, students: 500, organizing: false },
-  { id: 'iiit-kalyani', name: 'IIIT Kalyani', short: 'IIITKALYANI', location: 'Kalyani, WB', coordinates: [88.4345, 22.9751] as [number, number], established: 2014, students: 400, organizing: false },
-  { id: 'iiit-una', name: 'IIIT Una', short: 'IIITUNA', location: 'Una, HP', coordinates: [76.2659, 31.4685] as [number, number], established: 2014, students: 400, organizing: false },
-  { id: 'iiit-sonepat', name: 'IIIT Sonepat', short: 'IIITSONEPAT', location: 'Sonepat, Haryana', coordinates: [77.0151, 28.9931] as [number, number], established: 2014, students: 400, organizing: false },
-  { id: 'iiit-nagpur', name: 'IIIT Nagpur', short: 'IIITN', location: 'Nagpur, Maharashtra', coordinates: [79.0882, 21.1458] as [number, number], established: 2016, students: 500, organizing: false },
-  { id: 'iiit-pune', name: 'IIIT Pune', short: 'IIITP', location: 'Pune, Maharashtra', coordinates: [73.8567, 18.5204] as [number, number], established: 2016, students: 300, organizing: false },
-  { id: 'iiit-ranchi', name: 'IIIT Ranchi', short: 'IIITR', location: 'Ranchi, Jharkhand', coordinates: [85.3096, 23.3441] as [number, number], established: 2016, students: 300, organizing: false },
-  { id: 'iiit-surat', name: 'IIIT Surat', short: 'IIITSURAT', location: 'Surat, Gujarat', coordinates: [72.8311, 21.1702] as [number, number], established: 2017, students: 300, organizing: false },
-  { id: 'iiit-bhopal', name: 'IIIT Bhopal', short: 'IIITBHOPAL', location: 'Bhopal, MP', coordinates: [77.4126, 23.2599] as [number, number], established: 2017, students: 300, organizing: false },
+  { id: 'iiit-sri-city', name: 'IIIT Sri City', short: 'IIITS', location: 'Sri City, AP', coordinates: [80.0349, 13.554] as [number, number], established: 2013, students: 800, organizing: true },
   { id: 'iiit-agartala', name: 'IIIT Agartala', short: 'IIITAGT', location: 'Agartala, Tripura', coordinates: [91.2868, 23.8315] as [number, number], established: 2018, students: 200, organizing: false },
-  { id: 'iiit-raichur', name: 'IIIT Raichur', short: 'IIITRCR', location: 'Raichur, Karnataka', coordinates: [77.3439, 16.2076] as [number, number], established: 2019, students: 200, organizing: false },
+  { id: 'iiit-allahabad', name: 'IIIT Allahabad', short: 'IIITA', location: 'Prayagraj, UP', coordinates: [81.7787, 25.4295] as [number, number], established: 1999, students: 2000, organizing: false },
   { id: 'iiit-bhagalpur', name: 'IIIT Bhagalpur', short: 'IIITBHG', location: 'Bhagalpur, Bihar', coordinates: [86.9842, 25.2425] as [number, number], established: 2019, students: 200, organizing: false },
+  { id: 'iiit-bhopal', name: 'IIIT Bhopal', short: 'IIITBHOPAL', location: 'Bhopal, MP', coordinates: [77.4126, 23.2599] as [number, number], established: 2017, students: 300, organizing: false },
+  { id: 'iiit-bhubaneshwar', name: 'IIIT Bhubaneshwar', short: 'IIITBH', location: 'Bhubaneswar, Odisha', coordinates: [85.8245, 20.2961] as [number, number], established: 2006, students: 800, organizing: false },
+  { id: 'iiit-dharwad', name: 'IIIT Dharwad', short: 'IIITDWD', location: 'Dharwad, Karnataka', coordinates: [75.0065, 15.4589] as [number, number], established: 2015, students: 500, organizing: false },
+  { id: 'iiit-kalyani', name: 'IIIT Kalyani', short: 'IIITKAL', location: 'Kalyani, WB', coordinates: [88.4345, 22.9751] as [number, number], established: 2014, students: 400, organizing: false },
+  { id: 'iiit-kota', name: 'IIIT Kota', short: 'IIITKOTA', location: 'Kota, Rajasthan', coordinates: [75.8648, 25.2138] as [number, number], established: 2013, students: 600, organizing: false },
+  { id: 'iiit-kottayam', name: 'IIIT Kottayam', short: 'IIITK', location: 'Kottayam, Kerala', coordinates: [76.5221, 9.5916] as [number, number], established: 2015, students: 400, organizing: false },
+  { id: 'iiit-manipur', name: 'IIIT Manipur', short: 'IIITMNP', location: 'Imphal, Manipur', coordinates: [93.9368, 24.8138] as [number, number], established: 2015, students: 350, organizing: false },
+  { id: 'iiit-naya-raipur', name: 'IIIT Naya Raipur', short: 'IIITNR', location: 'Naya Raipur, Chhattisgarh', coordinates: [81.7386, 21.1702] as [number, number], established: 2015, students: 600, organizing: false },
+  { id: 'iiit-raichur', name: 'IIIT Raichur', short: 'IIITRCR', location: 'Raichur, Karnataka', coordinates: [77.3439, 16.2076] as [number, number], established: 2019, students: 200, organizing: false },
+  { id: 'iiit-sonepat', name: 'IIIT Sonepat', short: 'IIITSPT', location: 'Sonepat, Haryana', coordinates: [77.0151, 28.9931] as [number, number], established: 2014, students: 400, organizing: false },
+  { id: 'iiit-surat', name: 'IIIT Surat', short: 'IIITSURAT', location: 'Surat, Gujarat', coordinates: [72.8311, 21.1702] as [number, number], established: 2017, students: 300, organizing: false },
+  { id: 'iiit-tiruchirappalli', name: 'IIIT Tiruchirappalli', short: 'IIITT', location: 'Tiruchirappalli, TN', coordinates: [78.7047, 10.7905] as [number, number], established: 2013, students: 500, organizing: false },
+  { id: 'iiit-una', name: 'IIIT Una', short: 'IIITUNA', location: 'Una, HP', coordinates: [76.2659, 31.4685] as [number, number], established: 2014, students: 400, organizing: false },
+  { id: 'iiit-vadodara', name: 'IIIT Vadodara', short: 'IIITV', location: 'Vadodara, Gujarat', coordinates: [73.1812, 22.3119] as [number, number], established: 2013, students: 500, organizing: false },
+  { id: 'iiitdm-kurnool', name: 'IIITDM Kurnool', short: 'IIITDM-KUR', location: 'Kurnool, Andhra Pradesh', coordinates: [78.04, 15.83] as [number, number], established: 2015, students: 500, organizing: false },
+  { id: 'iiitdm-kancheepuram', name: 'IIITDM Kancheepuram', short: 'IIITDM-K', location: 'Chennai, TN', coordinates: [80.0469, 12.8387] as [number, number], established: 2007, students: 1200, organizing: false },
+  { id: 'iiitd-delhi', name: 'IIIT Delhi', short: 'IIITD', location: 'New Delhi', coordinates: [77.2707, 28.5449] as [number, number], established: 2008, students: 2200, organizing: false },
+  { id: 'iiit-nagpur', name: 'IIIT Nagpur', short: 'IIITN', location: 'Nagpur, Maharashtra', coordinates: [79.0882, 21.1458] as [number, number], established: 2016, students: 500, organizing: false },
+  { id: 'iiitv-icd', name: 'IIIT Vadodara ICD (Diu)', short: 'IIITV-ICD', location: 'Diu', coordinates: [70.989, 20.714] as [number, number], established: 2017, students: 400, organizing: false },
 ];
 
 interface IndiaMap3DProps {
@@ -44,17 +43,45 @@ interface IndiaMap3DProps {
 const IndiaMap3D = ({ className = '' }: IndiaMap3DProps) => {
   const [hoveredIIIT, setHoveredIIIT] = useState<string | null>(null);
   const [selectedIIIT, setSelectedIIIT] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
 
   const selectedData = useMemo(() => {
     return iiitsData.find(iiit => iiit.id === selectedIIIT);
   }, [selectedIIIT]);
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      setSize({
+        width: entry.contentRect.width,
+        height: entry.contentRect.height,
+      });
+    });
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const mapWidth = size.width || 800;
+  const mapHeight = size.height || 600;
+
+  const projection = useMemo(() => {
+    return geoMercator()
+      .scale(1100)
+      .center([82, 22])
+      .translate([mapWidth / 2, mapHeight / 2]);
+  }, [mapWidth, mapHeight]);
 
   const handleMarkerClick = (id: string) => {
     setSelectedIIIT(selectedIIIT === id ? null : id);
   };
 
   return (
-    <div className={`relative w-full aspect-[4/3] ${className}`}>
+    <div className={`relative w-full aspect-[4/3] ${className}`} ref={containerRef}>
       {/* Background */}
       <div 
         className="absolute inset-0 rounded-2xl overflow-hidden"
@@ -76,6 +103,8 @@ const IndiaMap3D = ({ className = '' }: IndiaMap3DProps) => {
             scale: 1100,
             center: [82, 22],
           }}
+          width={mapWidth}
+          height={mapHeight}
           style={{
             width: "100%",
             height: "100%",
@@ -180,12 +209,10 @@ const IndiaMap3D = ({ className = '' }: IndiaMap3DProps) => {
         {/* HTML Tooltips overlay */}
         <div className="absolute inset-0 pointer-events-none">
           {iiitsData.map((iiit) => {
-            // Calculate position for tooltip
-            const lng = iiit.coordinates[0];
-            const lat = iiit.coordinates[1];
-            const xPercent = ((lng - 68) / (97 - 68)) * 58 + 21;
-            const yPercent = ((37 - lat) / (37 - 8)) * 65 + 13;
-            
+            const projected = projection(iiit.coordinates);
+            if (!projected) return null;
+
+            const [x, y] = projected;
             const isHovered = hoveredIIIT === iiit.id;
             const isSelected = selectedIIIT === iiit.id;
 
@@ -198,8 +225,8 @@ const IndiaMap3D = ({ className = '' }: IndiaMap3DProps) => {
                     exit={{ opacity: 0, y: 4, scale: 0.95 }}
                     className="absolute whitespace-nowrap z-50 pointer-events-none"
                     style={{
-                      left: `${xPercent}%`,
-                      top: `${yPercent - 5}%`,
+                      left: x,
+                      top: y - 10,
                       transform: 'translate(-50%, -100%)',
                     }}
                   >
