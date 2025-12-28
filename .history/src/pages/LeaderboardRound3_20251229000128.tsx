@@ -31,67 +31,67 @@ const finalists = [
   },
   {
     rank: 4,
-    team: "TBA",
-    iiit: "TBA",
-    score: 100,
-    project: "TBA",
+    team: "ByteForce",
+    iiit: "IIIT Delhi",
+    score: 91,
+    project: "Smart City Traffic Management",
   },
-  // {
-  //   rank: 5,
-  //   team: "QuantumLeap",
-  //   iiit: "IIIT Vadodara",
-  //   score: 89,
-  //   project: "Quantum-Safe Encryption",
-  // },
-  // {
-  //   rank: 6,
-  //   team: "NeuralNinjas",
-  //   iiit: "IIIT Bangalore",
-  //   score: 87,
-  //   project: "NLP-Based Legal Assistant",
-  // },
-  // {
-  //   rank: 7,
-  //   team: "SecureShield",
-  //   iiit: "IIIT Kottayam",
-  //   score: 85,
-  //   project: "Threat Detection System",
-  // },
-  // {
-  //   rank: 8,
-  //   team: "CloudChasers",
-  //   iiit: "IIIT Nagpur",
-  //   score: 84,
-  //   project: "Edge Computing Framework",
-  // },
-  // {
-  //   rank: 9,
-  //   team: "BlockBuilders",
-  //   iiit: "IIIT Lucknow",
-  //   score: 82,
-  //   project: "Supply Chain Tracker",
-  // },
-  // {
-  //   rank: 10,
-  //   team: "MLMasters",
-  //   iiit: "IIIT Pune",
-  //   score: 80,
-  //   project: "Predictive Maintenance AI",
-  // },
-  // {
-  //   rank: 11,
-  //   team: "InnoVators",
-  //   iiit: "IIIT Una",
-  //   score: 78,
-  //   project: "Green Energy Optimizer",
-  // },
-  // {
-  //   rank: 12,
-  //   team: "HackHeroes",
-  //   iiit: "IIIT Kalyani",
-  //   score: 76,
-  //   project: "EdTech Accessibility Tool",
-  // },
+  {
+    rank: 5,
+    team: "QuantumLeap",
+    iiit: "IIIT Vadodara",
+    score: 89,
+    project: "Quantum-Safe Encryption",
+  },
+  {
+    rank: 6,
+    team: "NeuralNinjas",
+    iiit: "IIIT Bangalore",
+    score: 87,
+    project: "NLP-Based Legal Assistant",
+  },
+  {
+    rank: 7,
+    team: "SecureShield",
+    iiit: "IIIT Kottayam",
+    score: 85,
+    project: "Threat Detection System",
+  },
+  {
+    rank: 8,
+    team: "CloudChasers",
+    iiit: "IIIT Nagpur",
+    score: 84,
+    project: "Edge Computing Framework",
+  },
+  {
+    rank: 9,
+    team: "BlockBuilders",
+    iiit: "IIIT Lucknow",
+    score: 82,
+    project: "Supply Chain Tracker",
+  },
+  {
+    rank: 10,
+    team: "MLMasters",
+    iiit: "IIIT Pune",
+    score: 80,
+    project: "Predictive Maintenance AI",
+  },
+  {
+    rank: 11,
+    team: "InnoVators",
+    iiit: "IIIT Una",
+    score: 78,
+    project: "Green Energy Optimizer",
+  },
+  {
+    rank: 12,
+    team: "HackHeroes",
+    iiit: "IIIT Kalyani",
+    score: 76,
+    project: "EdTech Accessibility Tool",
+  },
 ];
 
 const prizes = [
@@ -300,14 +300,7 @@ const LeaderboardRound3 = () => {
             </div>
           </motion.section>
 
-          <div
-            className="mb-8 sm:mb-10 animate-fade-in"
-            style={{ animationDelay: "0.5s" }}
-          >
-            <CountdownTimer />
-          </div>
-
-          {/* Rest of Finalists */}
+          {/* Rest of Finalists
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -353,9 +346,14 @@ const LeaderboardRound3 = () => {
                 </tbody>
               </table>
             </div>
-          </motion.section>
+          </motion.section> */}
 
-          
+          <div
+            className="mb-8 sm:mb-10 animate-fade-in"
+            style={{ animationDelay: "0.5s" }}
+          >
+            <CountdownTimer />
+          </div>
         </div>
       </div>
     </PageTransition>
