@@ -300,7 +300,14 @@ const LeaderboardRound3 = () => {
             </div>
           </motion.section>
 
-          {/* Rest of Finalists
+          <div
+            className="mb-8 sm:mb-10 animate-fade-in"
+            style={{ animationDelay: "0.5s" }}
+          >
+            <CountdownTimer />
+          </div>
+
+          {/* Rest of Finalists */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -346,14 +353,9 @@ const LeaderboardRound3 = () => {
                 </tbody>
               </table>
             </div>
-          </motion.section> */}
+          </motion.section>
 
-          <div
-            className="mb-8 sm:mb-10 animate-fade-in"
-            style={{ animationDelay: "0.5s" }}
-          >
-            <CountdownTimer />
-          </div>
+          
         </div>
       </div>
     </PageTransition>
