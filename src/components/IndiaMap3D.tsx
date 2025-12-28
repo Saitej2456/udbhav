@@ -5,36 +5,11 @@ import { Link } from 'react-router-dom';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 import GlassCard from './GlassCard';
 import { geoMercator } from 'd3-geo';
+import { iiitsData } from '@/data/iiits';
 
 // TopoJSON for India - states only (verified working URL)
 const INDIA_TOPO_JSON = "https://gist.githubusercontent.com/jbrobst/56c13bbbf9d97d187fea01ca62ea5112/raw/e388c4cae20aa53cb5090210a42ebb9b765c0a36/india_states.geojson";
 
-// IIIT data with lat/long coordinates (only institutes from the provided CSV)
-const iiitsData = [
-  { id: 'iiit-sri-city', name: 'IIIT Sri City', short: 'IIITS', location: 'Sri City, AP', coordinates: [80.0349, 13.554] as [number, number], established: 2013, students: 800, organizing: true },
-  { id: 'iiit-agartala', name: 'IIIT Agartala', short: 'IIITAGT', location: 'Agartala, Tripura', coordinates: [91.2868, 23.8315] as [number, number], established: 2018, students: 200, organizing: false },
-  { id: 'iiit-allahabad', name: 'IIIT Allahabad', short: 'IIITA', location: 'Prayagraj, UP', coordinates: [81.7787, 25.4295] as [number, number], established: 1999, students: 2000, organizing: false },
-  { id: 'iiit-bhagalpur', name: 'IIIT Bhagalpur', short: 'IIITBHG', location: 'Bhagalpur, Bihar', coordinates: [86.9842, 25.2425] as [number, number], established: 2019, students: 200, organizing: false },
-  { id: 'iiit-bhopal', name: 'IIIT Bhopal', short: 'IIITBHOPAL', location: 'Bhopal, MP', coordinates: [77.4126, 23.2599] as [number, number], established: 2017, students: 300, organizing: false },
-  { id: 'iiit-bhubaneshwar', name: 'IIIT Bhubaneshwar', short: 'IIITBH', location: 'Bhubaneswar, Odisha', coordinates: [85.8245, 20.2961] as [number, number], established: 2006, students: 800, organizing: false },
-  { id: 'iiit-dharwad', name: 'IIIT Dharwad', short: 'IIITDWD', location: 'Dharwad, Karnataka', coordinates: [75.0065, 15.4589] as [number, number], established: 2015, students: 500, organizing: false },
-  { id: 'iiit-kalyani', name: 'IIIT Kalyani', short: 'IIITKAL', location: 'Kalyani, WB', coordinates: [88.4345, 22.9751] as [number, number], established: 2014, students: 400, organizing: false },
-  { id: 'iiit-kota', name: 'IIIT Kota', short: 'IIITKOTA', location: 'Kota, Rajasthan', coordinates: [75.8648, 25.2138] as [number, number], established: 2013, students: 600, organizing: false },
-  { id: 'iiit-kottayam', name: 'IIIT Kottayam', short: 'IIITK', location: 'Kottayam, Kerala', coordinates: [76.5221, 9.5916] as [number, number], established: 2015, students: 400, organizing: false },
-  { id: 'iiit-manipur', name: 'IIIT Manipur', short: 'IIITMNP', location: 'Imphal, Manipur', coordinates: [93.9368, 24.8138] as [number, number], established: 2015, students: 350, organizing: false },
-  { id: 'iiit-naya-raipur', name: 'IIIT Naya Raipur', short: 'IIITNR', location: 'Naya Raipur, Chhattisgarh', coordinates: [81.7386, 21.1702] as [number, number], established: 2015, students: 600, organizing: false },
-  { id: 'iiit-raichur', name: 'IIIT Raichur', short: 'IIITRCR', location: 'Raichur, Karnataka', coordinates: [77.3439, 16.2076] as [number, number], established: 2019, students: 200, organizing: false },
-  { id: 'iiit-sonepat', name: 'IIIT Sonepat', short: 'IIITSPT', location: 'Sonepat, Haryana', coordinates: [77.0151, 28.9931] as [number, number], established: 2014, students: 400, organizing: false },
-  { id: 'iiit-surat', name: 'IIIT Surat', short: 'IIITSURAT', location: 'Surat, Gujarat', coordinates: [72.8311, 21.1702] as [number, number], established: 2017, students: 300, organizing: false },
-  { id: 'iiit-tiruchirappalli', name: 'IIIT Tiruchirappalli', short: 'IIITT', location: 'Tiruchirappalli, TN', coordinates: [78.7047, 10.7905] as [number, number], established: 2013, students: 500, organizing: false },
-  { id: 'iiit-una', name: 'IIIT Una', short: 'IIITUNA', location: 'Una, HP', coordinates: [76.2659, 31.4685] as [number, number], established: 2014, students: 400, organizing: false },
-  { id: 'iiit-vadodara', name: 'IIIT Vadodara', short: 'IIITV', location: 'Vadodara, Gujarat', coordinates: [73.1812, 22.3119] as [number, number], established: 2013, students: 500, organizing: false },
-  { id: 'iiitdm-kurnool', name: 'IIITDM Kurnool', short: 'IIITDM-KUR', location: 'Kurnool, Andhra Pradesh', coordinates: [78.04, 15.83] as [number, number], established: 2015, students: 500, organizing: false },
-  { id: 'iiitdm-kancheepuram', name: 'IIITDM Kancheepuram', short: 'IIITDM-K', location: 'Chennai, TN', coordinates: [80.0469, 12.8387] as [number, number], established: 2007, students: 1200, organizing: false },
-  { id: 'iiitd-delhi', name: 'IIIT Delhi', short: 'IIITD', location: 'New Delhi', coordinates: [77.2707, 28.5449] as [number, number], established: 2008, students: 2200, organizing: false },
-  { id: 'iiit-nagpur', name: 'IIIT Nagpur', short: 'IIITN', location: 'Nagpur, Maharashtra', coordinates: [79.0882, 21.1458] as [number, number], established: 2016, students: 500, organizing: false },
-  { id: 'iiitv-icd', name: 'IIIT Vadodara ICD (Diu)', short: 'IIITV-ICD', location: 'Diu', coordinates: [70.989, 20.714] as [number, number], established: 2017, students: 400, organizing: false },
-];
 
 interface IndiaMap3DProps {
   className?: string;
