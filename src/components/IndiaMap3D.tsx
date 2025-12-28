@@ -306,10 +306,13 @@ const IndiaMap3D = ({ className = '' }: IndiaMap3DProps) => {
           </div>
           <div className="flex items-center gap-2">
             <div 
-              className="w-5 h-5 rounded-full bg-accent flex items-center justify-center"
-              style={{ boxShadow: '0 0 10px hsl(var(--accent) / 0.8)' }}
+              className="w-6 h-6 rounded-full flex items-center justify-center"
+              style={{
+                background: 'hsl(280, 100%, 70%)',
+                boxShadow: '0 0 12px hsl(280, 100%, 65%)',
+              }}
             >
-              <span className="text-[8px] text-accent-foreground">★</span>
+              <span className="text-[10px] text-white">★</span>
             </div>
             <span className="text-muted-foreground font-medium">Organizing IIIT</span>
           </div>
