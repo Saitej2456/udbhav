@@ -44,7 +44,7 @@ const IIITs = () => {
               <span className="gradient-text">Participating IIITs</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
-              {iiitsData.length} Indian Institutes of Information Technology, united for innovation
+              {iiitsData.length} IIITs, united for innovation
             </p>
             
             {/* Search Bar */}
