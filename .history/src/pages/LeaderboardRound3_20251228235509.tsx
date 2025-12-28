@@ -5,8 +5,6 @@ import PageTransition from '@/components/PageTransition';
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
 
-import CountdownTimer from "@/components/CountdownTimer";
-
 const finalists = [
   { rank: 1, team: 'TechTitans', iiit: 'IIIT Sonepat', score: 98, project: 'AI-Powered Healthcare Platform' },
   { rank: 2, team: 'CodeBreakers', iiit: 'IIIT Hyderabad', score: 95, project: 'Decentralized Identity System' },
@@ -78,14 +76,14 @@ const LeaderboardRound3 = () => {
           </motion.div>
 
           {/* Top 3 Podium */}
-          {/* <motion.section
+          <motion.section
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="mb-16"
           >
             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto items-end">
-              2nd Place
+              {/* 2nd Place */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -106,10 +104,10 @@ const LeaderboardRound3 = () => {
                     <span className="font-medium">Project:</span> {topThree[1].project}
                   </div>
                 </GlassCard>
-              </motion.div> */}
+              </motion.div>
 
               {/* 1st Place - Winner */}
-              {/* <motion.div
+              <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
@@ -137,10 +135,10 @@ const LeaderboardRound3 = () => {
                     <span className="font-medium">Project:</span> {topThree[0].project}
                   </div>
                 </GlassCard>
-              </motion.div> */}
+              </motion.div>
 
               {/* 3rd Place */}
-              {/* <motion.div
+              <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
@@ -162,7 +160,7 @@ const LeaderboardRound3 = () => {
                 </GlassCard>
               </motion.div>
             </div>
-          </motion.section> */}
+          </motion.section>
 
           {/* Rest of Finalists
           <motion.section
@@ -211,11 +209,6 @@ const LeaderboardRound3 = () => {
               </table>
             </div>
           </motion.section> */}
-
-          <div className="mb-8 sm:mb-10 animate-fade-in" style={{ animationDelay: "0.5s" }}>
-            <CountdownTimer />
-          </div>
-
         </div>
       </div>
     </PageTransition>

@@ -78,14 +78,14 @@ const LeaderboardRound3 = () => {
           </motion.div>
 
           {/* Top 3 Podium */}
-          {/* <motion.section
+          <motion.section
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="mb-16"
           >
             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto items-end">
-              2nd Place
+              {/* 2nd Place */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ const LeaderboardRound3 = () => {
                     <span className="font-medium">Project:</span> {topThree[1].project}
                   </div>
                 </GlassCard>
-              </motion.div> */}
+              </motion.div>
 
               {/* 1st Place - Winner */}
               {/* <motion.div
@@ -137,10 +137,10 @@ const LeaderboardRound3 = () => {
                     <span className="font-medium">Project:</span> {topThree[0].project}
                   </div>
                 </GlassCard>
-              </motion.div> */}
+              </motion.div>
 
               {/* 3rd Place */}
-              {/* <motion.div
+              <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}

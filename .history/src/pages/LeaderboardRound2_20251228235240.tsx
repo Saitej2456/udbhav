@@ -6,8 +6,6 @@ import SectionHeading from '@/components/SectionHeading';
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
 
-import CountdownTimer from "@/components/CountdownTimer";
-
 // Real Round 2 Results from UDBHAV 2026
 const round2Results = [
   { rank: 1, team: 'DAOMINATORS', iiit: 'IIIT Allahabad', score: 78, judges: 'Anurag Singh, Siddhi Khaire' },
@@ -193,10 +191,6 @@ const LeaderboardRound2 = () => {
               </p>
             </GlassCard>
           </motion.div> */}
-
-          <div className="mb-8 sm:mb-10 animate-fade-in" style={{ animationDelay: "0.5s" }}>
-            <CountdownTimer />
-          </div>
         </div>
       </div>
     </PageTransition>

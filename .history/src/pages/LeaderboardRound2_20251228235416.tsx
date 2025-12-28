@@ -194,9 +194,9 @@ const LeaderboardRound2 = () => {
             </GlassCard>
           </motion.div> */}
 
-          <div className="mb-8 sm:mb-10 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+          {/* <div className="mb-8 sm:mb-10 animate-fade-in" style={{ animationDelay: "0.5s" }}>
             <CountdownTimer />
-          </div>
+          </div> */}
         </div>
       </div>
     </PageTransition>
