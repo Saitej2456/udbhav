@@ -72,7 +72,7 @@ const timeline = [
   },
   {
     round: 'Round 3',
-    title: 'Grand Finale',
+    title: 'Grand Finale @IIIT Sri City',
     description: 'Offline Inter-IIIT Round where  the best team from all IIITs will be decided',
     icon: Trophy,
     status: 'upcoming',
@@ -81,7 +81,7 @@ const timeline = [
 ];
 
 const stats = [
-  { value: '24+', label: 'IIITs Participating' },
+  { value: '24', label: 'IIITs Participating' },
   { value: '100+', label: 'Teams Expected' },
   { value: '₹1.5L', label: 'Prize Pool' },
   { value: '24hrs', label: 'Hackathon Duration' },
@@ -103,7 +103,7 @@ const faqs = [
   },
   {
     question: 'How do I register for UDBHAV?',
-    answer: 'Registration happens through your IIIT\'s tech club/society. First, participate in your institute\'s internal selection (Round 1). The top 4 teams from each IIIT will qualify for Round 2 on Unstop. Contact your IIIT\'s SPOC for more details.',
+    answer: 'Registration happens through your IIIT\'s tech club/society. First, participate in your institute\'s internal selection (Round 1). The top 4 teams from each IIIT will qualify for Round 2. Contact your IIIT\'s SPOC for more details.',
   },
   {
     question: 'What is the team size requirement?',
