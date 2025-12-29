@@ -57,6 +57,8 @@ const AnimatedGradientBackground = memo(() => {
             radial-gradient(at 80% 20%, hsla(265 85% 65% / 0.1) 0%, transparent 50%),
             radial-gradient(at 40% 40%, hsla(235 85% 65% / 0.08) 0%, transparent 50%)
           `,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
         }}
       />
 
@@ -69,6 +71,7 @@ const AnimatedGradientBackground = memo(() => {
             linear-gradient(90deg, hsl(200 100% 55%) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
+          backgroundRepeat: 'no-repeat',
         }}
       />
     </div>

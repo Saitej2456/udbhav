@@ -32,19 +32,22 @@ const domains = [
   {
     name: "AI / ML",
     icon: Cpu,
-    description: "Machine Learning, Deep Learning, NLP, Computer Vision",
+    description:
+      "Creating intelligent systems capable of performing tasks that typically require human intelligence, such as learning, reasoning, problem-solving, and decision-making",
     color: "from-primary to-primary-glow",
   },
   {
     name: "Blockchain",
     icon: Coins,
-    description: "Web3, DeFi, Smart Contracts, Decentralized Apps",
+    description:
+      "Protecting computer systems, networks, and data from digital threats like attacks, damage, or unauthorized access.",
     color: "from-secondary to-secondary-glow",
   },
   {
     name: "Cybersecurity",
     icon: Shield,
-    description: "Network Security, Cryptography, Ethical Hacking",
+    description:
+      "Decentralized, immutable digital ledger that securely records transactions across a network of computers, building trust and transparency without needing a central authority.",
     color: "from-accent to-accent-glow",
   },
 ];
@@ -88,21 +91,21 @@ const prizes = [
 const timeline = [
   {
     round: "Round 1",
-    title: "Team Formation",
-    description: "4 teams from each IIIT qualify for the hackathon",
+    title: "Intra-IIIT Round",
+    description: "Top 4 teams from each participating IIITs will be selected",
     icon: Users,
   },
   {
     round: "Round 2",
-    title: "Online Ideathon",
-    description: "12-hour online hackathon on Unstop platform",
+    title: "Online Inter-IIIT Round",
+    description: "Top 1 team from each participating IIIT will be selected",
     icon: Cpu,
   },
   {
     round: "Round 3",
     title: "Grand Finale @ IIIT Sri City",
     description:
-      "Top teams compete for the championship at IIIT Sri City, Andhra Pradesh",
+      "Offline Inter-IIIT Round where  the best team from all IIITs will be decided",
     icon: Trophy,
     venue: true,
   },
@@ -290,7 +293,7 @@ const Index = () => {
                       <span className="text-muted-foreground">
                         Participants...
                       </span>
-                      <span className="text-success">[24+ IIITs]</span>
+                      <span className="text-success">[24 IIITs]</span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center sm:justify-start">
                       <span className="text-secondary">{">"}</span>
