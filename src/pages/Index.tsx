@@ -212,7 +212,7 @@ PrizeCard.displayName = "PrizeCard";
 const Index = () => {
   return (
     <PageTransition>
-      <div className="w-[90%] mx-auto">
+      <div className="">
         <GradualBlur
           position="bottom"
           target="page"
@@ -227,13 +227,13 @@ const Index = () => {
           <AnimatedGradientBackground />
 
           {/* CRT Vignette */}
-          <div
+          {/* <div
             className="absolute inset-0 pointer-events-none z-[1]"
             style={{
               background:
                 "radial-gradient(ellipse at center, transparent 40%, hsla(225 25% 4% / 0.8) 100%)",
             }}
-          />
+          /> */}
 
           <div className="container mx-auto px-4 relative z-10 pt-16 sm:pt-28">
             <div className="text-center max-w-5xl mx-auto">
