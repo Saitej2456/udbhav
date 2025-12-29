@@ -6,7 +6,7 @@ import PageTransition from '@/components/PageTransition';
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
 
-// Import IIIT images
+// Import all IIIT images
 import SriCity1 from '@/assets/photos/SriCity1.jpg';
 import SriCity2 from '@/assets/photos/SriCity2.jpg';
 import SriCity3 from '@/assets/photos/SriCity3.jpg';
