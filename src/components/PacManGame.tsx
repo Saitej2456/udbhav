@@ -11,6 +11,7 @@ interface Ghost {
   position: Position;
   color: string;
   direction: Position;
+  scared?: boolean;
 }
 
 const GRID_SIZE = 15;
@@ -174,13 +175,17 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [mouthOpen, setMouthOpen] = useState(true);
+  const [ghostsScared, setGhostsScared] = useState(false);
   const gameRef = useRef<HTMLDivElement>(null);
   const lastCollisionCheckRef = useRef<string>('');
+  const mazeRef = useRef<number[][]>(createMaze());
+  const gameStartTimeRef = useRef<number>(0);
 
   // Initialize audio on game open
   useEffect(() => {
     if (isOpen) {
       initAudio();
+      gameStartTimeRef.current = Date.now(); // Initialize game start time
       
       // Keep audio context alive with periodic silent tones
       const keepAliveInterval = setInterval(() => {
@@ -195,17 +200,21 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
   }, [isOpen]);
 
   const resetGame = useCallback(() => {
-    setMaze(createMaze());
+    const newMaze = createMaze();
+    setMaze(newMaze);
+    mazeRef.current = newMaze;
     setPacman({ x: 7, y: 7 });
     setDirection({ x: 1, y: 0 });
     setGhosts([
-      { position: { x: 3, y: 3 }, color: 'hsl(var(--destructive))', direction: { x: 1, y: 0 } },
-      { position: { x: 11, y: 3 }, color: 'hsl(var(--secondary))', direction: { x: -1, y: 0 } },
-      { position: { x: 3, y: 11 }, color: 'hsl(var(--accent))', direction: { x: 0, y: -1 } },
+      { position: { x: 3, y: 3 }, color: 'hsl(var(--destructive))', direction: { x: 1, y: 0 }, scared: false },
+      { position: { x: 11, y: 3 }, color: 'hsl(var(--secondary))', direction: { x: -1, y: 0 }, scared: false },
+      { position: { x: 3, y: 11 }, color: 'hsl(var(--accent))', direction: { x: 0, y: -1 }, scared: false },
     ]);
     setScore(0);
     setGameOver(false);
     setGameWon(false);
+    setGhostsScared(false);
+    gameStartTimeRef.current = Date.now();
   }, []);
 
   const movePacman = useCallback(() => {
@@ -215,12 +224,16 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
       const newX = prev.x + direction.x;
       const newY = prev.y + direction.y;
 
-      if (maze[newY]?.[newX] !== 1) {
-        if (maze[newY]?.[newX] === 2) {
+      // Use ref to check walls and dots without depending on maze state
+      if (mazeRef.current[newY]?.[newX] !== 1) {
+        if (mazeRef.current[newY]?.[newX] === 2) {
           setMaze(m => {
             const newMaze = [...m];
             newMaze[newY] = [...newMaze[newY]];
             newMaze[newY][newX] = 0;
+            
+            // Update ref for ghosts to use
+            mazeRef.current = newMaze;
             
             // Check if all dots are collected
             const hasDotsLeft = newMaze.some(row => row.some(cell => cell === 2));
@@ -240,20 +253,22 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
     });
 
     setMouthOpen(m => !m);
-  }, [direction, maze, gameOver, gameWon]);
+  }, [direction, gameOver, gameWon]);
 
   const moveGhosts = useCallback(() => {
-    if (gameOver || gameWon) return;
-
-    setGhosts(prevGhosts => 
-      prevGhosts.map(ghost => {
+    setGhosts(prevGhosts => {
+      const newGhosts = prevGhosts.map(ghost => {
+        // Don't move if scared (frozen state)
+        if (ghost.scared) return ghost;
+        
         const possibleMoves: Position[] = [];
         const directions = [{ x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 0, y: -1 }];
 
         directions.forEach(dir => {
           const newX = ghost.position.x + dir.x;
           const newY = ghost.position.y + dir.y;
-          if (maze[newY]?.[newX] !== 1) {
+          // Use ref to check walls without depending on maze state
+          if (mazeRef.current[newY]?.[newX] !== 1) {
             possibleMoves.push(dir);
           }
         });
@@ -277,9 +292,26 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
           },
           direction: newDir,
         };
-      })
-    );
-  }, [maze, gameOver, gameWon]);
+      });
+      
+      // Check collision after ghost movement
+      setPacman(currentPacman => {
+        const hasCollision = newGhosts.some(ghost => 
+          !ghost.scared && ghost.position.x === currentPacman.x && ghost.position.y === currentPacman.y
+        );
+        
+        if (hasCollision && !gameOver && !gameWon) {
+          playGhostSound();
+          playGameOverSound();
+          setGameOver(true);
+        }
+        
+        return currentPacman;
+      });
+      
+      return newGhosts;
+    });
+  }, [gameOver, gameWon]);
 
   // Check collision - optimized to prevent multiple checks
   useEffect(() => {
@@ -289,7 +321,7 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
     lastCollisionCheckRef.current = collisionKey;
     
     const hasCollision = ghosts.some(ghost => 
-      ghost.position.x === pacman.x && ghost.position.y === pacman.y
+      !ghost.scared && ghost.position.x === pacman.x && ghost.position.y === pacman.y
     );
     
     if (hasCollision) {
@@ -298,6 +330,28 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
       setGameOver(true);
     }
   }, [pacman, ghosts, gameOver]);
+
+  // Periodic ghost freeze mechanic - every 20 seconds, freeze for 3-4 seconds
+  useEffect(() => {
+    if (!isOpen || gameOver || gameWon) return;
+
+    let lastFreezeState = false;
+
+    const checkGhostFreeze = setInterval(() => {
+      const elapsedTime = Date.now() - gameStartTimeRef.current;
+      const cycleTime = elapsedTime % 23500; // 23.5 second total cycle (20s active + 3.5s frozen)
+      
+      const shouldFreeze = cycleTime >= 20000; // After 20 seconds in each cycle = frozen for 3.5 seconds
+      
+      // Only update if state actually changes
+      if (shouldFreeze !== lastFreezeState) {
+        lastFreezeState = shouldFreeze;
+        setGhosts(prevGhosts => prevGhosts.map(g => ({ ...g, scared: shouldFreeze })));
+      }
+    }, 100); // Check every 100ms for smooth transitions
+
+    return () => clearInterval(checkGhostFreeze);
+  }, [isOpen, gameOver, gameWon]);
 
   // Game loop - slower, smoother intervals
   useEffect(() => {
@@ -477,7 +531,7 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
                   <div className="w-full h-full flex items-center justify-center">
                     <svg viewBox="0 0 24 24" className="w-5 h-5">
                       <path
-                        fill={ghost.color}
+                        fill={ghost.scared ? 'hsl(var(--muted))' : ghost.color}
                         d="M12 2C8.14 2 5 5.14 5 9v11l2-2 2 2 2-2 2 2 2-2 2 2 2-2 2 2V9c0-3.86-3.14-7-7-7zm-2 8a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
                       />
                     </svg>
