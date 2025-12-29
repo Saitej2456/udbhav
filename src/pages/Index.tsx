@@ -58,10 +58,10 @@ const sponsors = [
 ];
 
 const featuredIIITs = [
-  { name: "IIIT Hyderabad", location: "Telangana", organizing: true },
-  { name: "IIIT Delhi", location: "Delhi" },
-  { name: "IIIT Bangalore", location: "Karnataka" },
+  { name: "IIIT Sri City", location: "Andhra Pradesh", organizing: true },
   { name: "IIIT Allahabad", location: "Uttar Pradesh" },
+  { name: "IIIT Bhubaneswar", location: "Odisha" },
+  { name: "IIITDM Kurnool", location: "Andhra Pradesh" },
 ];
 
 const prizes = [
@@ -137,7 +137,7 @@ const StatCard = memo(
         </div>
       </GlassCard>
     </motion.div>
-  ),
+  )
 );
 StatCard.displayName = "StatCard";
 
@@ -164,7 +164,7 @@ const DomainCard = memo(
         </p>
       </GlassCard>
     </motion.div>
-  ),
+  )
 );
 DomainCard.displayName = "DomainCard";
 
@@ -185,7 +185,13 @@ const PrizeCard = memo(
           className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${prize.gradient}`}
         />
         <Trophy
-          className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 ${index === 0 ? "text-yellow-400" : index === 1 ? "text-slate-400" : "text-amber-600"}`}
+          className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 ${
+            index === 0
+              ? "text-yellow-400"
+              : index === 1
+              ? "text-slate-400"
+              : "text-amber-600"
+          }`}
         />
         <h3 className="text-lg sm:text-xl font-bold mb-2">{prize.place}</h3>
         <div className="text-2xl sm:text-3xl font-bold gradient-text mb-2">
@@ -196,7 +202,7 @@ const PrizeCard = memo(
         </p>
       </GlassCard>
     </motion.div>
-  ),
+  )
 );
 PrizeCard.displayName = "PrizeCard";
 
@@ -416,19 +422,52 @@ const Index = () => {
                   transition={{ delay: index * 0.1, duration: 0.4 }}
                 >
                   <Link
-                    to={`/iiits/${iiit.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    to={`/iiits/${iiit.name
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")}`}
                   >
                     <GlassCard
                       className="text-center h-full group"
                       glow={iiit.organizing ? "primary" : "none"}
                     >
-                      {iiit.organizing && (
-                        <span className="inline-block px-2 py-1 text-[10px] sm:text-xs font-medium bg-primary/20 text-primary rounded-full mb-2 sm:mb-3">
-                          Organizing
-                        </span>
-                      )}
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Users className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-white flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden">
+                        {iiit.name === "IIIT Sri City" && (
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/en/4/49/IIIT_Sri_City_Logo.png"
+                            alt="IIIT Sri City Logo"
+                            className="object-contain w-10 h-10 sm:w-14 sm:h-14"
+                          />
+                        )}
+                        {iiit.name === "IIIT Allahabad" && (
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/en/2/2e/Indian_Institute_of_Information_Technology%2C_Allahabad_Logo.png"
+                            alt="IIIT Allahabad Logo"
+                            className="object-contain w-10 h-10 sm:w-14 sm:h-14"
+                          />
+                        )}
+                        {iiit.name === "IIIT Bhubaneswar" && (
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/en/b/b2/IIIT_Bhubaneswar_Logo.png"
+                            alt="IIIT Bhubaneswar Logo"
+                            className="object-contain w-14 h-14 sm:w-14 sm:h-14"
+                          />
+                        )}
+                        {iiit.name === "IIITDM Kurnool" && (
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/en/5/5f/Indian_Institute_of_Information_Technology_Design_and_Manufacturing%2C_Kurnool_logo.png"
+                            alt="IIITDM Kurnool Logo"
+                            className="object-contain w-10 h-10 sm:w-14 sm:h-14"
+                          />
+                        )}
+                        {/* fallback icon if no logo */}
+                        {!(
+                          iiit.name === "IIIT Sri City" ||
+                          iiit.name === "IIIT Allahabad" ||
+                          iiit.name === "IIIT Bhubaneswar" ||
+                          iiit.name === "IIITDM Kurnool"
+                        ) && (
+                          <Users className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                        )}
                       </div>
                       <h3 className="text-sm sm:text-base font-semibold mb-1">
                         {iiit.name}
@@ -437,6 +476,11 @@ const Index = () => {
                         <MapPin className="w-3 h-3" />
                         {iiit.location}
                       </div>
+                      {iiit.organizing && (
+                        <span className="inline-block px-2 py-1 mt-2 text-[10px] sm:text-xs font-medium bg-primary/20 text-primary rounded-full">
+                          Organizing
+                        </span>
+                      )}
                     </GlassCard>
                   </Link>
                 </motion.div>
