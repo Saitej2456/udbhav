@@ -40,7 +40,7 @@ const Footer = () => {
       links: [
         {
           name: "About",
-          path: "/",
+          path: "/about",
         },
         {
           name: "Sponsors",
@@ -48,7 +48,7 @@ const Footer = () => {
         },
         {
           name: "Prizes",
-          path: "/",
+          path: "/#prizes",
         },
       ],
     },
@@ -78,11 +78,11 @@ const Footer = () => {
         },
         {
           name: "Contact",
-          path: "/",
+          path: "/about",
         },
         {
           name: "FAQ",
-          path: "/",
+          path: "/about#faq",
         },
       ],
     },

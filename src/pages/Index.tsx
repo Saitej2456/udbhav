@@ -351,7 +351,7 @@ const Index = () => {
         </section>
 
         {/* Prizes Section */}
-        <section className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
+        <section id="prizes" className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
           <div className="absolute inset-0 grid-overlay opacity-30" />
           <div className="container mx-auto px-4 relative">
             <SectionHeading

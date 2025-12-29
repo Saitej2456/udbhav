@@ -337,7 +337,7 @@ const About = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 relative">
+      <section id="faq" className="py-20 relative">
         <div className="container mx-auto px-4">
           <SectionHeading 
             title="Frequently Asked Questions" 
