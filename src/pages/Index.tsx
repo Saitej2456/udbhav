@@ -298,7 +298,7 @@ const Index = () => {
                       <span className="text-secondary">{">"}</span>
                       <span className="text-muted-foreground">Domains...</span>
                       <span className="text-success">
-                        [AI/ML, BLOCKCHAIN, SECURITY]
+                        [AI/ML, BLOCKCHAIN, CYBER SECURITY]
                       </span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center sm:justify-start">
