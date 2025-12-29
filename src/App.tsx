@@ -33,7 +33,7 @@ const App = () => (
         <ScrollToTop />
         <div className="min-h-screen flex flex-col relative">
           <BinaryBackground />
-          
+
           <Navbar />
           <main className="flex-1 relative z-10">
             <AnimatePresence mode="wait">

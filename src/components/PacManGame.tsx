@@ -31,41 +31,41 @@ const getAudioContext = () => {
 const initAudio = () => {
   if (isAudioInitialized) return;
   const context = getAudioContext();
-  
+
   // Create a silent buffer to keep context alive
   const buffer = context.createBuffer(1, 1, 22050);
   const source = context.createBufferSource();
   source.buffer = buffer;
   source.connect(context.destination);
   source.start(0);
-  
+
   isAudioInitialized = true;
 };
 
 const playTone = (frequency: number, duration: number, type: OscillatorType = 'square', volume: number = 0.1) => {
   try {
     const context = getAudioContext();
-    
+
     // Resume context if suspended (browser autoplay policy)
     if (context.state === 'suspended') {
-      context.resume().catch(() => {});
+      context.resume().catch(() => { });
     }
-    
+
     const oscillator = context.createOscillator();
     const gainNode = context.createGain();
-    
+
     oscillator.connect(gainNode);
     gainNode.connect(context.destination);
-    
+
     oscillator.type = type;
     oscillator.frequency.setValueAtTime(frequency, context.currentTime);
-    
+
     gainNode.gain.setValueAtTime(volume, context.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + duration);
-    
+
     oscillator.start(context.currentTime);
     oscillator.stop(context.currentTime + duration);
-    
+
     // Clean up oscillator after it stops
     oscillator.onended = () => {
       oscillator.disconnect();
@@ -186,15 +186,15 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
     if (isOpen) {
       initAudio();
       gameStartTimeRef.current = Date.now(); // Initialize game start time
-      
+
       // Keep audio context alive with periodic silent tones
       const keepAliveInterval = setInterval(() => {
         const context = getAudioContext();
         if (context.state === 'suspended') {
-          context.resume().catch(() => {});
+          context.resume().catch(() => { });
         }
       }, 3000); // Check every 3 seconds
-      
+
       return () => clearInterval(keepAliveInterval);
     }
   }, [isOpen]);
@@ -231,17 +231,17 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
             const newMaze = [...m];
             newMaze[newY] = [...newMaze[newY]];
             newMaze[newY][newX] = 0;
-            
+
             // Update ref for ghosts to use
             mazeRef.current = newMaze;
-            
+
             // Check if all dots are collected
             const hasDotsLeft = newMaze.some(row => row.some(cell => cell === 2));
             if (!hasDotsLeft) {
               setGameWon(true);
               playVictorySound();
             }
-            
+
             return newMaze;
           });
           setScore(s => s + 10);
@@ -260,7 +260,7 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
       const newGhosts = prevGhosts.map(ghost => {
         // Don't move if scared (frozen state)
         if (ghost.scared) return ghost;
-        
+
         const possibleMoves: Position[] = [];
         const directions = [{ x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 0, y: -1 }];
 
@@ -293,22 +293,22 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
           direction: newDir,
         };
       });
-      
+
       // Check collision after ghost movement
       setPacman(currentPacman => {
-        const hasCollision = newGhosts.some(ghost => 
+        const hasCollision = newGhosts.some(ghost =>
           !ghost.scared && ghost.position.x === currentPacman.x && ghost.position.y === currentPacman.y
         );
-        
+
         if (hasCollision && !gameOver && !gameWon) {
           playGhostSound();
           playGameOverSound();
           setGameOver(true);
         }
-        
+
         return currentPacman;
       });
-      
+
       return newGhosts;
     });
   }, [gameOver, gameWon]);
@@ -317,13 +317,13 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
   useEffect(() => {
     const collisionKey = `${pacman.x},${pacman.y}`;
     if (gameOver || lastCollisionCheckRef.current === collisionKey) return;
-    
+
     lastCollisionCheckRef.current = collisionKey;
-    
-    const hasCollision = ghosts.some(ghost => 
+
+    const hasCollision = ghosts.some(ghost =>
       !ghost.scared && ghost.position.x === pacman.x && ghost.position.y === pacman.y
     );
-    
+
     if (hasCollision) {
       playGhostSound();
       playGameOverSound();
@@ -340,9 +340,9 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
     const checkGhostFreeze = setInterval(() => {
       const elapsedTime = Date.now() - gameStartTimeRef.current;
       const cycleTime = elapsedTime % 23500; // 23.5 second total cycle (20s active + 3.5s frozen)
-      
+
       const shouldFreeze = cycleTime >= 20000; // After 20 seconds in each cycle = frozen for 3.5 seconds
-      
+
       // Only update if state actually changes
       if (shouldFreeze !== lastFreezeState) {
         lastFreezeState = shouldFreeze;
@@ -375,7 +375,7 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
       if (!isAudioInitialized) {
         initAudio();
       }
-      
+
       e.preventDefault();
       switch (e.key) {
         case 'ArrowUp':
@@ -417,7 +417,7 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
   };
 
   // Memoize maze rendering to prevent re-renders
-  const mazeElements = useMemo(() => 
+  const mazeElements = useMemo(() =>
     maze.map((row, y) =>
       row.map((cell, x) => (
         <MazeCell key={`${x}-${y}`} cell={cell} x={x} y={y} />
@@ -485,9 +485,9 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
                   left: pacman.x * CELL_SIZE,
                   top: pacman.y * CELL_SIZE,
                 }}
-                transition={{ 
-                  duration: 0.2, 
-                  ease: "easeInOut" 
+                transition={{
+                  duration: 0.2,
+                  ease: "easeInOut"
                 }}
                 style={{
                   width: CELL_SIZE,
@@ -519,9 +519,9 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
                     left: ghost.position.x * CELL_SIZE,
                     top: ghost.position.y * CELL_SIZE,
                   }}
-                  transition={{ 
-                    duration: 0.3, 
-                    ease: "easeInOut" 
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeInOut"
                   }}
                   style={{
                     width: CELL_SIZE,
@@ -552,7 +552,7 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
                   </button>
                 </div>
               )}
-              
+
               {/* Victory Overlay */}
               {gameWon && (
                 <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">

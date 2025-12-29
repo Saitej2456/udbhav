@@ -186,13 +186,12 @@ const PrizeCard = memo(
           className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${prize.gradient}`}
         />
         <Trophy
-          className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 ${
-            index === 0
+          className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 ${index === 0
               ? "text-yellow-400"
               : index === 1
-              ? "text-slate-400"
-              : "text-amber-600"
-          }`}
+                ? "text-slate-400"
+                : "text-amber-600"
+            }`}
         />
         <h3 className="text-lg sm:text-xl font-bold mb-1">{prize.place}</h3>
         <div className="text-sm text-gray-400 mb-2">Prizes worth</div>
@@ -468,8 +467,8 @@ const Index = () => {
                           iiit.name === "IIIT Bhubaneswar" ||
                           iiit.name === "IIITDM Kurnool"
                         ) && (
-                          <Users className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
-                        )}
+                            <Users className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                          )}
                       </div>
                       <h3 className="text-sm sm:text-base font-semibold mb-1">
                         {iiit.name}
@@ -522,11 +521,10 @@ const Index = () => {
                     className="relative pl-16 sm:pl-20 pb-8 sm:pb-12 last:pb-0"
                   >
                     <div
-                      className={`absolute left-2 sm:left-4 w-8 h-8 rounded-full flex items-center justify-center ${
-                        "venue" in item
+                      className={`absolute left-2 sm:left-4 w-8 h-8 rounded-full flex items-center justify-center ${"venue" in item
                           ? "bg-gradient-to-br from-yellow-400 to-amber-600 ring-2 ring-yellow-400/50"
                           : "bg-gradient-to-br from-primary to-accent"
-                      }`}
+                        }`}
                     >
                       <item.icon className="w-4 h-4 text-primary-foreground" />
                     </div>
