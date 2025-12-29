@@ -234,7 +234,7 @@ export const iiitsData: IIIT[] = [
   },
   {
     id: 'iiitv-icd',
-    name: 'IIITV-ICD (Diu)',
+    name: 'IIITV-ICD Diu',
     short: 'IIITV-ICD',
     location: 'Diu',
     coordinates: [70.989, 20.714],
@@ -275,5 +275,16 @@ export const iiitsData: IIIT[] = [
     students: 2000,
     spoc: { name: 'Harsh', phone: '9998211204', email: 'harsh22200@iiitd.ac.in', department: '' },
     club: { name: 'Tech Club', instagram: '', linkedin: '' },
+  },
+  {
+    id: 'iiit-pune',
+    name: 'IIIT Pune',
+    short: 'IIITP',
+    location: 'Pune, Maharashtra',
+    coordinates: [73.8567, 18.5204],
+    established: 2016,
+    students: 1500,
+    spoc: { name: 'Piyush Kulkarni', phone: '9405582136', email: '112316021@ece.iiitp.ac.in', department: '' },
+    club: { name: '', instagram: '', linkedin: '' },
   },
 ];
