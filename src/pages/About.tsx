@@ -72,7 +72,7 @@ const timeline = [
   },
   {
     round: 'Round 3',
-    title: 'Grand Finale @IIIT Sri City',
+    title: 'Grand Finale @ IIIT Sri City',
     description: 'Offline Inter-IIIT Round where  the best team from all IIITs will be decided',
     icon: Trophy,
     status: 'upcoming',
