@@ -6,8 +6,6 @@ import SectionHeading from '@/components/SectionHeading';
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
 
-import CountdownTimer from "@/components/CountdownTimer";
-
 // Real Round 2 Results from UDBHAV 2026
 const round2Results = [
   { rank: 1, team: 'DAOMINATORS', iiit: 'IIIT Allahabad', score: 78, judges: 'Anurag Singh, Siddhi Khaire' },
@@ -89,7 +87,7 @@ const LeaderboardRound2 = () => {
             </div>
           </motion.div>
 
-          {/* Rules */}
+          {/* Rules
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -112,9 +110,9 @@ const LeaderboardRound2 = () => {
                 </div>
               </div>
             </GlassCard>
-          </motion.section>
+          </motion.section> */}
 
-          {/* Leaderboard Table */}
+          {/* Leaderboard Table
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -176,9 +174,9 @@ const LeaderboardRound2 = () => {
                 </tbody>
               </table>
             </div>
-          </motion.section>
+          </motion.section> */}
 
-          {/* Note about qualification */}
+          Note about qualification
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -192,7 +190,7 @@ const LeaderboardRound2 = () => {
                 that will happen at IIIT Sri City.
               </p>
             </GlassCard>
-          </motion.div> 
+          </motion.div>
         </div>
       </div>
     </PageTransition>

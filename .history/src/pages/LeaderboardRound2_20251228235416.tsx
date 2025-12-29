@@ -89,7 +89,7 @@ const LeaderboardRound2 = () => {
             </div>
           </motion.div>
 
-          {/* Rules */}
+          {/* Rules
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -112,9 +112,9 @@ const LeaderboardRound2 = () => {
                 </div>
               </div>
             </GlassCard>
-          </motion.section>
+          </motion.section> */}
 
-          {/* Leaderboard Table */}
+          {/* Leaderboard Table
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -176,9 +176,9 @@ const LeaderboardRound2 = () => {
                 </tbody>
               </table>
             </div>
-          </motion.section>
+          </motion.section> */}
 
-          {/* Note about qualification */}
+          {/* Note about qualification
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -192,7 +192,11 @@ const LeaderboardRound2 = () => {
                 that will happen at IIIT Sri City.
               </p>
             </GlassCard>
-          </motion.div> 
+          </motion.div> */}
+
+          {/* <div className="mb-8 sm:mb-10 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+            <CountdownTimer />
+          </div> */}
         </div>
       </div>
     </PageTransition>

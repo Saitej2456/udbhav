@@ -9,23 +9,23 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const socialLinks = [{
     icon: Twitter,
-    href: '#',
+    href: 'https://x.com/udbhav_iiits',
     label: 'Twitter'
   }, {
     icon: Github,
-    href: '#',
+    href: 'https://github.com/',
     label: 'GitHub'
   }, {
     icon: Linkedin,
-    href: '#',
+    href: 'https://www.linkedin.com/company/udbhav-inter-iiit/',
     label: 'LinkedIn'
   }, {
     icon: Instagram,
-    href: '#',
+    href: 'https://www.instagram.com/udbhav.iiit',
     label: 'Instagram'
   }, {
     icon: Mail,
-    href: '#',
+    href: 'mailto:udbhav@iiits.in',
     label: 'Email'
   }];
   const footerLinks = [{
@@ -81,7 +81,7 @@ const Footer = () => {
             }} />
             </button>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Bringing together the brightest minds from 22+ IIITs across India. 
+              Bringing together the brightest minds from 24 IIITs across India. 
               A platform where innovation meets collaboration.
             </p>
             <div className="flex gap-3">
