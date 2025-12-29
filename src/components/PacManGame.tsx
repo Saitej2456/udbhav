@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
@@ -16,34 +16,71 @@ interface Ghost {
 const GRID_SIZE = 15;
 const CELL_SIZE = 24;
 
-// Sound effects using Web Audio API
-const createAudioContext = () => {
-  return new (window.AudioContext || (window as any).webkitAudioContext)();
+// Reuse single AudioContext
+let audioContext: AudioContext | null = null;
+let isAudioInitialized = false;
+
+const getAudioContext = () => {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  }
+  return audioContext;
+};
+
+const initAudio = () => {
+  if (isAudioInitialized) return;
+  const context = getAudioContext();
+  
+  // Create a silent buffer to keep context alive
+  const buffer = context.createBuffer(1, 1, 22050);
+  const source = context.createBufferSource();
+  source.buffer = buffer;
+  source.connect(context.destination);
+  source.start(0);
+  
+  isAudioInitialized = true;
 };
 
 const playTone = (frequency: number, duration: number, type: OscillatorType = 'square', volume: number = 0.1) => {
   try {
-    const audioContext = createAudioContext();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    const context = getAudioContext();
+    
+    // Resume context if suspended (browser autoplay policy)
+    if (context.state === 'suspended') {
+      context.resume().catch(() => {});
+    }
+    
+    const oscillator = context.createOscillator();
+    const gainNode = context.createGain();
     
     oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+    gainNode.connect(context.destination);
     
     oscillator.type = type;
-    oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+    oscillator.frequency.setValueAtTime(frequency, context.currentTime);
     
-    gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+    gainNode.gain.setValueAtTime(volume, context.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + duration);
     
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + duration);
+    oscillator.start(context.currentTime);
+    oscillator.stop(context.currentTime + duration);
+    
+    // Clean up oscillator after it stops
+    oscillator.onended = () => {
+      oscillator.disconnect();
+      gainNode.disconnect();
+    };
   } catch (e) {
     // Audio not supported, fail silently
   }
 };
 
+// Debounce sound effects to prevent audio lag
+let lastEatSoundTime = 0;
 const playEatSound = () => {
+  const now = Date.now();
+  if (now - lastEatSoundTime < 100) return; // Prevent rapid-fire sounds
+  lastEatSoundTime = now;
   playTone(587.33, 0.05, 'square', 0.08); // D5
   setTimeout(() => playTone(659.25, 0.05, 'square', 0.08), 50); // E5
 };
@@ -58,6 +95,13 @@ const playGameOverSound = () => {
   const notes = [392, 349.23, 329.63, 293.66, 261.63]; // G4, F4, E4, D4, C4
   notes.forEach((freq, i) => {
     setTimeout(() => playTone(freq, 0.2, 'square', 0.1), i * 150);
+  });
+};
+
+const playVictorySound = () => {
+  const notes = [523.25, 587.33, 659.25, 783.99]; // C5, D5, E5, G5
+  notes.forEach((freq, i) => {
+    setTimeout(() => playTone(freq, 0.15, 'square', 0.1), i * 100);
   });
 };
 
@@ -86,6 +130,32 @@ const createMaze = (): number[][] => {
   return maze;
 };
 
+// Memoized Cell component to prevent unnecessary re-renders
+const MazeCell = memo(({ cell, x, y }: { cell: number; x: number; y: number }) => {
+  return (
+    <div
+      className="absolute"
+      style={{
+        left: x * CELL_SIZE,
+        top: y * CELL_SIZE,
+        width: CELL_SIZE,
+        height: CELL_SIZE,
+      }}
+    >
+      {cell === 1 && (
+        <div className="w-full h-full bg-primary/30 border border-primary/50" />
+      )}
+      {cell === 2 && (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="w-2 h-2 rounded-full bg-primary/80" />
+        </div>
+      )}
+    </div>
+  );
+});
+
+MazeCell.displayName = 'MazeCell';
+
 interface PacManGameProps {
   isOpen: boolean;
   onClose: () => void;
@@ -102,8 +172,27 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
   ]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
   const [mouthOpen, setMouthOpen] = useState(true);
   const gameRef = useRef<HTMLDivElement>(null);
+  const lastCollisionCheckRef = useRef<string>('');
+
+  // Initialize audio on game open
+  useEffect(() => {
+    if (isOpen) {
+      initAudio();
+      
+      // Keep audio context alive with periodic silent tones
+      const keepAliveInterval = setInterval(() => {
+        const context = getAudioContext();
+        if (context.state === 'suspended') {
+          context.resume().catch(() => {});
+        }
+      }, 3000); // Check every 3 seconds
+      
+      return () => clearInterval(keepAliveInterval);
+    }
+  }, [isOpen]);
 
   const resetGame = useCallback(() => {
     setMaze(createMaze());
@@ -116,10 +205,11 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
     ]);
     setScore(0);
     setGameOver(false);
+    setGameWon(false);
   }, []);
 
   const movePacman = useCallback(() => {
-    if (gameOver) return;
+    if (gameOver || gameWon) return;
 
     setPacman(prev => {
       const newX = prev.x + direction.x;
@@ -131,6 +221,14 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
             const newMaze = [...m];
             newMaze[newY] = [...newMaze[newY]];
             newMaze[newY][newX] = 0;
+            
+            // Check if all dots are collected
+            const hasDotsLeft = newMaze.some(row => row.some(cell => cell === 2));
+            if (!hasDotsLeft) {
+              setGameWon(true);
+              playVictorySound();
+            }
+            
             return newMaze;
           });
           setScore(s => s + 10);
@@ -142,10 +240,10 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
     });
 
     setMouthOpen(m => !m);
-  }, [direction, maze, gameOver]);
+  }, [direction, maze, gameOver, gameWon]);
 
   const moveGhosts = useCallback(() => {
-    if (gameOver) return;
+    if (gameOver || gameWon) return;
 
     setGhosts(prevGhosts => 
       prevGhosts.map(ghost => {
@@ -181,39 +279,49 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
         };
       })
     );
-  }, [maze, gameOver]);
+  }, [maze, gameOver, gameWon]);
 
-  // Check collision
+  // Check collision - optimized to prevent multiple checks
   useEffect(() => {
-    ghosts.forEach(ghost => {
-      if (ghost.position.x === pacman.x && ghost.position.y === pacman.y) {
-        if (!gameOver) {
-          playGhostSound();
-          playGameOverSound();
-        }
-        setGameOver(true);
-      }
-    });
+    const collisionKey = `${pacman.x},${pacman.y}`;
+    if (gameOver || lastCollisionCheckRef.current === collisionKey) return;
+    
+    lastCollisionCheckRef.current = collisionKey;
+    
+    const hasCollision = ghosts.some(ghost => 
+      ghost.position.x === pacman.x && ghost.position.y === pacman.y
+    );
+    
+    if (hasCollision) {
+      playGhostSound();
+      playGameOverSound();
+      setGameOver(true);
+    }
   }, [pacman, ghosts, gameOver]);
 
-  // Game loop
+  // Game loop - slower, smoother intervals
   useEffect(() => {
-    if (!isOpen || gameOver) return;
+    if (!isOpen || gameOver || gameWon) return;
 
-    const pacmanInterval = setInterval(movePacman, 200);
-    const ghostInterval = setInterval(moveGhosts, 300);
+    const pacmanInterval = setInterval(movePacman, 250); // Slower for smoother movement
+    const ghostInterval = setInterval(moveGhosts, 400); // Much slower ghosts
 
     return () => {
       clearInterval(pacmanInterval);
       clearInterval(ghostInterval);
     };
-  }, [isOpen, movePacman, moveGhosts, gameOver]);
+  }, [isOpen, movePacman, moveGhosts, gameOver, gameWon]);
 
   // Keyboard controls
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Initialize audio on first user interaction
+      if (!isAudioInitialized) {
+        initAudio();
+      }
+      
       e.preventDefault();
       switch (e.key) {
         case 'ArrowUp':
@@ -254,6 +362,16 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
     return 0;
   };
 
+  // Memoize maze rendering to prevent re-renders
+  const mazeElements = useMemo(() => 
+    maze.map((row, y) =>
+      row.map((cell, x) => (
+        <MazeCell key={`${x}-${y}`} cell={cell} x={x} y={y} />
+      ))
+    ),
+    [maze]
+  );
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -271,7 +389,13 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             className="relative p-6 rounded-2xl border border-primary/30 bg-card/90 shadow-2xl outline-none"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              // Initialize audio on click
+              if (!isAudioInitialized) {
+                initAudio();
+              }
+            }}
           >
             {/* Close button */}
             <button
@@ -298,29 +422,7 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
               }}
             >
               {/* Maze */}
-              {maze.map((row, y) =>
-                row.map((cell, x) => (
-                  <div
-                    key={`${x}-${y}`}
-                    className="absolute"
-                    style={{
-                      left: x * CELL_SIZE,
-                      top: y * CELL_SIZE,
-                      width: CELL_SIZE,
-                      height: CELL_SIZE,
-                    }}
-                  >
-                    {cell === 1 && (
-                      <div className="w-full h-full bg-primary/30 border border-primary/50" />
-                    )}
-                    {cell === 2 && (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <div className="w-2 h-2 rounded-full bg-primary/80" />
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
+              {mazeElements}
 
               {/* Pac-Man */}
               <motion.div
@@ -329,7 +431,10 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
                   left: pacman.x * CELL_SIZE,
                   top: pacman.y * CELL_SIZE,
                 }}
-                transition={{ duration: 0.1 }}
+                transition={{ 
+                  duration: 0.2, 
+                  ease: "easeInOut" 
+                }}
                 style={{
                   width: CELL_SIZE,
                   height: CELL_SIZE,
@@ -360,7 +465,10 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
                     left: ghost.position.x * CELL_SIZE,
                     top: ghost.position.y * CELL_SIZE,
                   }}
-                  transition={{ duration: 0.15 }}
+                  transition={{ 
+                    duration: 0.3, 
+                    ease: "easeInOut" 
+                  }}
                   style={{
                     width: CELL_SIZE,
                     height: CELL_SIZE,
@@ -390,32 +498,58 @@ const PacManGame = ({ isOpen, onClose }: PacManGameProps) => {
                   </button>
                 </div>
               )}
+              
+              {/* Victory Overlay */}
+              {gameWon && (
+                <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">
+                  <p className="text-2xl font-bold text-primary mb-2">YOU WIN! 🎉</p>
+                  <p className="text-lg text-foreground mb-4">Final Score: {score}</p>
+                  <button
+                    onClick={resetGame}
+                    className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-mono hover:bg-primary/90 transition-colors"
+                  >
+                    Play Again
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Mobile Controls */}
             <div className="mt-4 grid grid-cols-3 gap-2 max-w-[150px] mx-auto md:hidden">
               <div />
               <button
-                onClick={() => setDirection({ x: 0, y: -1 })}
+                onClick={() => {
+                  initAudio();
+                  setDirection({ x: 0, y: -1 });
+                }}
                 className="p-3 bg-muted rounded-lg active:bg-primary/20"
               >
                 ▲
               </button>
               <div />
               <button
-                onClick={() => setDirection({ x: -1, y: 0 })}
+                onClick={() => {
+                  initAudio();
+                  setDirection({ x: -1, y: 0 });
+                }}
                 className="p-3 bg-muted rounded-lg active:bg-primary/20"
               >
                 ◀
               </button>
               <button
-                onClick={() => setDirection({ x: 0, y: 1 })}
+                onClick={() => {
+                  initAudio();
+                  setDirection({ x: 0, y: 1 });
+                }}
                 className="p-3 bg-muted rounded-lg active:bg-primary/20"
               >
                 ▼
               </button>
               <button
-                onClick={() => setDirection({ x: 1, y: 0 })}
+                onClick={() => {
+                  initAudio();
+                  setDirection({ x: 1, y: 0 });
+                }}
                 className="p-3 bg-muted rounded-lg active:bg-primary/20"
               >
                 ▶
