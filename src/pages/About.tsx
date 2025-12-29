@@ -1,13 +1,13 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  Target, 
-  Users, 
-  Lightbulb, 
-  Globe, 
-  Calendar, 
-  MapPin, 
+import {
+  Target,
+  Users,
+  Lightbulb,
+  Globe,
+  Calendar,
+  MapPin,
   Trophy,
   Code,
   Rocket,
@@ -215,9 +215,9 @@ const About = () => {
 
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
-          <SectionHeading 
-            title="What Makes UDBHAV Special" 
-            subtitle="A platform for innovation, collaboration, and excellence" 
+          <SectionHeading
+            title="What Makes UDBHAV Special"
+            subtitle="A platform for innovation, collaboration, and excellence"
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
@@ -256,9 +256,9 @@ const About = () => {
 
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
-          <SectionHeading 
-            title="Event Timeline" 
-            subtitle="Your journey from selection to the grand finale" 
+          <SectionHeading
+            title="Event Timeline"
+            subtitle="Your journey from selection to the grand finale"
           />
           <div className="max-w-3xl mx-auto">
             <div className="relative">
@@ -274,11 +274,10 @@ const About = () => {
                   transition={{ delay: index * 0.15, duration: 0.4 }}
                   className="relative pl-16 sm:pl-20 pb-10 last:pb-0"
                 >
-                  <div className={`absolute left-2 sm:left-4 w-8 h-8 rounded-full flex items-center justify-center ${
-                    item.highlight 
-                      ? 'bg-gradient-to-br from-yellow-400 to-amber-600 ring-2 ring-yellow-400/50' 
+                  <div className={`absolute left-2 sm:left-4 w-8 h-8 rounded-full flex items-center justify-center ${item.highlight
+                      ? 'bg-gradient-to-br from-yellow-400 to-amber-600 ring-2 ring-yellow-400/50'
                       : 'bg-gradient-to-br from-primary to-accent'
-                  }`}>
+                    }`}>
                     <item.icon className="w-4 h-4 text-primary-foreground" />
                   </div>
                   <GlassCard glow={item.highlight ? 'secondary' : 'primary'} className={item.highlight ? 'border-yellow-400/30' : ''}>
@@ -303,9 +302,9 @@ const About = () => {
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-overlay opacity-20" />
         <div className="container mx-auto px-4 relative">
-          <SectionHeading 
-            title="Organizing Committee" 
-            subtitle="The team behind UDBHAV from IIIT Sri City" 
+          <SectionHeading
+            title="Organizing Committee"
+            subtitle="The team behind UDBHAV from IIIT Sri City"
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
             {organizingTeam.map((member, index) => (
@@ -332,9 +331,9 @@ const About = () => {
 
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
-          <SectionHeading 
-            title="Frequently Asked Questions" 
-            subtitle="Everything you need to know about UDBHAV" 
+          <SectionHeading
+            title="Frequently Asked Questions"
+            subtitle="Everything you need to know about UDBHAV"
           />
           <motion.div
             initial="hidden"
@@ -353,8 +352,8 @@ const About = () => {
               </div>
               <Accordion type="single" collapsible className="space-y-2">
                 {faqs.map((faq, index) => (
-                  <AccordionItem 
-                    key={index} 
+                  <AccordionItem
+                    key={index}
                     value={`faq-${index}`}
                     className="border border-border/50 rounded-lg px-4 data-[state=open]:bg-card/50"
                   >
@@ -387,7 +386,7 @@ const About = () => {
               <Rocket className="w-12 h-12 mx-auto mb-4 text-primary" />
               <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Join UDBHAV?</h2>
               <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                Be part of India's first Inter-IIIT Hackathon. Connect with your local IIIT tech club 
+                Be part of India's first Inter-IIIT Hackathon. Connect with your local IIIT tech club
                 to participate in the intra-IIIT selection rounds.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
