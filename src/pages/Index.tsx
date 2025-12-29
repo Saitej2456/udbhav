@@ -33,7 +33,7 @@ const domains = [
     name: "AI / ML",
     icon: Cpu,
     description:
-      "Creating intelligent systems capable of performing tasks that typically require human intelligence, such as learning, reasoning, problem-solving, and decision-making",
+      "Creating intelligent systems capable of performing tasks that typically require human intelligence, such as learning, reasoning, problem-solving, and decision-making.",
     color: "from-primary to-primary-glow",
   },
   {
@@ -162,9 +162,7 @@ const DomainCard = memo(
         <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 gradient-text">
           {domain.name}
         </h3>
-        <p className="text-sm sm:text-base text-muted-foreground">
-          {domain.description}
-        </p>
+        <p className="text-sm text-muted-foreground">{domain.description}</p>
       </GlassCard>
     </motion.div>
   )
@@ -196,7 +194,8 @@ const PrizeCard = memo(
               : "text-amber-600"
           }`}
         />
-        <h3 className="text-lg sm:text-xl font-bold mb-2">{prize.place}</h3>
+        <h3 className="text-lg sm:text-xl font-bold mb-1">{prize.place}</h3>
+        <div className="text-sm text-gray-400 mb-2">Prizes worth</div>
         <div className="text-2xl sm:text-3xl font-bold gradient-text mb-2">
           {prize.amount}
         </div>
@@ -299,7 +298,7 @@ const Index = () => {
                       <span className="text-secondary">{">"}</span>
                       <span className="text-muted-foreground">Domains...</span>
                       <span className="text-success">
-                        [AI/ML, BLOCKCHAIN, SECURITY]
+                        [AI/ML, BLOCKCHAIN, CYBER SECURITY]
                       </span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center sm:justify-start">
@@ -325,7 +324,7 @@ const Index = () => {
         </section>
 
         {/* Stats Section */}
-        <section className="py-12 sm:py-16 md:py-20 relative">
+        <section className="py-12 sm:py-16 md:py-20 w-[90%] mx-auto relative">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               {stats.map((stat, index) => (
@@ -336,8 +335,8 @@ const Index = () => {
         </section>
 
         {/* Domains Section */}
-        <section className="py-12 sm:py-16 md:py-20 relative">
-          <div className="container mx-auto px-4">
+        <section className="py-12 sm:py-16 md:py-20  w-[90%] mx-auto relative">
+          <div className="container mx-auto px-3">
             <SectionHeading
               title="Competition Domains"
               subtitle="Choose your battlefield and showcase your expertise"
@@ -408,7 +407,7 @@ const Index = () => {
         </section>
 
         {/* IIITs Preview */}
-        <section className="py-12 sm:py-16 md:py-20 relative">
+        <section className="py-12 sm:py-16 md:py-20  w-[90%] mx-auto relative">
           <div className="container mx-auto px-4">
             <SectionHeading
               title="Participating IIITs"
@@ -500,7 +499,7 @@ const Index = () => {
         </section>
 
         {/* Event Timeline */}
-        <section className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
+        <section className="py-12 sm:py-16 md:py-20 mb-16 relative overflow-hidden">
           <div className="absolute inset-0 grid-overlay opacity-20" />
           <div className="container mx-auto px-4 relative">
             <SectionHeading
