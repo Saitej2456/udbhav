@@ -218,7 +218,7 @@ const iiitDetails: Record<string, {
     state: 'Himachal Pradesh',
     established: 2014,
     students: 600,
-    description: 'The Indian Institute of Information Technology Una (IIIT, Una) is one of the Indian Institutes of Information Technology located at Vill. Saloh, Teh. Haroli, Distt. Una Himachal Pradesh-177209, Himachal Pradesh.. Established in 2014, it was recognized as an Institute of National Importance. IIIT Una is a joint venture of the Ministry of Human Resource Development, Government of India, the Govt. of Himachal Pradesh, with Industries in Public-Private Partnership model.[4][5] The industries are H.P. Power Corporation and H.P. Power Transmission Corporation.',
+    description: 'The Indian Institute of Information Technology Una (IIIT, Una) is one of the Indian Institutes of Information Technology located at Vill. Saloh, Teh. Haroli, Distt. Una Himachal Pradesh-177209, Himachal Pradesh.. Established in 2014, it was recognized as an Institute of National Importance. IIIT Una is a joint venture of the Ministry of Human Resource Development, Government of India, the Govt. of Himachal Pradesh, with Industries in Public-Private Partnership model. The industries are H.P. Power Corporation and H.P. Power Transmission Corporation.',
     website: 'https://www.iiitu.ac.in',
     achievements: [
       'Growing research output',
