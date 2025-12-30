@@ -88,7 +88,7 @@ const iiitDetails: Record<string, {
     state: 'Andhra Pradesh',
     established: 2013,
     students: 900,
-    description: 'IIIT Sri City is a premier institute established in 2013 as a Public-Private Partnership. Located in the state-of-the-art Sri City integrated business hub, it offers world-class infrastructure and education in computer science and related fields. As the organizing institute and final venue for UDBHAV 2025, it leads the inter-IIIT hackathon initiative.',
+    description: 'The Indian Institute of Information Technology, Sri City is an educational institute of national importance located in Sri City, Tirupati district, Andhra Pradesh, India. It was created by the Ministry of Human Resource Development, Government of India, under a partnership with the Andhra Pradesh Government and Sri City consortium. The IIIT campus at Sri City is spread over 80 acres (32 ha). The institute is run by the Board of Governors of the IIIT Society. The Board of Governors include representatives of MHRD, GoAP, and Industry Partners as well as eminent people from academia, industry, and civil society.',
     website: 'https://www.iiits.ac.in',
     achievements: [
       'Organizing Institute for UDBHAV 2025',
@@ -114,7 +114,7 @@ const iiitDetails: Record<string, {
     state: 'Tripura',
     established: 2018,
     students: 350,
-    description: 'IIIT Agartala is a young and dynamic institute established in 2018. It focuses on providing quality education in information technology and computer science, serving the Northeast region of India with cutting-edge technical education.',
+    description: 'The Indian Institute of Information Technology, Agartala is one among the 20 IIITs established under the non-profit Public-Private Partnership (PPP) model. It is presently functioning inside the campus of NIT Agartala until the construction of a 52-acre permanent campus in Bodhjung Nagar near Agartala is completed.',
     website: 'https://www.iiitagar.ac.in',
     achievements: [
       'Growing research in emerging technologies',
@@ -140,7 +140,7 @@ const iiitDetails: Record<string, {
     state: 'Uttar Pradesh',
     established: 1999,
     students: 3000,
-    description: 'IIIT Allahabad is one of the oldest and most prestigious IIITs in India. Established in 1999, it has been a pioneer in IT education and research. The institute is known for its strong academic programs, world-class faculty, and excellent placement record.',
+    description: 'The Indian Institute of Information Technology, Allahabad (IIIT Allahabad) is a premier public university located in Jhalwa, Prayagraj (previously known as Allahabad), in Uttar Pradesh. It is one of the twenty-five Indian Institutes of Information Technology listed by the Ministry of Education (India).',
     website: 'https://www.iiita.ac.in',
     achievements: [
       'Among the top IIITs in India',
@@ -166,7 +166,7 @@ const iiitDetails: Record<string, {
     state: 'Karnataka',
     established: 2015,
     students: 500,
-    description: 'IIIT Dharwad is a leading technical institute in Karnataka, established in 2015. The institute focuses on cutting-edge research in data science, AI, and related fields, contributing to the growth of the IT sector in the region.',
+    description: 'The Indian Institute of Information Technology, Dharwad (IIIT Dharwad) is an Institute of National Importance set up under a non-profit, Public-Private-Partnership (PPP) model by the Ministry of Education (India). It is an academic and research institute funded by the Government of India, the Government of Karnataka and industry partner KEONICS.',
     website: 'https://www.iiitdwd.ac.in',
     achievements: [
       'Strong DSAI research focus',
@@ -192,7 +192,7 @@ const iiitDetails: Record<string, {
     state: 'Tamil Nadu',
     established: 2013,
     students: 500,
-    description: 'IIIT Tiruchirappalli is a prominent technical institute in Tamil Nadu established in 2013. Known for its robotics research and strong technical programs, it produces graduates who excel in both academia and industry.',
+    description: 'The Indian Institute of Information Technology Tiruchirappalli (IIIT-T) is a higher education academic and research institute located in Tiruchirappalli, Tamil Nadu, India. It is one of the Indian Institutes of Information Technology (IIITs) established under the non-profit Public-Private Partnership and is funded by the Government of India, Government of Tamil Nadu and the Indian industry partners in the ratio of 50:35:15. Industry partners include Tata Consultancy Services (TCS), Cognizant Technology Solutions (CTS), Infosys, Ramco Systems, ELCOT, and Navitas (Take Solutions). Together with the other IIITs, it has been granted the status of Institute of National importance in 2017.',
     website: 'https://www.iiitt.ac.in',
     achievements: [
       'Leading robotics research',
@@ -218,7 +218,7 @@ const iiitDetails: Record<string, {
     state: 'Himachal Pradesh',
     established: 2014,
     students: 600,
-    description: 'IIIT Una is located in the scenic hills of Himachal Pradesh. Established in 2014, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Una (IIIT, Una) is one of the Indian Institutes of Information Technology located at Vill. Saloh, Teh. Haroli, Distt. Una Himachal Pradesh-177209, Himachal Pradesh.. Established in 2014, it was recognized as an Institute of National Importance. IIIT Una is a joint venture of the Ministry of Human Resource Development, Government of India, the Govt. of Himachal Pradesh, with Industries in Public-Private Partnership model.[4][5] The industries are H.P. Power Corporation and H.P. Power Transmission Corporation.',
     website: 'https://www.iiitu.ac.in',
     achievements: [
       'Growing research output',
@@ -244,7 +244,7 @@ const iiitDetails: Record<string, {
     state: 'West Bengal',
     established: 2014,
     students: 550,
-    description: 'IIIT Kalyani is located in the scenic town of Kalyani, West Bengal. Established in 2014, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology, Kalyani (IIIT Kalyani) is an Indian Institute of Information Technology located at Kalyani, West Bengal and is one of the 31 IIITs set up by government of India. The institute was set up by the Government of India Ministry of Human Resource Development, Government of West Bengal and industry partners (Coal India and Rolta) using the not-for-profit Public Private Partnership (N-PPP) model, at a ratio of 50:35:15 respectively between three parties.',
     website: 'https://www.iiitkalyani.ac.in',
     achievements: [
       'Growing research output',
@@ -270,7 +270,7 @@ const iiitDetails: Record<string, {
     state: 'Haryana',
     established: 2014,
     students: 500,
-    description: 'IIIT Sonepat is located in the vibrant city of Sonepat, Haryana. Established in 2014, it combines quality technical education with a dynamic learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Sonepat (IIIT Sonepat) is an Indian Institutes of Information Technology located at Sonipat, Haryana. The academic session of IIIT Sonepat started from its temporary campus at NIT Kurukshetra from year 2014 Right now it is running in Shri Balwant Institute of Technology, GT Road Sonepat. IIIT Sonepat is a joint venture of the Ministry of Human Resource Development, Government of India, the Govt. of Haryana, with Industries in Public-Private Partnership model and has been declared as the Institutes of National Importance.',
     website: 'https://www.iiitsonepat.ac.in',
     achievements: [
       'Growing research output',
@@ -296,7 +296,7 @@ const iiitDetails: Record<string, {
     state: 'Kerala',
     established: 2000,
     students: 600,
-    description: 'IIIT Kottayam is located in the scenic hills of Kerala. Established in 2000, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology, Kottayam (abbreviated IIIT Kottayam or IIITK) is an autonomous engineering Institute located at Valavoor, Palai, Kottayam District, Kerala. It is one of the Indian Institute of Information Technology institutes established by The Ministry of Human Resource Development, Government of India under Public-private partnership mode It is operated on a PPP model and funded by Government of India (50%), Government of Kerala (35%) and Industry Partners (15%) namely CIAL and Rolta Foundation.',
     website: 'https://www.iiitkottayam.ac.in',
     achievements: [
       'Growing research output',
@@ -322,7 +322,7 @@ const iiitDetails: Record<string, {
     state: 'Andhra Pradesh',
     established: 2015,
     students: 500,
-    description: 'IIITDM Kurnool is located in the scenic hills of Andhra Pradesh. Established in 2015, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Design and Manufacturing Kurnool (IIITDM Kurnool) is a technical education institute in the field of Information Technology established by MHRD, Government of India in 2015. The institute started functioning at its permanent campus of in Kurnool.',
     website: 'https://iiitk.ac.in/',
     achievements: [
       'Growing research output',
@@ -348,7 +348,7 @@ const iiitDetails: Record<string, {
     state: 'Madhya Pradesh',
     established: 2017,
     students: 450,
-    description: 'IIIT Bhopal is located in the scenic hills of Madhya Pradesh. Established in 2017, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Bhopal (IIIT-B) is one among the 20 IIITs established under the non-profit Public-Private Partnership (PPP) model by Ministry of Human Resource Development. It is presently functioning inside the campus of Maulana Azad National Institute of Technology while 50 acres of land were identified for setting up a permanent campus. It was declared as an Institute of National Importance as per The Indian Institute of Information Technology (Public-Private Partnership) Act 2017.',
     website: 'https://www.iiitbhopal.ac.in',
     achievements: [
       'Growing research output',
@@ -374,7 +374,7 @@ const iiitDetails: Record<string, {
     state: 'Gujarat',
     established: 2013,
     students: 600,
-    description: 'IIIT Vadodara is located in the scenic hills of Gujarat. Established in 2013, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Vadodara (IIITV) is a higher-education institute located in Gandhinagar, Gujarat, India. It is one of the Indian Institutes of Information Technology established by the Ministry of Education, Government of India under the Indian Institutes of Information Technology (Public-Private Partnership) Act, 2017. The act provides the institute the status of Institute of National Importance.',
     website: 'https://www.iiitvadodara.ac.in',
     achievements: [
       'Growing research output',
@@ -400,7 +400,7 @@ const iiitDetails: Record<string, {
     state: 'Manipur',
     established: 2015,
     students: 350,
-    description: 'IIIT Manipur is located in the scenic hills of Manipur. Established in 2015, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Senapati, Manipur (IIIT Senapati) is one among the prestigious Indian Institutes of Information Technology, a group of 25 Interdisciplinary Technical Universities of higher education started by the Government of India, focused on Information Technology. It is an "Institute of National Importance", declared by an act of parliament.',
     website: 'https://www.iiitmanipur.ac.in',
     achievements: [
       'Growing research output',
@@ -426,7 +426,7 @@ const iiitDetails: Record<string, {
     state: 'Gujarat',
     established: 2017,
     students: 400,
-    description: 'IIIT Surat is located in the vibrant city of Surat. Established in 2017, it combines quality technical education with a dynamic learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Surat (IIIT Surat) is one of the Indian Institutes of Information Technology established by MHRD in PPP mode located in Surat, Gujarat.The Institute has been conferred as Institute of National Importance (INI) on Feb 5, 2020. IIIT Surat is operating from its temporary premises at Sardar Vallabhbhai National Institute of Technology (SVNIT). The institute is mentored by SVNIT for an initial period of 2–3 years till the construction of the new campus. The IIIT Surat is built on a public-private partnership (PPP) model, jointly funded by the state government and industry partners Gujarat Narmada Valley Fertilisers & Chemicals, Gujarat Gas and Gujarat Informatics.',
     website: 'https://www.iiitsurat.ac.in',
     achievements: [
       'Growing research output',
@@ -452,7 +452,7 @@ const iiitDetails: Record<string, {
     state: 'Chhattisgarh',
     established: 2015,
     students: 600,
-    description: 'IIIT Naya Raipur is located in the scenic hills of Naya Raipur. Established in 2015, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The International Institute of Information Technology, Naya Raipur (IIIT-NR), officially Dr. Shyama Prasad Mukherjee International Institute of Information Technology, Naya Raipur, is a state-funded institute in Naya Raipur, Chhattisgarh, India. The institute is focused on research and development in Information Technology (IT) and associated disciplines.',
     website: 'https://www.iiitnr.ac.in/',
     achievements: [
       'Growing research output',
@@ -478,7 +478,7 @@ const iiitDetails: Record<string, {
     state: 'Karnataka',
     established: 2019,
     students: 300,
-    description: 'IIIT Raichur is located in the scenic hills of Raichur. Established in 2019, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Raichur (abbreviated IIIT Raichur) is a public technical and research university located in the district of Raichur in Karnataka, India which holds the title of Institute of National Importance and is one of the most prestigious colleges in the country. The Institute is being set up with the financial contributions of Ministry of Education, Government of India and Government of Karnataka.',
     website: 'https://www.iiitr.ac.in',
     achievements: [
       'Growing research output',
@@ -504,7 +504,7 @@ const iiitDetails: Record<string, {
     state: 'Bihar',
     established: 2017,
     students: 400,
-    description: 'IIIT Bhagalpur is located in the scenic hills of Bhagalpur. Established in 2017, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology, Bhagalpur (IIIT Bhagalpur) is one of the IIITs set up by Ministry of Education, Government of India in Public Private Partnership (PPP) mode. It is located on the southern bank of the Ganga River in Sabour , Bhagalpur, the 2nd largest city of Bihar. It was declared as an Institute of National Importance (INI) in September 2020 by Parliament of India. The construction of Phase-1 of its new building/campus was completed in 2024. The institute is now fully functional from its permanent campus in Sabour.',
     website: 'https://www.iiitbh.ac.in',
     achievements: [
       'Growing research output',
@@ -530,7 +530,7 @@ const iiitDetails: Record<string, {
     state: 'Rajasthan',
     established: 2013,
     students: 600,
-    description: 'IIIT Kota is located in the scenic hills of Kota. Established in 2013, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Kota[2] (IIIT, Kota) is one of the Indian Institutes of Information Technology proposed to be located at Ranpur near Kota, Rajasthan. It is spread over 100.37 acres, IIIT Kota is a Joint venture of the Ministry of Education (MoE) Government of India, Government of Rajasthan with Industries in Public-Private Partnership model. First batch of IIIT Kota has graduated in the year 2017. IIITK offers technical courses for CSE and ECE branches, with creative project courses. Every year IIITK celebrates its Foundation Day in April. After the IIIT Act was passed in the Parliament in 2017, IIITK has become an "Institute of National Importance", equalling in status with the NITs and IITs, with power of offering degrees officially.',
     website: 'https://www.iiitkota.ac.in',
     achievements: [
       'Growing research output',
@@ -556,7 +556,7 @@ const iiitDetails: Record<string, {
     state: 'Odisha',
     established: 2006,
     students: 800,
-    description: 'IIIT Bhubaneshwar is located in the scenic hills of Bhubaneshwar. Established in 2006, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The International Institute of Information Technology, Bhubaneswar (IIIT-BH) is a state university located in Bhubaneswar, Odisha, India. It was established in 2006 under the IIIT Act of 2004 by the Government of Odisha. The institute offers undergraduate and postgraduate programs in the fields of Information Technology, Electrical and Electronics, Electronics and Communication, Computer Engineering, and Computer Science. MTech and PhD programs are also available in Computer Science and Electronics and Communication. The institute is a unitary technical university recognised by the University Grants Commission (India).',
     website: 'https://www.iiit-bh.ac.in/',
     achievements: [
       'Growing research output',
@@ -582,7 +582,7 @@ const iiitDetails: Record<string, {
     state: 'Tamil Nadu',
     established: 2007,
     students: 1200,
-    description: 'IIITDM Kancheepuram is located in the scenic hills of Chennai. Established in 2007, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram (IIITDM Kancheepuram) is a public technical and research institution established in 2007 by the Ministry of Human Resource Development, Government of India to pursue design and manufacturing oriented engineering education, research and to promote the competitive advantage of Indian products in global markets.',
     website: 'https://www.iiitdm.ac.in',
     achievements: [
       'Growing research output',
@@ -608,7 +608,7 @@ const iiitDetails: Record<string, {
     state: 'Daman and Diu',
     established: 2017,
     students: 400,
-    description: 'IIIT Vadodara-International Campus Diu is located in the scenic hills of Diu. Established in 2017, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology Vadodara International Campus Diu (IIITV-ICD) is a satellite campus of Indian Institute of Information Technology Vadodara (IIIT Vadodara, an Institute of National Importance by an Act of Parliament). IIITV-ICD has been established at Education Hub, Kevdi - Diu under partnership with Government of Dadra & Nagar Haveli and Daman & Diu (UT Administration of DNH & DD ) with the approval of Board of Governors (BoG) wherein Ministry of Education (earlier MHRD) is a member. The graduates from this campus will be awarded degree by IIIT Vadodara. The IIITV-ICD will be administered by Board of Governors, Finance Committee and Senate of IIIT Vadodara. The IIITV-ICD will admit its first batch of undergraduate students from Academic Year 2020-21. IIITV-ICD has been accommodated in the state of art campus of “Education Hub” at Diu.',
     website: 'http://diu.iiitvadodara.ac.in/',
     achievements: [
       'Growing research output',
@@ -634,7 +634,7 @@ const iiitDetails: Record<string, {
     state: 'Maharashtra',
     established: 2016,
     students: 700,
-    description: 'IIIT Nagpur is located in the scenic hills of Nagpur. Established in 2016, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology, Nagpur (abbreviated IIITN) is one of the Indian Institutes of Information Technology (IIIT) and an Institute of National Importance located in Nagpur, Maharashtra. The institute started functioning from July 2016. It offers Bachelor of Technology (B.Tech.) courses in Electronics and Communication Engineering and Computer Science and Engineering. The institute has shifted to its permanent campus, at Waranga Nagpur.',
     website: 'https://www.iiitn.ac.in',
     achievements: [
       'Growing research output',
@@ -660,7 +660,7 @@ const iiitDetails: Record<string, {
     state: 'New Delhi',
     established: 2008,
     students: 2000,
-    description: 'IIIT Delhi is located in the scenic hills of Delhi. Established in 2008, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indraprastha Institute of Information Technology, Delhi (IIIT-Delhi) is a state university located in Delhi, India. IIIT Delhi offers B.Tech., M.Tech. and Ph.D. degrees. IIITD also offers PhD degrees to students through the Department of Social Sciences and Humanities. ',
     website: 'https://www.iiitd.ac.in',
     achievements: [
       'Growing research output',
@@ -686,7 +686,7 @@ const iiitDetails: Record<string, {
     state: 'Maharashtra',
     established: 2016,
     students: 1500,
-    description: 'IIIT Pune is located in the scenic hills of Pune. Established in 2016, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.',
+    description: 'The Indian Institute of Information Technology, Pune (abbreviated IIITP), is one of the Indian Institutes of Information Technology, a group of institutes of Higher education in India focused on Information Technology. It is established by the Ministry of Education (MoE), formerly the Ministry of Human Resource Development, Government of India and few industry partners as Not-for-profit Public Private Partnership (N-PPP) Institution. IIIT Pune was declared as an Institute of National Importance (INI) in August 2017.',
     website: 'https://www.iiitp.ac.in',
     achievements: [
       'Growing research output',
