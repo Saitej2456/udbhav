@@ -32,19 +32,22 @@ const domains = [
   {
     name: "AI / ML",
     icon: Cpu,
-    description: "Machine Learning, Deep Learning, NLP, Computer Vision",
+    description:
+      "Creating intelligent systems capable of performing tasks that typically require human intelligence, such as learning, reasoning, problem-solving, and decision-making.",
     color: "from-primary to-primary-glow",
   },
   {
     name: "Blockchain",
     icon: Coins,
-    description: "Web3, DeFi, Smart Contracts, Decentralized Apps",
+    description:
+      "Protecting computer systems, networks, and data from digital threats like attacks, damage, or unauthorized access.",
     color: "from-secondary to-secondary-glow",
   },
   {
     name: "Cybersecurity",
     icon: Shield,
-    description: "Network Security, Cryptography, Ethical Hacking",
+    description:
+      "Decentralized, immutable digital ledger that securely records transactions across a network of computers, building trust and transparency without needing a central authority.",
     color: "from-accent to-accent-glow",
   },
 ];
@@ -58,10 +61,10 @@ const sponsors = [
 ];
 
 const featuredIIITs = [
-  { name: "IIIT Hyderabad", location: "Telangana", organizing: true },
-  { name: "IIIT Delhi", location: "Delhi" },
-  { name: "IIIT Bangalore", location: "Karnataka" },
+  { name: "IIIT Sri City", location: "Andhra Pradesh", organizing: true },
   { name: "IIIT Allahabad", location: "Uttar Pradesh" },
+  { name: "IIIT Bhubaneswar", location: "Odisha" },
+  { name: "IIITDM Kurnool", location: "Andhra Pradesh" },
 ];
 
 const prizes = [
@@ -88,21 +91,21 @@ const prizes = [
 const timeline = [
   {
     round: "Round 1",
-    title: "Team Formation",
-    description: "4 teams from each IIIT qualify for the hackathon",
+    title: "Intra-IIIT Round",
+    description: "Top 4 teams from each participating IIITs will be selected",
     icon: Users,
   },
   {
     round: "Round 2",
-    title: "Online Ideathon",
-    description: "12-hour online hackathon on Unstop platform",
+    title: "Online Inter-IIIT Round",
+    description: "Top 1 team from each participating IIIT will be selected",
     icon: Cpu,
   },
   {
     round: "Round 3",
     title: "Grand Finale @ IIIT Sri City",
     description:
-      "Top teams compete for the championship at IIIT Sri City, Andhra Pradesh",
+      "Offline Inter-IIIT Round where  the best team from all IIITs will be decided",
     icon: Trophy,
     venue: true,
   },
@@ -137,7 +140,7 @@ const StatCard = memo(
         </div>
       </GlassCard>
     </motion.div>
-  ),
+  )
 );
 StatCard.displayName = "StatCard";
 
@@ -159,12 +162,10 @@ const DomainCard = memo(
         <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 gradient-text">
           {domain.name}
         </h3>
-        <p className="text-sm sm:text-base text-muted-foreground">
-          {domain.description}
-        </p>
+        <p className="text-sm text-muted-foreground">{domain.description}</p>
       </GlassCard>
     </motion.div>
-  ),
+  )
 );
 DomainCard.displayName = "DomainCard";
 
@@ -185,9 +186,15 @@ const PrizeCard = memo(
           className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${prize.gradient}`}
         />
         <Trophy
-          className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 ${index === 0 ? "text-yellow-400" : index === 1 ? "text-slate-400" : "text-amber-600"}`}
+          className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 ${index === 0
+              ? "text-yellow-400"
+              : index === 1
+                ? "text-slate-400"
+                : "text-amber-600"
+            }`}
         />
-        <h3 className="text-lg sm:text-xl font-bold mb-2">{prize.place}</h3>
+        <h3 className="text-lg sm:text-xl font-bold mb-1">{prize.place}</h3>
+        <div className="text-sm text-gray-400 mb-2">Prizes worth</div>
         <div className="text-2xl sm:text-3xl font-bold gradient-text mb-2">
           {prize.amount}
         </div>
@@ -196,14 +203,14 @@ const PrizeCard = memo(
         </p>
       </GlassCard>
     </motion.div>
-  ),
+  )
 );
 PrizeCard.displayName = "PrizeCard";
 
 const Index = () => {
   return (
     <PageTransition>
-      <div className="w-[90%] mx-auto">
+      <div className="">
         <GradualBlur
           position="bottom"
           target="page"
@@ -218,13 +225,13 @@ const Index = () => {
           <AnimatedGradientBackground />
 
           {/* CRT Vignette */}
-          <div
+          {/* <div
             className="absolute inset-0 pointer-events-none z-[1]"
             style={{
               background:
                 "radial-gradient(ellipse at center, transparent 40%, hsla(225 25% 4% / 0.8) 100%)",
             }}
-          />
+          /> */}
 
           <div className="container mx-auto px-4 relative z-10 pt-16 sm:pt-28">
             <div className="text-center max-w-5xl mx-auto">
@@ -284,13 +291,13 @@ const Index = () => {
                       <span className="text-muted-foreground">
                         Participants...
                       </span>
-                      <span className="text-success">[24+ IIITs]</span>
+                      <span className="text-success">[24 IIITs]</span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center sm:justify-start">
                       <span className="text-secondary">{">"}</span>
                       <span className="text-muted-foreground">Domains...</span>
                       <span className="text-success">
-                        [AI/ML, BLOCKCHAIN, SECURITY]
+                        [AI/ML, BLOCKCHAIN, CYBER SECURITY]
                       </span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center sm:justify-start">
@@ -316,7 +323,7 @@ const Index = () => {
         </section>
 
         {/* Stats Section */}
-        <section className="py-12 sm:py-16 md:py-20 relative">
+        <section className="py-12 sm:py-16 md:py-20 w-[90%] mx-auto relative">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               {stats.map((stat, index) => (
@@ -327,8 +334,8 @@ const Index = () => {
         </section>
 
         {/* Domains Section */}
-        <section className="py-12 sm:py-16 md:py-20 relative">
-          <div className="container mx-auto px-4">
+        <section className="py-12 sm:py-16 md:py-20  w-[90%] mx-auto relative">
+          <div className="container mx-auto px-3">
             <SectionHeading
               title="Competition Domains"
               subtitle="Choose your battlefield and showcase your expertise"
@@ -342,7 +349,7 @@ const Index = () => {
         </section>
 
         {/* Prizes Section */}
-        <section className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
+        <section id="prizes" className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
           <div className="absolute inset-0 grid-overlay opacity-30" />
           <div className="container mx-auto px-4 relative">
             <SectionHeading
@@ -399,7 +406,7 @@ const Index = () => {
         </section>
 
         {/* IIITs Preview */}
-        <section className="py-12 sm:py-16 md:py-20 relative">
+        <section className="py-12 sm:py-16 md:py-20  w-[90%] mx-auto relative">
           <div className="container mx-auto px-4">
             <SectionHeading
               title="Participating IIITs"
@@ -416,19 +423,52 @@ const Index = () => {
                   transition={{ delay: index * 0.1, duration: 0.4 }}
                 >
                   <Link
-                    to={`/iiits/${iiit.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    to={`/iiits/${iiit.name
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")}`}
                   >
                     <GlassCard
                       className="text-center h-full group"
                       glow={iiit.organizing ? "primary" : "none"}
                     >
-                      {iiit.organizing && (
-                        <span className="inline-block px-2 py-1 text-[10px] sm:text-xs font-medium bg-primary/20 text-primary rounded-full mb-2 sm:mb-3">
-                          Organizing
-                        </span>
-                      )}
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Users className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-white flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden">
+                        {iiit.name === "IIIT Sri City" && (
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/en/4/49/IIIT_Sri_City_Logo.png"
+                            alt="IIIT Sri City Logo"
+                            className="object-contain w-10 h-10 sm:w-14 sm:h-14"
+                          />
+                        )}
+                        {iiit.name === "IIIT Allahabad" && (
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/en/2/2e/Indian_Institute_of_Information_Technology%2C_Allahabad_Logo.png"
+                            alt="IIIT Allahabad Logo"
+                            className="object-contain w-10 h-10 sm:w-14 sm:h-14"
+                          />
+                        )}
+                        {iiit.name === "IIIT Bhubaneswar" && (
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/en/b/b2/IIIT_Bhubaneswar_Logo.png"
+                            alt="IIIT Bhubaneswar Logo"
+                            className="object-contain w-14 h-14 sm:w-14 sm:h-14"
+                          />
+                        )}
+                        {iiit.name === "IIITDM Kurnool" && (
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/en/5/5f/Indian_Institute_of_Information_Technology_Design_and_Manufacturing%2C_Kurnool_logo.png"
+                            alt="IIITDM Kurnool Logo"
+                            className="object-contain w-10 h-10 sm:w-14 sm:h-14"
+                          />
+                        )}
+                        {/* fallback icon if no logo */}
+                        {!(
+                          iiit.name === "IIIT Sri City" ||
+                          iiit.name === "IIIT Allahabad" ||
+                          iiit.name === "IIIT Bhubaneswar" ||
+                          iiit.name === "IIITDM Kurnool"
+                        ) && (
+                            <Users className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                          )}
                       </div>
                       <h3 className="text-sm sm:text-base font-semibold mb-1">
                         {iiit.name}
@@ -437,6 +477,11 @@ const Index = () => {
                         <MapPin className="w-3 h-3" />
                         {iiit.location}
                       </div>
+                      {iiit.organizing && (
+                        <span className="inline-block px-2 py-1 mt-2 text-[10px] sm:text-xs font-medium bg-primary/20 text-primary rounded-full">
+                          Organizing
+                        </span>
+                      )}
                     </GlassCard>
                   </Link>
                 </motion.div>
@@ -453,7 +498,7 @@ const Index = () => {
         </section>
 
         {/* Event Timeline */}
-        <section className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
+        <section className="py-12 sm:py-16 md:py-20 mb-16 relative overflow-hidden">
           <div className="absolute inset-0 grid-overlay opacity-20" />
           <div className="container mx-auto px-4 relative">
             <SectionHeading
@@ -476,11 +521,10 @@ const Index = () => {
                     className="relative pl-16 sm:pl-20 pb-8 sm:pb-12 last:pb-0"
                   >
                     <div
-                      className={`absolute left-2 sm:left-4 w-8 h-8 rounded-full flex items-center justify-center ${
-                        "venue" in item
+                      className={`absolute left-2 sm:left-4 w-8 h-8 rounded-full flex items-center justify-center ${"venue" in item
                           ? "bg-gradient-to-br from-yellow-400 to-amber-600 ring-2 ring-yellow-400/50"
                           : "bg-gradient-to-br from-primary to-accent"
-                      }`}
+                        }`}
                     >
                       <item.icon className="w-4 h-4 text-primary-foreground" />
                     </div>

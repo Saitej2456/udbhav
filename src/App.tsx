@@ -7,6 +7,7 @@ import { AnimatePresence } from "framer-motion";
 import BinaryBackground from "./components/BinaryBackground";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 import IceBear from "./components/IceBear";
 import Index from "./pages/Index";
@@ -29,9 +30,10 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col relative">
           <BinaryBackground />
-          
+
           <Navbar />
           <main className="flex-1 relative z-10">
             <AnimatePresence mode="wait">

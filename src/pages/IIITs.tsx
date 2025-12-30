@@ -143,8 +143,12 @@ const IIITs = () => {
                     <Link to={`/iiits/${organizingIIIT.id}`}>
                       <GlassCard className="max-w-3xl mx-auto group" glow="primary">
                         <div className="flex flex-col md:flex-row items-center gap-6">
-                          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <Star className="w-12 h-12 text-primary-foreground" />
+                          <div className="w-24 h-24 rounded-2xl bg-white/95 flex items-center justify-center group-hover:scale-110 transition-transform p-2 overflow-hidden">
+                            <img 
+                              src="/src/assets/photos/iiit sri city.png" 
+                              alt="IIIT Sri City logo"
+                              className="w-full h-full object-contain"
+                            />
                           </div>
                           <div className="text-center md:text-left flex-1">
                             <div className="flex items-center justify-center md:justify-start gap-2 mb-2 flex-wrap">
@@ -214,7 +218,35 @@ const IIITs = () => {
                   subtitle={`${otherIIITs.length} institutes competing for glory`}
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {otherIIITs.map((iiit, index) => (
+                  {otherIIITs.map((iiit, index) => {
+                    // Map IIIT logos
+                    const logoMap: Record<string, string> = {
+                      'iiit-agartala': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Agartala_Logo.png',
+                      'iiit-allahabad': '/src/assets/photos/IIIT_allahabad.png',
+                      'iiit-bhagalpur': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Bhagalpur_logo.png',
+                      'iiit-bhopal': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Bhopal_Logo.png',
+                      'iiit-bhubaneshwar': '/src/assets/photos/IIIT_Bhubaneswar_Logo.png',
+                      'iiit-dharwad': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Dharwad_Logo.svg.png',
+                      'iiit-kota': '/src/assets/photos/iiitkota.png',
+                      'iiit-kottayam': '/src/assets/photos/iiit kottayam.jpg',
+                      'iiit-manipur': '/src/assets/photos/IIIT_Manipur.png',
+                      'iiit-naya-raipur': '/src/assets/photos/iiit naya raipur.jpg',
+                      'iiit-raichur': '/src/assets/photos/IIIT Raichur.png',
+                      'iiit-sonepat': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Sonepat_logo.png',
+                      'iiit-surat': '/src/assets/photos/IIIT_Surat_logo.jpg',
+                      'iiit-tiruchirappalli': '/src/assets/photos/iiit trichy.png',
+                      'iiit-una': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Una_logo.png',
+                      'iiit-vadodara': '/src/assets/photos/iiit vadodra.png',
+                      'iiitdm-kurnool': '/src/assets/photos/Indian_Institute_of_Information_Technology_Design_and_Manufacturing,_Kurnool_logo.png',
+                      'iiitv-icd': '/src/assets/photos/iiit vcd.png',
+                      'iiit-nagpur': '/src/assets/photos/iiit nagpur.png',
+                      'iiitdm-kancheepuram': '/src/assets/photos/iiitdm kancheepuram.png',
+                      'iiit-delhi': '/src/assets/photos/iiit delhi.png',
+                      'iiit-sri-city': '/src/assets/photos/iiit sri city.png',
+                    };
+                    const logo = logoMap[iiit.id];
+                    
+                    return (
                     <motion.div
                       key={iiit.id}
                       initial={{ opacity: 0, y: 20 }}
@@ -224,10 +256,18 @@ const IIITs = () => {
                     >
                       <GlassCard className="h-full group" hover>
                         <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center border border-border group-hover:border-primary/50 transition-colors">
-                            <span className="text-sm font-bold text-muted-foreground group-hover:text-primary transition-colors">
-                              {iiit.name.split(' ')[1]?.substring(0, 3) || 'IIIT'}
-                            </span>
+                          <div className="w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center border border-border group-hover:border-primary/50 transition-colors overflow-hidden p-1">
+                            {logo ? (
+                              <img 
+                                src={logo} 
+                                alt={`${iiit.name} logo`}
+                                className="w-full h-full object-contain"
+                              />
+                            ) : (
+                              <span className="text-sm font-bold text-muted-foreground group-hover:text-primary transition-colors">
+                                {iiit.name.split(' ')[1]?.substring(0, 3) || 'IIIT'}
+                              </span>
+                            )}
                           </div>
                           <div className="flex-1 min-w-0">
                             <h3 className="text-sm font-semibold mb-1 group-hover:text-primary transition-colors truncate">
@@ -272,7 +312,8 @@ const IIITs = () => {
                         </div>
                       </GlassCard>
                     </motion.div>
-                  ))}
+                    );
+                  })}
                 </div>
               </section>
             </>

@@ -1,13 +1,13 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  Target, 
-  Users, 
-  Lightbulb, 
-  Globe, 
-  Calendar, 
-  MapPin, 
+import {
+  Target,
+  Users,
+  Lightbulb,
+  Globe,
+  Calendar,
+  MapPin,
   Trophy,
   Code,
   Rocket,
@@ -35,13 +35,13 @@ const fadeIn = {
 const features = [
   {
     icon: Globe,
-    title: 'Open to All Domains',
-    description: 'An open hackathon involving all domains of the ever-growing IT world - from AI/ML to Blockchain to Cybersecurity.',
+    title: 'Domains',
+    description: 'An open hackathon involving domains of the ever-growing IT world - from AI/ML to Blockchain to Cybersecurity.',
   },
   {
     icon: Users,
     title: 'Inter-IIIT Collaboration',
-    description: 'Teams from different IIITs unite, bringing diverse perspectives and fostering nationwide collaboration.',
+    description: 'Teams from different IIITs unite, bringing diverse perspectives and nationwide collaboration.',
   },
   {
     icon: Lightbulb,
@@ -58,22 +58,22 @@ const features = [
 const timeline = [
   {
     round: 'Round 1',
-    title: 'Team Formation & Intra-IIIT Selection',
-    description: 'Each IIIT conducts internal selections. Top 4 teams from each institute qualify for the next round.',
+    title: 'Intra-IIIT Round',
+    description: 'Top 4 teams from each participating IIITs will be selected',
     icon: Users,
     status: 'upcoming',
   },
   {
     round: 'Round 2',
-    title: 'Online Ideathon',
-    description: '12-hour online hackathon on Unstop platform. Teams present their ideas and prototypes.',
+    title: 'Online Inter-IIIT Round',
+    description: 'Top 1 team from each participating IIIT will be selected',
     icon: Code,
     status: 'upcoming',
   },
   {
     round: 'Round 3',
     title: 'Grand Finale @ IIIT Sri City',
-    description: '24-hour offline hackathon at IIIT Sri City, Andhra Pradesh. Top teams battle for the championship.',
+    description: 'Offline Inter-IIIT Round where  the best team from all IIITs will be decided',
     icon: Trophy,
     status: 'upcoming',
     highlight: true,
@@ -81,7 +81,7 @@ const timeline = [
 ];
 
 const stats = [
-  { value: '24+', label: 'IIITs Participating' },
+  { value: '24', label: 'IIITs Participating' },
   { value: '100+', label: 'Teams Expected' },
   { value: '₹1.5L', label: 'Prize Pool' },
   { value: '24hrs', label: 'Hackathon Duration' },
@@ -99,19 +99,19 @@ const organizingTeam = [
 const faqs = [
   {
     question: 'Who can participate in UDBHAV?',
-    answer: 'UDBHAV is exclusively open to students from all IIITs (Indian Institutes of Information Technology) across India. Students from any year of study can participate as long as they are currently enrolled.',
+    answer: 'UDBHAV is exclusively open to students from all IIITs  across India. Students from any year of study can participate as long as they are currently enrolled.',
   },
   {
     question: 'How do I register for UDBHAV?',
-    answer: 'Registration happens through your IIIT\'s tech club. First, participate in your institute\'s internal selection (Round 1). The top 4 teams from each IIIT will qualify for Round 2 on Unstop. Contact your IIIT\'s SPOC for more details.',
+    answer: 'Registration happens through your IIIT\'s tech club/society. First, participate in your institute\'s internal selection (Round 1). The top 4 teams from each IIIT will qualify for Round 2. Contact your IIIT\'s SPOC for more details.',
   },
   {
     question: 'What is the team size requirement?',
-    answer: 'Each team must consist of 3-4 members. All team members must be from the same IIIT. Cross-IIIT teams are not allowed.',
+    answer: 'Each team must consist of 2-3 members. All team members must be from the same IIIT. Cross-IIIT teams are not allowed.',
   },
   {
     question: 'What domains can we build projects in?',
-    answer: 'UDBHAV covers three main domains: AI/ML (Machine Learning, Deep Learning, NLP, Computer Vision), Blockchain (Web3, DeFi, Smart Contracts), and Cybersecurity (Network Security, Cryptography). Teams can choose any domain and problem statement within these areas.',
+    answer: 'UDBHAV covers three main domains: AI/ML , Blockchain , and Cybersecurity . Teams can choose any domain ',
   },
   {
     question: 'Is there a registration fee?',
@@ -119,7 +119,7 @@ const faqs = [
   },
   {
     question: 'What are the prizes?',
-    answer: 'The total prize pool is ₹1,50,000. Winner receives ₹75,000 + Certificate + Trophy, 1st Runner-up receives ₹50,000 + Certificate, and 2nd Runner-up receives ₹25,000 + Certificate.',
+    answer: 'The total prize pool is ₹1,50,000. Winner receives prizes worth ₹75,000 + Certificate + Trophy, 1st Runner-up receives prizes worth ₹50,000 + Certificate, and 2nd Runner-up receives prizes worth ₹25,000 + Certificate.',
   },
   {
     question: 'Where is the final round held?',
@@ -153,7 +153,6 @@ FeatureCard.displayName = 'FeatureCard';
 const About = () => {
   return (
     <PageTransition>
-      {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 grid-overlay opacity-20" />
         <div className="container mx-auto px-4 relative">
@@ -173,7 +172,7 @@ const About = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-              UDBHAV is India's First Inter-IIIT Hackathon, an open hackathon to involve all domains 
+              UDBHAV is India's First Inter-IIIT Hackathon, an open hackathon to involve domains 
               of the ever-growing IT World. Teams from different IIITs can choose their respective 
               domains and problem statements, allowing their best form to come out to the world.
             </p>
@@ -192,7 +191,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-16 relative">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -215,12 +213,11 @@ const About = () => {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
-          <SectionHeading 
-            title="What Makes UDBHAV Special" 
-            subtitle="A platform for innovation, collaboration, and excellence" 
+          <SectionHeading
+            title="What Makes UDBHAV Special"
+            subtitle="A platform for innovation, collaboration, and excellence"
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
@@ -230,7 +227,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Mission Section */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-overlay opacity-20" />
         <div className="container mx-auto px-4 relative">
@@ -248,9 +244,9 @@ const About = () => {
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold mb-4">Our Mission</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                  To create a unified platform where the brightest minds from all IIITs across India 
+                  To create a unified platform where the brightest minds from IIITs across India 
                   can collaborate, innovate, and push the boundaries of technology. UDBHAV aims to 
-                  foster a culture of innovation while building lasting connections across institutions.
+                  invoke a culture of innovation while building lasting connections across institutions.
                 </p>
               </GlassCard>
             </motion.div>
@@ -258,12 +254,11 @@ const About = () => {
         </div>
       </section>
 
-      {/* Timeline Section */}
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
-          <SectionHeading 
-            title="Event Timeline" 
-            subtitle="Your journey from selection to the grand finale" 
+          <SectionHeading
+            title="Event Timeline"
+            subtitle="Your journey from selection to the grand finale"
           />
           <div className="max-w-3xl mx-auto">
             <div className="relative">
@@ -279,11 +274,10 @@ const About = () => {
                   transition={{ delay: index * 0.15, duration: 0.4 }}
                   className="relative pl-16 sm:pl-20 pb-10 last:pb-0"
                 >
-                  <div className={`absolute left-2 sm:left-4 w-8 h-8 rounded-full flex items-center justify-center ${
-                    item.highlight 
-                      ? 'bg-gradient-to-br from-yellow-400 to-amber-600 ring-2 ring-yellow-400/50' 
+                  <div className={`absolute left-2 sm:left-4 w-8 h-8 rounded-full flex items-center justify-center ${item.highlight
+                      ? 'bg-gradient-to-br from-yellow-400 to-amber-600 ring-2 ring-yellow-400/50'
                       : 'bg-gradient-to-br from-primary to-accent'
-                  }`}>
+                    }`}>
                     <item.icon className="w-4 h-4 text-primary-foreground" />
                   </div>
                   <GlassCard glow={item.highlight ? 'secondary' : 'primary'} className={item.highlight ? 'border-yellow-400/30' : ''}>
@@ -305,13 +299,12 @@ const About = () => {
         </div>
       </section>
 
-      {/* Organizing Team Section */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-overlay opacity-20" />
         <div className="container mx-auto px-4 relative">
-          <SectionHeading 
-            title="Organizing Committee" 
-            subtitle="The team behind UDBHAV from IIIT Sri City" 
+          <SectionHeading
+            title="Organizing Committee"
+            subtitle="The team behind UDBHAV from IIIT Sri City"
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
             {organizingTeam.map((member, index) => (
@@ -336,12 +329,11 @@ const About = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
-          <SectionHeading 
-            title="Frequently Asked Questions" 
-            subtitle="Everything you need to know about UDBHAV" 
+          <SectionHeading
+            title="Frequently Asked Questions"
+            subtitle="Everything you need to know about UDBHAV"
           />
           <motion.div
             initial="hidden"
@@ -360,8 +352,8 @@ const About = () => {
               </div>
               <Accordion type="single" collapsible className="space-y-2">
                 {faqs.map((faq, index) => (
-                  <AccordionItem 
-                    key={index} 
+                  <AccordionItem
+                    key={index}
                     value={`faq-${index}`}
                     className="border border-border/50 rounded-lg px-4 data-[state=open]:bg-card/50"
                   >
@@ -379,7 +371,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
           <motion.div
@@ -395,7 +386,7 @@ const About = () => {
               <Rocket className="w-12 h-12 mx-auto mb-4 text-primary" />
               <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Join UDBHAV?</h2>
               <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                Be part of India's first Inter-IIIT Hackathon. Connect with your local IIIT tech club 
+                Be part of India's first Inter-IIIT Hackathon. Connect with your local IIIT tech club
                 to participate in the intra-IIIT selection rounds.
               </p>
               <div className="flex flex-wrap justify-center gap-4">

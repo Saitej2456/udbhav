@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Play, Users } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
-// Assuming these components exist based on your previous code
 import SectionHeading from '@/components/SectionHeading'; 
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,7 @@ import { Button } from '@/components/ui/button';
 const projects = [
   {
     id: 1,
-    name: 'Problem Statement: 2',
+    name: 'Bhumi',
     team: 'DAOMINATORS',
     iiit: 'IIIT Allahabad',
     description: '',
@@ -31,7 +30,7 @@ const projects = [
   },
   {
     id: 3,
-    name: 'Problem Statement: 1',
+    name: 'GenAI-Powered Clinical Note Summarization and Hypothesis Generation',
     team: 'Nocturnal_Code',
     iiit: 'IIIT Kurnool',
     description: '',
@@ -53,7 +52,7 @@ const projects = [
   },
   {
     id: 5,
-    name: 'Problem Statement: 1',
+    name: 'E-parchi',
     team: 'Kaizen',
     iiit: 'IIIT Manipur',
     description: '',
@@ -64,7 +63,7 @@ const projects = [
   },
   {
     id: 6,
-    name: 'Problem Statement: 1',
+    name: 'Med-Insight-AI',
     team: 'Zero-Deadlock',
     iiit: 'IIIT Raichur',
     description: '',
@@ -97,7 +96,7 @@ const projects = [
   },
   {
     id: 9,
-    name: 'Problem Statement: 2',
+    name: 'Divflow',
     team: 'DivFlow',
     iiit: 'IIIT Vadodara-ICD',
     description: '',
@@ -119,7 +118,7 @@ const projects = [
   },
   {
     id: 11,
-    name: 'Problem Statement: 1',
+    name: 'NodeHealth',
     team: 'Team notFound',
     iiit: 'IIIT Bhagalpur',
     description: '',
@@ -163,7 +162,7 @@ const projects = [
   },
   {
     id: 15,
-    name: 'Problem Statement: 2',
+    name: 'LandTrust',
     team: 'DBDT',
     iiit: 'IIIT Surat',
     description: '',
@@ -185,7 +184,7 @@ const projects = [
   },
   {
     id: 17,
-    name: 'Problem Statement: 1',
+    name: 'NeoMed',
     team: 'PromptOps',
     iiit: 'IIIT Una',
     description: '',
@@ -196,7 +195,7 @@ const projects = [
   },
   {
     id: 18,
-    name: 'Problem Statement: 3',
+    name: 'SecureEdge',
     team: 'Techtonics_IIITA',
     iiit: 'IIIT Agartala',
     description: '',
@@ -229,7 +228,7 @@ const projects = [
   },
   {
     id: 21,
-    name: 'Problem Statement: 1',
+    name: 'Medora',
     team: 'Neuronix',
     iiit: 'IIIT Nagpur',
     description: '',
@@ -240,7 +239,7 @@ const projects = [
   },
   {
     id: 22,
-    name: 'Problem Statement: 2',
+    name: 'TitleVault',
     team: 'Zodiac Z408',
     iiit: 'IIIT Vadodara',
     description: '',
