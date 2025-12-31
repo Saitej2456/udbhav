@@ -726,6 +726,7 @@ const IIITProfile = () => {
           >
             <GlassCard className="overflow-hidden" glow={isOrganizing ? 'primary' : 'none'}>
               {/* Image Gallery */}
+              {iiit.images.length > 0 ? (
               <div className="relative h-64 md:h-80 lg:h-96 overflow-hidden">
                 <motion.img
                   key={activeImage}
@@ -739,6 +740,7 @@ const IIITProfile = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 
                 {/* Image Thumbnails */}
+                {iiit.images.length > 1 && (
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                   {iiit.images.map((img, index) => (
                     <button
@@ -754,6 +756,7 @@ const IIITProfile = () => {
                     </button>
                   ))}
                 </div>
+                )}
 
                 {/* Badges */}
                 {isOrganizing && (
@@ -767,6 +770,25 @@ const IIITProfile = () => {
                   </div>
                 )}
               </div>
+              ) : (
+                <div className="relative h-64 md:h-80 lg:h-96 overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <Building className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+                    <p className="text-muted-foreground">Campus images coming soon</p>
+                  </div>
+                  {/* Badges */}
+                  {isOrganizing && (
+                    <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+                      <span className="px-3 py-1 text-xs font-medium bg-primary/90 text-primary-foreground rounded-full backdrop-blur-sm">
+                        Organizing Institute
+                      </span>
+                      <span className="px-3 py-1 text-xs font-medium bg-yellow-500/90 text-yellow-950 rounded-full backdrop-blur-sm">
+                        Final Venue
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Content */}
               <div className="p-6 md:p-8">
@@ -967,6 +989,7 @@ const IIITProfile = () => {
               </motion.div>
 
               {/* Image Gallery Preview */}
+              {iiit.images.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -991,6 +1014,7 @@ const IIITProfile = () => {
                   </div>
                 </GlassCard>
               </motion.div>
+              )}
             </div>
           </div>
         </div>
