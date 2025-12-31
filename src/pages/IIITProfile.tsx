@@ -6,60 +6,6 @@ import PageTransition from '@/components/PageTransition';
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
 
-// Import all IIIT images
-import SriCity1 from '@/assets/photos/SriCity1.jpg';
-import SriCity2 from '@/assets/photos/SriCity2.jpg';
-import SriCity3 from '@/assets/photos/SriCity3.jpg';
-import Agartala1 from '@/assets/photos/Agartala1.jpg';
-import Agartala2 from '@/assets/photos/Agartala2.jpg';
-import Agartala3 from '@/assets/photos/Agartala3.jpg';
-import Allahabad1 from '@/assets/photos/Allahabad1.jpg';
-import Allahabad2 from '@/assets/photos/Allahabad2.jpg';
-import Allahabad3 from '@/assets/photos/Allahabad3.jpg';
-import Dharwad1 from '@/assets/photos/Dharwad1.jpg';
-import Dharwad2 from '@/assets/photos/Dharwad2.jpg';
-import Dharwad3 from '@/assets/photos/Dharwad3.jpg';
-import Tiruchy1 from '@/assets/photos/Tiruchy1.jpg';
-import Tiruchy2 from '@/assets/photos/Tiruchy2.jpg';
-import Tiruchy3 from '@/assets/photos/Tiruchy3.jpg';
-import Una1 from '@/assets/photos/Una1.jpg';
-import Una2 from '@/assets/photos/Una2.jpg';
-import Una3 from '@/assets/photos/Una3.jpg';
-import Kalyani1 from '@/assets/photos/Kalyani1.png';
-import Kalyani2 from '@/assets/photos/Kalyani2.png';
-import Kalyani3 from '@/assets/photos/Kalyani3.png';
-import Sonepat1 from '@/assets/photos/Sonepat1.jpg';
-import Sonepat2 from '@/assets/photos/Sonepat2.jpg';
-import Sonepat3 from '@/assets/photos/Sonepat3.jpg';
-import Kottayam1 from '@/assets/photos/Kottayam1.jpeg';
-import Kottayam2 from '@/assets/photos/Kottayam2.jpeg';
-import Kottayam3 from '@/assets/photos/Kottayam3.jpeg';
-import Bhopal1 from '@/assets/photos/Bhopal1.jpg';
-import Bhopal2 from '@/assets/photos/Bhopal2.jpg';
-import Bhopal3 from '@/assets/photos/Bhopal3.jpg';
-import Vadodara1 from '@/assets/photos/Vadodara1.jpg';
-import Vadodara2 from '@/assets/photos/Vadodara2.jpg';
-import Vadodara3 from '@/assets/photos/Vadodara3.jpg';
-import Surat1 from '@/assets/photos/Surat1.jpg';
-import Surat2 from '@/assets/photos/Surat2.jpg';
-import Surat3 from '@/assets/photos/Surat3.jpg';
-import NayaRaipur1 from '@/assets/photos/NayaRaipur1.jpg';
-import NayaRaipur2 from '@/assets/photos/NayaRaipur2.jpg';
-import NayaRaipur3 from '@/assets/photos/NayaRaipur3.jpg';
-import Bhagalpur1 from '@/assets/photos/Bhagalpur1.jpg';
-import Bhagalpur2 from '@/assets/photos/Bhagalpur2.jpg';
-import Bhagalpur3 from '@/assets/photos/Bhagalpur3.jpg';
-import Bhubaneshwar1 from '@/assets/photos/Bhubaneshwar1.jpg';
-import Bhubaneshwar2 from '@/assets/photos/Bhubaneshwar2.jpg';
-import Bhubaneshwar3 from '@/assets/photos/Bhubaneshwar3.jpg';
-import Kota1 from '@/assets/photos/Kota1.png';
-import Kota2 from '@/assets/photos/Kota2.png';
-import Kota3 from '@/assets/photos/Kota3.png';
-import ICD1 from '@/assets/photos/ICD1.jpg';
-import ICD2 from '@/assets/photos/ICD2.jpg';
-import ICD3 from '@/assets/photos/ICD3.jpg';
-import Nagpur1 from '@/assets/photos/Nagpur1.jpg';
-
 // Comprehensive IIIT data with all details
 const iiitDetails: Record<string, {
   name: string;
@@ -106,7 +52,7 @@ const iiitDetails: Record<string, {
       instagram: 'enigmaiiits',
       linkedin: 'https://www.linkedin.com/company/enigmaiiits/',
     },
-    images: [SriCity1, SriCity2, SriCity3],
+    images: ["/photos/SriCity1.jpg", "/photos/SriCity2.jpg", "/photos/SriCity3.jpg"],
   },
   'iiit-agartala': {
     name: 'IIIT Agartala',
@@ -132,7 +78,7 @@ const iiitDetails: Record<string, {
       instagram: 'gdgiiitagartala',
       linkedin: 'https://www.linkedin.com/company/gdg-iiit-agartala/',
     },
-    images: [Agartala1, Agartala2, Agartala3],
+    images: ["/photos/Agartala1.jpg", "/photos/Agartala2.jpg", "/photos/Agartala3.jpg"],
   },
   'iiit-allahabad': {
     name: 'IIIT Allahabad',
@@ -158,7 +104,7 @@ const iiitDetails: Record<string, {
       instagram: '',
       linkedin: '',
     },
-    images: [Allahabad1, Allahabad2, Allahabad3],
+    images: ["/photos/Allahabad1.jpg", "/photos/Allahabad2.jpg", "/photos/Allahabad3.jpg"],
   },
   'iiit-dharwad': {
     name: 'IIIT Dharwad',
@@ -184,7 +130,7 @@ const iiitDetails: Record<string, {
       instagram: 'dsai_iiitdwd',
       linkedin: 'https://www.linkedin.com/company/dsai-society-iiit-dharwad/',
     },
-    images: [Dharwad1, Dharwad2, Dharwad3],
+    images: ["/photos/Dharwad1.jpg", "/photos/Dharwad2.jpg", "/photos/Dharwad3.jpg"],
   },
   'iiit-tiruchirappalli': {
     name: 'IIIT Tiruchirappalli',
@@ -210,7 +156,7 @@ const iiitDetails: Record<string, {
       instagram: '',
       linkedin: '',
     },
-    images: [Tiruchy1, Tiruchy2, Tiruchy3],
+    images: ["/photos/Tiruchy1.jpg", "/photos/Tiruchy2.jpg", "/photos/Tiruchy3.jpg"],
   },
   'iiit-una': {
     name: 'IIIT Una',
@@ -236,7 +182,7 @@ const iiitDetails: Record<string, {
       instagram: 'force.iiitu',
       linkedin: 'https://www.linkedin.com/company/force-iiitu/',
     },
-    images: [Una1, Una2, Una3],
+    images: ["/photos/Una1.jpg", "/photos/Una2.jpg", "/photos/Una3.jpg"],
   },
   'iiit-kalyani': {
     name: 'IIIT Kalyani',
@@ -262,7 +208,7 @@ const iiitDetails: Record<string, {
       instagram: 'iiitkalyani_gymkhana',
       linkedin: 'https://www.linkedin.com/company/gymkhana-iiit-kalyani/',
     },
-    images: [Kalyani1, Kalyani2, Kalyani3],
+    images: ["/photos/Kalyani1.png", "/photos/Kalyani2.png", "/photos/Kalyani3.png"],
   },
   'iiit-sonepat': {
     name: 'IIIT Sonepat',
@@ -288,7 +234,7 @@ const iiitDetails: Record<string, {
       instagram: '',
       linkedin: '',
     },
-    images: [Sonepat1, Sonepat2, Sonepat3],
+    images: ["/photos/Sonepat1.jpg", "/photos/Sonepat2.jpg", "/photos/Sonepat3.jpg"],
   },
   'iiit-kottayam': {
     name: 'IIIT Kottayam',
@@ -314,7 +260,7 @@ const iiitDetails: Record<string, {
       instagram: 'betalabs_iiitk',
       linkedin: 'https://www.linkedin.com/company/betalabs-iiitkottayam/',
     },
-    images: [Kottayam1, Kottayam2, Kottayam3],
+    images: ["/photos/Kottayam1.jpeg", "/photos/Kottayam2.jpeg", "/photos/Kottayam3.jpeg"],
   },
   'iiitdm-kurnool': {
     name: 'IIITDM Kurnool',
@@ -366,7 +312,7 @@ const iiitDetails: Record<string, {
       instagram: '',
       linkedin: '',
     },
-    images: [Bhopal1, Bhopal2, Bhopal3],
+    images: ["/photos/Bhopal1.jpg", "/photos/Bhopal2.jpg", "/photos/Bhopal3.jpg"],
   },
   'iiit-vadodara': {
     name: 'IIIT Vadodara',
@@ -392,7 +338,7 @@ const iiitDetails: Record<string, {
       instagram: 'codingclub_iiitv',
       linkedin: 'https://www.linkedin.com/company/iiitvcc/',
     },
-    images: [Vadodara1, Vadodara2, Vadodara3],
+    images: ["/photos/Vadodara1.jpg", "/photos/Vadodara2.jpg", "/photos/Vadodara3.jpg"],
   },
   'iiit-manipur': {
     name: 'IIIT Manipur',
@@ -444,7 +390,7 @@ const iiitDetails: Record<string, {
       instagram: 'gdg_iiitsurat',
       linkedin: 'https://www.linkedin.com/company/dsc-iiitsurat/',
     },
-    images: [Surat1, Surat2, Surat3],
+    images: ["/photos/Surat1.jpg", "/photos/Surat2.jpg", "/photos/Surat3.jpg"],
   },
   'iiit-naya-raipur': {
     name: 'IIIT Naya Raipur',
@@ -470,7 +416,7 @@ const iiitDetails: Record<string, {
       instagram: '',
       linkedin: '',
     },
-    images: [NayaRaipur1, NayaRaipur2, NayaRaipur3],
+    images: ["/photos/NayaRaipur1.jpg", "/photos/NayaRaipur2.jpg", "/photos/NayaRaipur3.jpg"],
   },
   'iiit-raichur': {
     name: 'IIIT Raichur',
@@ -522,7 +468,7 @@ const iiitDetails: Record<string, {
       instagram: '',
       linkedin: '',
     },
-    images: [Bhagalpur1, Bhagalpur2, Bhagalpur3],
+    images: ["/photos/Bhagalpur1.jpg", "/photos/Bhagalpur2.jpg", "/photos/Bhagalpur3.jpg"],
   },
   'iiit-kota': {
     name: 'IIIT Kota',
@@ -548,7 +494,7 @@ const iiitDetails: Record<string, {
       instagram: '',
       linkedin: '',
     },
-    images: [Kota1 , Kota2, Kota3],
+    images: ["/photos/Kota1.png", "/photos/Kota2.png", "/photos/Kota3.png"],
   },
   'iiit-bhubaneshwar': {
     name: 'IIIT Bhubaneshwar',
@@ -574,7 +520,7 @@ const iiitDetails: Record<string, {
       instagram: '',
       linkedin: '',
     },
-    images: [Bhubaneshwar1, Bhubaneshwar2, Bhubaneshwar3],
+    images: ["/photos/Bhubaneshwar1.jpg", "/photos/Bhubaneshwar2.jpg", "/photos/Bhubaneshwar3.jpg"],
   },
   'iiitdm-kancheepuram': {
     name: 'IIITDM Kancheepuram',
@@ -626,7 +572,7 @@ const iiitDetails: Record<string, {
       instagram: 'technical_iiitvcd',
       linkedin: 'https://www.linkedin.com/company/technical-committee-iiitv/',
     },
-    images: [ICD1, ICD2, ICD3],
+    images: ["/photos/ICD1.jpg", "/photos/ICD2.jpg", "/photos/ICD3.jpg"],
   },
   'iiit-nagpur': {
     name: 'IIIT Nagpur',
@@ -652,7 +598,7 @@ const iiitDetails: Record<string, {
       instagram: 'crispr_iiitn',
       linkedin: 'https://www.linkedin.com/company/crispr-iiit-nagpur/',
     },
-    images: [Nagpur1],
+    images: ["/photos/Nagpur1.jpg"],
   },
   'iiit-delhi': {
     name: 'IIIT Delhi',
@@ -709,7 +655,7 @@ const iiitDetails: Record<string, {
 };
 
 // Default IIIT data for IIITs not in the detailed list
-const defaultImages = [SriCity1, SriCity2, SriCity3];
+const defaultImages = ["/photos/SriCity1.jpg", "/photos/SriCity2.jpg", "/photos/SriCity3.jpg"];
 
 const getDefaultIIIT = (id: string) => {
   const formattedName = id?.replace('iiit-', '').replace(/-/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') || 'Unknown';
