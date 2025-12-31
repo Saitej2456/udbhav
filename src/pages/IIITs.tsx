@@ -145,7 +145,7 @@ const IIITs = () => {
                         <div className="flex flex-col md:flex-row items-center gap-6">
                           <div className="w-24 h-24 rounded-2xl bg-white/95 flex items-center justify-center group-hover:scale-110 transition-transform p-2 overflow-hidden">
                             <img 
-                              src="/src/assets/photos/iiit sri city.png" 
+                              src="/photos/iiit sri city.png" 
                               alt="IIIT Sri City logo"
                               className="w-full h-full object-contain"
                             />
@@ -221,28 +221,28 @@ const IIITs = () => {
                   {otherIIITs.map((iiit, index) => {
                     // Map IIIT logos
                     const logoMap: Record<string, string> = {
-                      'iiit-agartala': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Agartala_Logo.png',
-                      'iiit-allahabad': '/src/assets/photos/IIIT_allahabad.png',
-                      'iiit-bhagalpur': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Bhagalpur_logo.png',
-                      'iiit-bhopal': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Bhopal_Logo.png',
-                      'iiit-bhubaneshwar': '/src/assets/photos/IIIT_Bhubaneswar_Logo.png',
-                      'iiit-dharwad': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Dharwad_Logo.svg.png',
-                      'iiit-kota': '/src/assets/photos/iiitkota.png',
-                      'iiit-kottayam': '/src/assets/photos/iiit kottayam.jpg',
-                      'iiit-manipur': '/src/assets/photos/IIIT_Manipur.png',
-                      'iiit-naya-raipur': '/src/assets/photos/iiit naya raipur.jpg',
-                      'iiit-raichur': '/src/assets/photos/IIIT Raichur.png',
-                      'iiit-sonepat': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Sonepat_logo.png',
-                      'iiit-surat': '/src/assets/photos/IIIT_Surat_logo.jpg',
-                      'iiit-tiruchirappalli': '/src/assets/photos/iiit trichy.png',
-                      'iiit-una': '/src/assets/photos/Indian_Institute_of_Information_Technology,_Una_logo.png',
-                      'iiit-vadodara': '/src/assets/photos/iiit vadodra.png',
-                      'iiitdm-kurnool': '/src/assets/photos/Indian_Institute_of_Information_Technology_Design_and_Manufacturing,_Kurnool_logo.png',
-                      'iiitv-icd': '/src/assets/photos/iiit vcd.png',
-                      'iiit-nagpur': '/src/assets/photos/iiit nagpur.png',
-                      'iiitdm-kancheepuram': '/src/assets/photos/iiitdm kancheepuram.png',
-                      'iiit-delhi': '/src/assets/photos/iiit delhi.png',
-                      'iiit-sri-city': '/src/assets/photos/iiit sri city.png',
+                      'iiit-agartala': '/photos/Indian_Institute_of_Information_Technology,_Agartala_Logo.png',
+                      'iiit-allahabad': '/photos/IIIT_allahabad.png',
+                      'iiit-bhagalpur': '/photos/Indian_Institute_of_Information_Technology,_Bhagalpur_logo.png',
+                      'iiit-bhopal': '/photos/Indian_Institute_of_Information_Technology,_Bhopal_Logo.png',
+                      'iiit-bhubaneshwar': '/photos/IIIT_Bhubaneswar_Logo.png',
+                      'iiit-dharwad': '/photos/Indian_Institute_of_Information_Technology,_Dharwad_Logo.svg.png',
+                      'iiit-kota': '/photos/iiitkota.png',
+                      'iiit-kottayam': '/photos/iiit kottayam.jpg',
+                      'iiit-manipur': '/photos/IIIT_Manipur.png',
+                      'iiit-naya-raipur': '/photos/iiit naya raipur.jpg',
+                      'iiit-raichur': '/photos/IIIT Raichur.png',
+                      'iiit-sonepat': '/photos/Indian_Institute_of_Information_Technology,_Sonepat_logo.png',
+                      'iiit-surat': '/photos/IIIT_Surat_logo.jpg',
+                      'iiit-tiruchirappalli': '/photos/iiit trichy.png',
+                      'iiit-una': '/photos/Indian_Institute_of_Information_Technology,_Una_logo.png',
+                      'iiit-vadodara': '/photos/iiit vadodra.png',
+                      'iiitdm-kurnool': '/photos/Indian_Institute_of_Information_Technology_Design_and_Manufacturing,_Kurnool_logo.png',
+                      'iiitv-icd': '/photos/iiit vcd.png',
+                      'iiit-nagpur': '/photos/iiit nagpur.png',
+                      'iiitdm-kancheepuram': '/photos/iiitdm kancheepuram.png',
+                      'iiit-delhi': '/photos/iiit delhi.png',
+                      'iiit-sri-city': '/photos/iiit sri city.png',
                     };
                     const logo = logoMap[iiit.id];
                     
