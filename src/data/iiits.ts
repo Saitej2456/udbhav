@@ -400,10 +400,17 @@ export const iiitsData: IIIT[] = [
     },
   },
   {
+<<<<<<< HEAD
     id: "iiitv-icd",
     name: "IIITV-ICD (Diu)",
     short: "IIITV-ICD",
     location: "Diu",
+=======
+    id: 'iiitv-icd',
+    name: 'IIITV-ICD Diu',
+    short: 'IIITV-ICD',
+    location: 'Diu',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     coordinates: [70.989, 20.714],
     established: 2017,
     students: 400,
@@ -478,5 +485,16 @@ export const iiitsData: IIIT[] = [
       instagram: "byld.iiitd",
       linkedin: "https://www.linkedin.com/company/byld-iiit-delhi/",
     },
+  },
+  {
+    id: 'iiit-pune',
+    name: 'IIIT Pune',
+    short: 'IIITP',
+    location: 'Pune, Maharashtra',
+    coordinates: [73.8567, 18.5204],
+    established: 2016,
+    students: 1500,
+    spoc: { name: 'Piyush Kulkarni', phone: '9405582136', email: '112316021@ece.iiitp.ac.in', department: '' },
+    club: { name: '', instagram: '', linkedin: '' },
   },
 ];

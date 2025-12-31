@@ -1,6 +1,10 @@
 node_modules/
 .history/
 
+
+.history
+.history/
+
 .vscode/
 .idea/
 .DS_Store
