@@ -61,7 +61,7 @@ const iiitDetails: Record<string, {
     established: 2018,
     students: 350,
     description: 'The Indian Institute of Information Technology, Agartala is one among the 20 IIITs established under the non-profit Public-Private Partnership (PPP) model. It is presently functioning inside the campus of NIT Agartala until the construction of a 52-acre permanent campus in Bodhjung Nagar near Agartala is completed.',
-    website: 'https://www.iiitagar.ac.in',
+    website: 'https://iiitagartala.ac.in/',
     achievements: [
       'Growing research in emerging technologies',
       'Strong focus on regional tech development',
@@ -100,9 +100,9 @@ const iiitDetails: Record<string, {
       poc: 'Naitik Jain',
     },
     club: {
-      name: 'Tech Club',
-      instagram: '',
-      linkedin: '',
+      name: 'Geekhaven',
+      instagram: 'geekhaven_iiita',
+      linkedin: 'https://www.linkedin.com/company/geekhaven-iiita/?originalSubdomain=in',
     },
     images: ["/photos/Allahabad1.jpg", "/photos/Allahabad2.jpg", "/photos/Allahabad3.jpg"],
   },
@@ -194,7 +194,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitkalyani.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -220,7 +220,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitsonepat.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -230,9 +230,9 @@ const iiitDetails: Record<string, {
       poc: 'Shivansh Agrawal',
     },
     club: {
-      name: '',
-      instagram: '',
-      linkedin: '',
+      name: 'Technical Society',
+      instagram: 'aglozenithiiitsonepat',
+      linkedin: 'https://www.linkedin.com/in/technical-society-iiit-sonepat-9331ab38b/?originalSubdomain=in',
     },
     images: ["/photos/Sonepat1.jpg", "/photos/Sonepat2.jpg", "/photos/Sonepat3.jpg"],
   },
@@ -246,7 +246,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitkottayam.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -272,7 +272,7 @@ const iiitDetails: Record<string, {
     website: 'https://iiitk.ac.in/',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -282,9 +282,9 @@ const iiitDetails: Record<string, {
       poc: 'Sujal Negi',
     },
     club: {
-      name: '',
-      instagram: '',
-      linkedin: '',
+      name: 'Dataworks (Coding Club)',
+      instagram: 'dataworks_iiitk',
+      linkedin: 'https://www.linkedin.com/company/dataworks-club-iiitdm-kurnool/?originalSubdomain=in',
     },
     images: [],
   },
@@ -298,7 +298,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitbhopal.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -308,9 +308,9 @@ const iiitDetails: Record<string, {
       poc: 'Darsh Dave',
     },
     club: {
-      name: '',
-      instagram: '',
-      linkedin: '',
+      name: 'Xploit',
+      instagram: 'xploit.iiitbhopal',
+      linkedin: 'https://www.linkedin.com/company/xploitiiitbhopal/?originalSubdomain=in',
     },
     images: ["/photos/Bhopal1.jpg", "/photos/Bhopal2.jpg", "/photos/Bhopal3.jpg"],
   },
@@ -324,7 +324,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitvadodara.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -350,7 +350,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitmanipur.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -376,7 +376,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitsurat.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -386,7 +386,7 @@ const iiitDetails: Record<string, {
       poc: 'Bhupendra Kumar',
     },
     club: {
-      name: 'GDG IIITSurat',
+      name: 'GDG IIIT Surat',
       instagram: 'gdg_iiitsurat',
       linkedin: 'https://www.linkedin.com/company/dsc-iiitsurat/',
     },
@@ -402,7 +402,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitnr.ac.in/',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -412,8 +412,8 @@ const iiitDetails: Record<string, {
       poc: 'Siddharth',
     },
     club: {
-      name: '',
-      instagram: '',
+      name: 'AIML',
+      instagram: 'aiml_iiitnr',
       linkedin: '',
     },
     images: ["/photos/NayaRaipur1.jpg", "/photos/NayaRaipur2.jpg", "/photos/NayaRaipur3.jpg"],
@@ -428,7 +428,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitr.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -454,7 +454,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitbh.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -464,9 +464,9 @@ const iiitDetails: Record<string, {
       poc: 'Ishaan Jha',
     },
     club: {
-      name: '',
-      instagram: '',
-      linkedin: '',
+      name: 'ECell',
+      instagram: 'ecell_iiitbh',
+      linkedin: 'https://www.linkedin.com/company/entrepreneurship-club-iiit-bhagalpur/?originalSubdomain=in',
     },
     images: ["/photos/Bhagalpur1.jpg", "/photos/Bhagalpur2.jpg", "/photos/Bhagalpur3.jpg"],
   },
@@ -480,7 +480,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitkota.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -490,9 +490,9 @@ const iiitDetails: Record<string, {
       poc: 'Sanidhya Madheshia',
     },
     club: {
-      name: '',
-      instagram: '',
-      linkedin: '',
+      name: 'CodeBase',
+      instagram: 'iiitkota_codebase',
+      linkedin: 'https://www.linkedin.com/company/codebase-iiitkota/?originalSubdomain=in',
     },
     images: ["/photos/Kota1.png", "/photos/Kota2.png", "/photos/Kota3.png"],
   },
@@ -506,7 +506,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiit-bh.ac.in/',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -516,9 +516,9 @@ const iiitDetails: Record<string, {
       poc: 'Shivansh Sisodia',
     },
     club: {
-      name: '',
-      instagram: '',
-      linkedin: '',
+      name: 'Tech Society',
+      instagram: 'techsociiitbh',
+      linkedin: 'https://www.linkedin.com/company/tech-society-iiitbh/?originalSubdomain=in',
     },
     images: ["/photos/Bhubaneshwar1.jpg", "/photos/Bhubaneshwar2.jpg", "/photos/Bhubaneshwar3.jpg"],
   },
@@ -532,7 +532,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitdm.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -558,7 +558,7 @@ const iiitDetails: Record<string, {
     website: 'http://diu.iiitvadodara.ac.in/',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -584,7 +584,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitn.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -610,7 +610,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitd.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -620,9 +620,9 @@ const iiitDetails: Record<string, {
       poc: 'Harsh',
     },
     club: {
-      name: '',
-      instagram: '',
-      linkedin: '',
+      name: 'BYLD',
+      instagram: 'byld.iiitd',
+      linkedin: 'https://www.linkedin.com/company/byld-iiit-delhi/?originalSubdomain=in',
     },
     images: [],
   },
@@ -636,7 +636,7 @@ const iiitDetails: Record<string, {
     website: 'https://www.iiitp.ac.in',
     achievements: [
       'Growing research output',
-      'Active coding community (FORCE)',
+      'Active coding community',
       'Industry partnerships',
       'Strong alumni network',
     ],
@@ -646,9 +646,9 @@ const iiitDetails: Record<string, {
       poc: 'Piyush Kulkarni',
     },
     club: {
-      name: '',
-      instagram: '',
-      linkedin: '',
+      name: 'LocalHost',
+      instagram: 'localhost_iiitp',
+      linkedin: 'https://www.linkedin.com/company/localhost-iiitp/',
     },
     images: [],
   },
@@ -679,7 +679,7 @@ const getDefaultIIIT = (id: string) => {
       poc: 'IIIT Coordinator',
     },
     club: {
-      name: 'Tech Club',
+      name: '', 
       instagram: '',
       linkedin: '',
     },
@@ -873,7 +873,7 @@ const IIITProfile = () => {
                 <GlassCard glow="secondary">
                   <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
                     <Building className="w-6 h-6 text-secondary" />
-                    Tech Club: {iiit.club.name}
+                    Tech Club/Society: {iiit.club.name}
                   </h2>
                   <p className="text-muted-foreground mb-4">
                     The official tech club representing {iiit.name} at UDBHAV 2025.
@@ -977,7 +977,7 @@ const IIITProfile = () => {
                       { label: 'Established', value: iiit.established },
                       { label: 'Total Students', value: `${iiit.students}+` },
                       { label: 'State', value: iiit.state },
-                      { label: 'Tech Club', value: iiit.club.name },
+                      { label: 'Tech Club/Society', value: iiit.club.name },
                     ].map((item) => (
                       <div key={item.label} className="flex justify-between items-center py-2 border-b border-border/50 last:border-0">
                         <span className="text-muted-foreground">{item.label}</span>
