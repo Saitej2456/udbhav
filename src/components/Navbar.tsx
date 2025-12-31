@@ -12,7 +12,7 @@ const navLinks = [
   { name: 'Leaderboard', path: '/leaderboard/round-2', icon: Trophy },
   { name: 'Projects', path: '/projects', icon: FolderKanban },
   { name: 'Teams', path: '/teams', icon: Users },
-  { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+  //{ name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
 ];
 
 const Navbar = () => {
