@@ -1,100 +1,145 @@
-import { useState, useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { MapPin, Calendar, Users, Globe, Mail, Phone, ArrowLeft, Award, BookOpen, Instagram, Linkedin, Building } from 'lucide-react';
-import PageTransition from '@/components/PageTransition';
-import GlassCard from '@/components/GlassCard';
-import { Button } from '@/components/ui/button';
+import { useState, useMemo } from "react";
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  MapPin,
+  Calendar,
+  Users,
+  Globe,
+  Mail,
+  Phone,
+  ArrowLeft,
+  Award,
+  BookOpen,
+  Instagram,
+  Linkedin,
+  Building,
+} from "lucide-react";
+import PageTransition from "@/components/PageTransition";
+import GlassCard from "@/components/GlassCard";
+import { Button } from "@/components/ui/button";
+import { iiitsData } from "@/data/iiits";
+
+// Import IIIT images
+import iiitAgartala1 from "@/assets/photos/iiit-agartala-1.jpg";
+import iiitAgartala2 from "@/assets/photos/iiit-agartala-2.jpg";
+import iiitAllahabad from "@/assets/photos/iiit-allahabad.jpg";
+import iiitDharwad from "@/assets/photos/iiit-dharwad.jpg";
+import iiitSriCity from "@/assets/photos/iiit-sri-city.jpg";
+import iiitTrichy from "@/assets/photos/iiit-trichy.jpg";
+import iiitUna from "@/assets/photos/iiit-una.jpg";
+import classroom1 from "@/assets/photos/classroom-1.jpg";
+import classroom2 from "@/assets/photos/classroom-2.jpg";
+import hackathon1 from "@/assets/photos/hackathon-1.jpg";
 
 // Comprehensive IIIT data with all details
-const iiitDetails: Record<string, {
-  name: string;
-  location: string;
-  state: string;
-  established: number;
-  students: number;
-  description: string;
-  website: string;
-  achievements: string[];
-  contact: {
-    email: string;
-    phone: string;
-    poc: string;
-  };
-  club: {
+const iiitDetails: Record<
+  string,
+  {
     name: string;
-    instagram: string;
-    linkedin: string;
-  };
-  images: string[];
-}> = {
-  'iiit-sri-city': {
-    name: 'IIIT Sri City',
-    location: 'Sri City, Chittoor District',
-    state: 'Andhra Pradesh',
+    location: string;
+    state: string;
+    established: number;
+    students: number;
+    description: string;
+    website: string;
+    achievements: string[];
+    contact: {
+      email: string;
+      phone: string;
+      poc: string;
+    };
+    club: {
+      name: string;
+      instagram: string;
+      linkedin: string;
+    };
+    images: string[];
+  }
+> = {
+  "iiit-sri-city": {
+    name: "IIIT Sri City",
+    location: "Sri City, Chittoor District",
+    state: "Andhra Pradesh",
     established: 2013,
     students: 900,
     description: 'The Indian Institute of Information Technology, Sri City is an educational institute of national importance located in Sri City, Tirupati district, Andhra Pradesh, India. It was created by the Ministry of Human Resource Development, Government of India, under a partnership with the Andhra Pradesh Government and Sri City consortium. The IIIT campus at Sri City is spread over 80 acres (32 ha). The institute is run by the Board of Governors of the IIIT Society. The Board of Governors include representatives of MHRD, GoAP, and Industry Partners as well as eminent people from academia, industry, and civil society.',
     website: 'https://www.iiits.ac.in',
     achievements: [
-      'Organizing Institute for UDBHAV 2025',
-      'Strong industry partnerships with top tech companies',
-      'Research excellence in AI/ML and Data Science',
-      'Active entrepreneurship ecosystem',
+      "Organizing Institute for UDBHAV 2025",
+      "Strong industry partnerships with top tech companies",
+      "Research excellence in AI/ML and Data Science",
+      "Active entrepreneurship ecosystem",
     ],
     contact: {
-      email: 'udbhav@iiits.ac.in',
-      phone: '8790327970',
-      poc: 'Sripathy Siddartha',
+      email: "udbhav@iiits.ac.in",
+      phone: "8790327970",
+      poc: "Sripathy Siddartha",
     },
     club: {
-      name: 'ENIGMA',
-      instagram: 'enigmaiiits',
-      linkedin: 'https://www.linkedin.com/company/enigmaiiits/',
+      name: "ENIGMA",
+      instagram: "enigmaiiits",
+      linkedin: "https://www.linkedin.com/company/enigmaiiits/",
     },
     images: ["/photos/SriCity1.jpg", "/photos/SriCity2.jpg", "/photos/SriCity3.jpg"],
   },
-  'iiit-agartala': {
-    name: 'IIIT Agartala',
-    location: 'Agartala',
-    state: 'Tripura',
+  "iiit-agartala": {
+    name: "IIIT Agartala",
+    location: "Agartala",
+    state: "Tripura",
     established: 2018,
     students: 350,
     description: 'The Indian Institute of Information Technology, Agartala is one among the 20 IIITs established under the non-profit Public-Private Partnership (PPP) model. It is presently functioning inside the campus of NIT Agartala until the construction of a 52-acre permanent campus in Bodhjung Nagar near Agartala is completed.',
     website: 'https://iiitagartala.ac.in/',
     achievements: [
-      'Growing research in emerging technologies',
-      'Strong focus on regional tech development',
-      'Active coding community',
-      'Industry collaborations',
+      "Growing research in emerging technologies",
+      "Strong focus on regional tech development",
+      "Active coding community",
+      "Industry collaborations",
     ],
     contact: {
-      email: 'Srishant054@gmail.com',
-      phone: '9471649526',
-      poc: 'Srishant Kumar',
+      email: "info@iiitagar.ac.in",
+      phone: "9471649526",
+      poc: "Srishant Kumar",
     },
     club: {
-      name: 'GDG IIIT Agartala',
-      instagram: 'gdgiiitagartala',
-      linkedin: 'https://www.linkedin.com/company/gdg-iiit-agartala/',
+      name: "GDG IIIT Agartala",
+      instagram: "gdgiiitagartala",
+      linkedin: "https://www.linkedin.com/company/gdg-iiit-agartala/",
     },
     images: ["/photos/Agartala1.jpg", "/photos/Agartala2.jpg", "/photos/Agartala3.jpg"],
   },
-  'iiit-allahabad': {
-    name: 'IIIT Allahabad',
-    location: 'Jhalwa, Prayagraj',
-    state: 'Uttar Pradesh',
+  "iiit-allahabad": {
+    name: "IIIT Allahabad",
+    location: "Jhalwa, Prayagraj",
+    state: "Uttar Pradesh",
     established: 1999,
     students: 3000,
+<<<<<<< HEAD
+    description:
+      "IIIT Allahabad is one of the oldest and most prestigious IIITs in India. Established in 1999, it has been a pioneer in IT education and research. The institute is known for its strong academic programs, world-class faculty, and excellent placement record.",
+    website: "https://www.iiita.ac.in",
+=======
     description: 'The Indian Institute of Information Technology, Allahabad (IIIT Allahabad) is a premier public university located in Jhalwa, Prayagraj (previously known as Allahabad), in Uttar Pradesh. It is one of the twenty-five Indian Institutes of Information Technology listed by the Ministry of Education (India).',
     website: 'https://www.iiita.ac.in',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     achievements: [
-      'Among the top IIITs in India',
-      'Excellent placement record with top companies',
-      'Strong research output in AI, Cybersecurity',
-      'Alumni in leadership positions globally',
+      "Among the top IIITs in India",
+      "Excellent placement record with top companies",
+      "Strong research output in AI, Cybersecurity",
+      "Alumni in leadership positions globally",
     ],
     contact: {
+<<<<<<< HEAD
+      email: "coordinator@iiita.ac.in",
+      phone: "7248119726",
+      poc: "Naitik Jain",
+    },
+    club: {
+      name: "Geekhaven",
+      instagram: "geekhaven_iiita",
+      linkedin: "https://www.linkedin.com/company/geekhaven-iiita",
+=======
       email: 'iib2023036@iiita.ac.in',
       phone: '7248119726',
       poc: 'Naitik Jain',
@@ -103,84 +148,121 @@ const iiitDetails: Record<string, {
       name: 'Geekhaven',
       instagram: 'geekhaven_iiita',
       linkedin: 'https://www.linkedin.com/company/geekhaven-iiita/?originalSubdomain=in',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     },
     images: ["/photos/Allahabad1.jpg", "/photos/Allahabad2.jpg", "/photos/Allahabad3.jpg"],
   },
-  'iiit-dharwad': {
-    name: 'IIIT Dharwad',
-    location: 'Dharwad',
-    state: 'Karnataka',
+  "iiit-dharwad": {
+    name: "IIIT Dharwad",
+    location: "Dharwad",
+    state: "Karnataka",
     established: 2015,
     students: 500,
+<<<<<<< HEAD
+    description:
+      "IIIT Dharwad is a leading technical institute in Karnataka, established in 2015. The institute focuses on cutting-edge research in data science, AI, and related fields, contributing to the growth of the IT sector in the region.",
+    website: "https://www.iiitdwd.ac.in",
+=======
     description: 'The Indian Institute of Information Technology, Dharwad (IIIT Dharwad) is an Institute of National Importance set up under a non-profit, Public-Private-Partnership (PPP) model by the Ministry of Education (India). It is an academic and research institute funded by the Government of India, the Government of Karnataka and industry partner KEONICS.',
     website: 'https://www.iiitdwd.ac.in',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     achievements: [
-      'Strong DSAI research focus',
-      'Industry-academia collaborations',
-      'Growing placement record',
-      'Active tech community',
+      "Strong DSAI research focus",
+      "Industry-academia collaborations",
+      "Growing placement record",
+      "Active tech community",
     ],
     contact: {
+<<<<<<< HEAD
+      email: "info@iiitdwd.ac.in",
+      phone: "6263786699",
+      poc: "Savya Sanchi Sharma",
+=======
       email: 'savyasanchisharma.official@gmail.com',
       phone: '6263786699',
       poc: 'Savya Sanchi Sharma',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     },
     club: {
-      name: 'DSAI Society',
-      instagram: 'dsai_iiitdwd',
-      linkedin: 'https://www.linkedin.com/company/dsai-society-iiit-dharwad/',
+      name: "DSAI Society",
+      instagram: "dsai_iiitdwd",
+      linkedin: "https://www.linkedin.com/company/dsai-society-iiit-dharwad/",
     },
     images: ["/photos/Dharwad1.jpg", "/photos/Dharwad2.jpg", "/photos/Dharwad3.jpg"],
   },
-  'iiit-tiruchirappalli': {
-    name: 'IIIT Tiruchirappalli',
-    location: 'Tiruchirappalli',
-    state: 'Tamil Nadu',
+  "iiit-tiruchirappalli": {
+    name: "IIIT Tiruchirappalli",
+    location: "Tiruchirappalli",
+    state: "Tamil Nadu",
     established: 2013,
     students: 500,
+<<<<<<< HEAD
+    description:
+      "IIIT Tiruchirappalli is a prominent technical institute in Tamil Nadu established in 2013. Known for its robotics research and strong technical programs, it produces graduates who excel in both academia and industry.",
+    website: "https://www.iiitt.ac.in",
+=======
     description: 'The Indian Institute of Information Technology Tiruchirappalli (IIIT-T) is a higher education academic and research institute located in Tiruchirappalli, Tamil Nadu, India. It is one of the Indian Institutes of Information Technology (IIITs) established under the non-profit Public-Private Partnership and is funded by the Government of India, Government of Tamil Nadu and the Indian industry partners in the ratio of 50:35:15. Industry partners include Tata Consultancy Services (TCS), Cognizant Technology Solutions (CTS), Infosys, Ramco Systems, ELCOT, and Navitas (Take Solutions). Together with the other IIITs, it has been granted the status of Institute of National importance in 2017.',
     website: 'https://www.iiitt.ac.in',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     achievements: [
-      'Leading robotics research',
-      'Strong placement record',
-      'Industry partnerships',
-      'Active student clubs',
+      "Leading robotics research",
+      "Strong placement record",
+      "Industry partnerships",
+      "Active student clubs",
     ],
     contact: {
+<<<<<<< HEAD
+      email: "info@iiitt.ac.in",
+      phone: "7339889592",
+      poc: "Ayush Soni",
+=======
       email: 'Soniayush312@gmail.com',
       phone: '7339889592',
       poc: 'Ayush Soni',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     },
     club: {
-      name: 'Robotics Club',
-      instagram: '',
-      linkedin: '',
+      name: "Robotics Club",
+      instagram: "",
+      linkedin: "",
     },
     images: ["/photos/Tiruchy1.jpg", "/photos/Tiruchy2.jpg", "/photos/Tiruchy3.jpg"],
   },
-  'iiit-una': {
-    name: 'IIIT Una',
-    location: 'Una',
-    state: 'Himachal Pradesh',
+  "iiit-una": {
+    name: "IIIT Una",
+    location: "Una",
+    state: "Himachal Pradesh",
     established: 2014,
     students: 600,
+<<<<<<< HEAD
+    description:
+      "IIIT Una is located in the scenic hills of Himachal Pradesh. Established in 2014, it combines quality technical education with a serene learning environment. The institute is known for its focus on emerging technologies and strong student community.",
+    website: "https://www.iiitu.ac.in",
+=======
     description: 'The Indian Institute of Information Technology Una (IIIT, Una) is one of the Indian Institutes of Information Technology located at Vill. Saloh, Teh. Haroli, Distt. Una Himachal Pradesh-177209, Himachal Pradesh.. Established in 2014, it was recognized as an Institute of National Importance. IIIT Una is a joint venture of the Ministry of Human Resource Development, Government of India, the Govt. of Himachal Pradesh, with Industries in Public-Private Partnership model. The industries are H.P. Power Corporation and H.P. Power Transmission Corporation.',
     website: 'https://www.iiitu.ac.in',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     achievements: [
-      'Growing research output',
-      'Active coding community (FORCE)',
-      'Industry partnerships',
-      'Strong alumni network',
+      "Growing research output",
+      "Active coding community (FORCE)",
+      "Industry partnerships",
+      "Strong alumni network",
     ],
     contact: {
+<<<<<<< HEAD
+      email: "info@iiitu.ac.in",
+      phone: "9350419261",
+      poc: "Nikhil Arora",
+=======
       email: '23140@iiitu.ac.in',
       phone: '9350419261',
       poc: 'Nikhil Arora',
+>>>>>>> b4304fd4953a66dc082f01decb8fe70f8c1de86e
     },
     club: {
-      name: 'FORCE',
-      instagram: 'force.iiitu',
-      linkedin: 'https://www.linkedin.com/company/force-iiitu/',
+      name: "FORCE",
+      instagram: "force.iiitu",
+      linkedin: "https://www.linkedin.com/company/force-iiitu/",
     },
     images: ["/photos/Una1.jpg", "/photos/Una2.jpg", "/photos/Una3.jpg"],
   },
@@ -654,34 +736,80 @@ const iiitDetails: Record<string, {
   },
 };
 
+const clubNameOverrides: Record<string, string> = {
+  "iiit-sri-city": "ENIGMA",
+  "iiit-nagpur": "Student Activity Center",
+  "iiit-pune": "Localhost",
+  "iiitv-icd": "Technical Committee",
+  "iiit-vadodara": "IIITV Coding Club",
+  "iiit-surat": "GOOGLE DEVELOPER GROUP IIITSurat",
+  "iiitdm-kancheepuram": "CS Club",
+  "iiit-tiruchirappalli": "Robotics Club",
+  "iiit-kottayam": "Beta Labs",
+  "iiit-manipur": "Development Club",
+  "iiit-kalyani": "Student's GYMKHANA",
+  "iiit-agartala": "GDG IIIT Agartala",
+  "iiit-dharwad": "DSAI Society",
+  "iiit-raichur": "The CodeSoc Club",
+  "iiit-una": "FORCE",
+  "iiit-kota": "CodeBase",
+  "iiit-sonepat": "IIIT Sonepat Technical Society",
+  "iiit-naya-raipur": "AIML",
+  "iiit-delhi": "BYLD",
+  "iiitdm-kurnool": "Dataworks (Coding Club)",
+  "iiit-bhubaneshwar": "Tech Society IIIT Bhubaneswar",
+  "iiit-allahabad": "Geekhaven",
+  "iiit-bhopal": "Xploit",
+  "iiit-bhagalpur": "E-Cell",
+};
+
 // Default IIIT data for IIITs not in the detailed list
 const defaultImages = ["/photos/SriCity1.jpg", "/photos/SriCity2.jpg", "/photos/SriCity3.jpg"];
 
 const getDefaultIIIT = (id: string) => {
-  const formattedName = id?.replace('iiit-', '').replace(/-/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') || 'Unknown';
+  const iiitData = iiitsData.find((iiit) => iiit.id === id);
+  const formattedName =
+    id
+      ?.replace("iiit-", "")
+      .replace(/-/g, " ")
+      .split(" ")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ") || "Unknown";
+  const instituteName = iiitData?.name || `IIIT ${formattedName}`;
+  const locationString = iiitData?.location || "";
+  const locationParts = locationString
+    ? locationString.split(",").map((part) => part.trim())
+    : [];
+  const derivedLocation = iiitData
+    ? locationParts[0] || locationString || "India"
+    : "India";
+  const derivedState = iiitData
+    ? locationParts.slice(1).join(", ") || locationParts[0] || "India"
+    : "India";
+
   return {
-    name: `IIIT ${formattedName}`,
-    location: 'India',
-    state: 'India',
-    established: 2015,
-    students: 500,
-    description: `IIIT ${formattedName} is a premier Indian Institute of Information Technology committed to excellence in education and research in computer science and related disciplines. The institute participates in UDBHAV 2025, showcasing the talent and innovation of its students.`,
-    website: 'https://www.iiit.ac.in',
+    name: instituteName,
+    location: derivedLocation,
+    state: derivedState,
+    established: iiitData?.established ?? 2015,
+    students: iiitData?.students ?? 500,
+    description: `${instituteName} is a premier Indian Institute of Information Technology committed to excellence in education and research in computer science and related disciplines. The institute participates in UDBHAV 2025, showcasing the talent and innovation of its students.`,
+    website: "https://www.iiit.ac.in",
     achievements: [
-      'Quality education in IT',
-      'Research contributions',
-      'Industry partnerships',
-      'Active tech community',
+      "Quality education in IT",
+      "Research contributions",
+      "Industry partnerships",
+      "Active tech community",
     ],
     contact: {
-      email: 'info@iiit.ac.in',
-      phone: 'Contact SPOC',
-      poc: 'IIIT Coordinator',
+      email: iiitData?.spoc.email || "info@iiit.ac.in",
+      phone: iiitData?.spoc.phone || "Contact SPOC",
+      poc: iiitData?.spoc.name || "IIIT Coordinator",
     },
     club: {
-      name: '', 
-      instagram: '',
-      linkedin: '',
+      name: clubNameOverrides[id] || iiitData?.club.name || "Tech Club",
+      instagram: iiitData?.club.instagram || "",
+      linkedin: iiitData?.club.linkedin || "",
     },
     images: defaultImages,
   };
@@ -690,15 +818,15 @@ const getDefaultIIIT = (id: string) => {
 const IIITProfile = () => {
   const { id } = useParams<{ id: string }>();
   const [activeImage, setActiveImage] = useState(0);
-  
+
   const iiit = useMemo(() => {
     if (id && iiitDetails[id]) {
       return iiitDetails[id];
     }
-    return getDefaultIIIT(id || '');
+    return getDefaultIIIT(id || "");
   }, [id]);
 
-  const isOrganizing = id === 'iiit-sri-city';
+  const isOrganizing = id === "iiit-sri-city";
 
   return (
     <PageTransition>
@@ -724,7 +852,10 @@ const IIITProfile = () => {
             animate={{ opacity: 1, y: 0 }}
             className="relative mb-12"
           >
-            <GlassCard className="overflow-hidden" glow={isOrganizing ? 'primary' : 'none'}>
+            <GlassCard
+              className="overflow-hidden"
+              glow={isOrganizing ? "primary" : "none"}
+            >
               {/* Image Gallery */}
               {iiit.images.length > 0 ? (
               <div className="relative h-64 md:h-80 lg:h-96 overflow-hidden">
@@ -738,7 +869,7 @@ const IIITProfile = () => {
                   transition={{ duration: 0.5 }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                
+
                 {/* Image Thumbnails */}
                 {iiit.images.length > 1 && (
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
@@ -747,12 +878,16 @@ const IIITProfile = () => {
                       key={index}
                       onClick={() => setActiveImage(index)}
                       className={`w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${
-                        activeImage === index 
-                          ? 'border-primary scale-110' 
-                          : 'border-border/50 opacity-70 hover:opacity-100'
+                        activeImage === index
+                          ? "border-primary scale-110"
+                          : "border-border/50 opacity-70 hover:opacity-100"
                       }`}
                     >
-                      <img src={img} alt="" className="w-full h-full object-cover" />
+                      <img
+                        src={img}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
                     </button>
                   ))}
                 </div>
@@ -794,11 +929,15 @@ const IIITProfile = () => {
               <div className="p-6 md:p-8">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                   <div>
-                    <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-2">{iiit.name}</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-2">
+                      {iiit.name}
+                    </h1>
                     <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <MapPin className="w-4 h-4" />
-                        <span>{iiit.location}, {iiit.state}</span>
+                        <span>
+                          {iiit.location}, {iiit.state}
+                        </span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
@@ -811,7 +950,11 @@ const IIITProfile = () => {
                     </div>
                   </div>
                   <Button asChild variant="neon">
-                    <a href={iiit.website} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={iiit.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <Globe className="mr-2 h-4 w-4" />
                       Visit Website
                     </a>
@@ -835,7 +978,9 @@ const IIITProfile = () => {
                     <BookOpen className="w-6 h-6 text-primary" />
                     About
                   </h2>
-                  <p className="text-muted-foreground leading-relaxed">{iiit.description}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {iiit.description}
+                  </p>
                 </GlassCard>
               </motion.div>
 
@@ -857,7 +1002,9 @@ const IIITProfile = () => {
                         className="flex items-start gap-3 p-3 rounded-lg bg-card/50 border border-border/50"
                       >
                         <div className="w-2 h-2 mt-2 rounded-full bg-primary shrink-0" />
-                        <span className="text-muted-foreground">{achievement}</span>
+                        <span className="text-muted-foreground">
+                          {achievement}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -876,26 +1023,27 @@ const IIITProfile = () => {
                     Tech Club/Society: {iiit.club.name}
                   </h2>
                   <p className="text-muted-foreground mb-4">
-                    The official tech club representing {iiit.name} at UDBHAV 2025.
+                    The official tech club representing {iiit.name} at UDBHAV
+                    2025.
                   </p>
                   <div className="flex gap-3">
                     {iiit.club.instagram && (
                       <Button asChild variant="outline" size="sm">
-                        <a 
-                          href={`https://instagram.com/${iiit.club.instagram}`} 
-                          target="_blank" 
+                        <a
+                          href={`https://instagram.com/${iiit.club.instagram}`}
+                          target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Instagram className="mr-2 h-4 w-4" />
-                          @{iiit.club.instagram}
+                          <Instagram className="mr-2 h-4 w-4" />@
+                          {iiit.club.instagram}
                         </a>
                       </Button>
                     )}
                     {iiit.club.linkedin && (
                       <Button asChild variant="outline" size="sm">
-                        <a 
-                          href={iiit.club.linkedin} 
-                          target="_blank" 
+                        <a
+                          href={iiit.club.linkedin}
+                          target="_blank"
                           rel="noopener noreferrer"
                         >
                           <Linkedin className="mr-2 h-4 w-4" />
@@ -914,19 +1062,33 @@ const IIITProfile = () => {
                 transition={{ delay: 0.3 }}
               >
                 <GlassCard glow="accent">
-                  <h2 className="text-2xl font-bold mb-4 gradient-text">UDBHAV Participation</h2>
+                  <h2 className="text-2xl font-bold mb-4 gradient-text">
+                    UDBHAV Participation
+                  </h2>
                   <div className="grid sm:grid-cols-3 gap-6">
                     <div className="text-center p-4 rounded-lg bg-primary/10 border border-primary/20">
-                      <div className="text-3xl font-bold text-primary mb-1">4</div>
-                      <div className="text-sm text-muted-foreground">Teams Registered</div>
+                      <div className="text-3xl font-bold text-primary mb-1">
+                        4
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Teams Registered
+                      </div>
                     </div>
                     <div className="text-center p-4 rounded-lg bg-secondary/10 border border-secondary/20">
-                      <div className="text-3xl font-bold text-secondary mb-1">16</div>
-                      <div className="text-sm text-muted-foreground">Participants</div>
+                      <div className="text-3xl font-bold text-secondary mb-1">
+                        16
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Participants
+                      </div>
                     </div>
                     <div className="text-center p-4 rounded-lg bg-accent/10 border border-accent/20">
-                      <div className="text-3xl font-bold text-accent mb-1">2</div>
-                      <div className="text-sm text-muted-foreground">Rounds Cleared</div>
+                      <div className="text-3xl font-bold text-accent mb-1">
+                        2
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Rounds Cleared
+                      </div>
                     </div>
                   </div>
                 </GlassCard>
@@ -946,17 +1108,25 @@ const IIITProfile = () => {
                   <div className="space-y-4">
                     <div className="p-4 rounded-lg bg-card/50 border border-border/50">
                       <div className="font-medium mb-1">{iiit.contact.poc}</div>
-                      <div className="text-sm text-muted-foreground">IIIT SPOC for UDBHAV</div>
+                      <div className="text-sm text-muted-foreground">
+                        IIIT SPOC for UDBHAV
+                      </div>
                     </div>
                     <div className="flex items-center gap-3 text-muted-foreground">
                       <Mail className="w-5 h-5 text-primary" />
-                      <a href={`mailto:${iiit.contact.email}`} className="hover:text-primary transition-colors">
+                      <a
+                        href={`mailto:${iiit.contact.email}`}
+                        className="hover:text-primary transition-colors"
+                      >
                         {iiit.contact.email}
                       </a>
                     </div>
                     <div className="flex items-center gap-3 text-muted-foreground">
                       <Phone className="w-5 h-5 text-primary" />
-                      <a href={`tel:${iiit.contact.phone}`} className="hover:text-primary transition-colors">
+                      <a
+                        href={`tel:${iiit.contact.phone}`}
+                        className="hover:text-primary transition-colors"
+                      >
                         {iiit.contact.phone}
                       </a>
                     </div>
@@ -974,14 +1144,21 @@ const IIITProfile = () => {
                   <h2 className="text-xl font-bold mb-4">Quick Facts</h2>
                   <div className="space-y-3">
                     {[
-                      { label: 'Established', value: iiit.established },
-                      { label: 'Total Students', value: `${iiit.students}+` },
-                      { label: 'State', value: iiit.state },
-                      { label: 'Tech Club/Society', value: iiit.club.name },
+                      { label: "Established", value: iiit.established },
+                      { label: "Total Students", value: `${iiit.students}+` },
+                      { label: "State", value: iiit.state },
+                      { label: "Tech Club", value: iiit.club.name },
                     ].map((item) => (
-                      <div key={item.label} className="flex justify-between items-center py-2 border-b border-border/50 last:border-0">
-                        <span className="text-muted-foreground">{item.label}</span>
-                        <span className="font-medium text-right">{item.value}</span>
+                      <div
+                        key={item.label}
+                        className="flex justify-between items-center py-2 border-b border-border/50 last:border-0"
+                      >
+                        <span className="text-muted-foreground">
+                          {item.label}
+                        </span>
+                        <span className="font-medium text-right">
+                          {item.value}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -1003,12 +1180,16 @@ const IIITProfile = () => {
                         key={index}
                         onClick={() => setActiveImage(index)}
                         className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
-                          activeImage === index 
-                            ? 'border-primary' 
-                            : 'border-transparent hover:border-border'
+                          activeImage === index
+                            ? "border-primary"
+                            : "border-transparent hover:border-border"
                         }`}
                       >
-                        <img src={img} alt="" className="w-full h-full object-cover" />
+                        <img
+                          src={img}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
                       </button>
                     ))}
                   </div>
