@@ -88,12 +88,13 @@ const stats = [
 ];
 
 const organizingTeam = [
-  { role: 'Organiser', name: 'Sripathy Siddartha' },
-  { role: 'Head - Operations', name: 'K Sidharth' },
-  { role: 'Head - Finance', name: 'Shounak Banerjee' },
-  { role: 'Chief of Records', name: 'Raniel Babu Chintha' },
-  { role: 'Head - Social Media', name: 'Saptarsi' },
-  { role: 'Program Director', name: 'Sai Tej' },
+  { role: 'Organiser', name: 'Sripathy Siddartha', image: null },
+  { role: 'Head - Operations', name: 'K Sidharth', image: '/drive-download-20260106T151449Z-1-001/batch3/Siddharth_K_IIITSRICITY - SIDDHARTH KANCHARLA.JPG' },
+  { role: 'Head - Finance', name: 'Shounak Banerjee', image: '/drive-download-20260106T151449Z-1-001/batch1/DSC_0273 - SHOUNAK BANERJEE.JPG' },
+  { role: 'Chief of Records', name: 'Raniel Babu Chintha', image: '/drive-download-20260106T151449Z-1-001/batch3/profile photo - Raniel Babu Chinta.png' },
+  { role: 'Head - Social Media', name: 'Saptarsi', image: '/drive-download-20260106T151449Z-1-001/batch3/Saptarsi_IIIT_Sricity - Saptarsi Saha.jpg' },
+  { role: 'Program Director', name: 'Sai Tej', image: null },
+  { role: 'Core Member', name: 'Sujai', image: '/drive-download-20260106T151449Z-1-001/batch3/Sujai_IIIT_Sricity - sujai shukla.jpg' },
 ];
 
 const faqs = [
@@ -306,7 +307,7 @@ const About = () => {
             title="Organizing Committee"
             subtitle="The team behind UDBHAV from IIIT Sri City"
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
             {organizingTeam.map((member, index) => (
               <motion.div
                 key={member.name}
@@ -317,8 +318,16 @@ const About = () => {
                 transition={{ delay: index * 0.05, duration: 0.4 }}
               >
                 <GlassCard className="text-center h-full">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-3">
-                    <Users className="w-5 h-5 text-primary" />
+                  <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-3 overflow-hidden">
+                    {member.image ? (
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Users className="w-5 h-5 text-primary" />
+                    )}
                   </div>
                   <h4 className="font-semibold text-sm mb-1">{member.name}</h4>
                   <p className="text-xs text-muted-foreground">{member.role}</p>
