@@ -371,37 +371,24 @@ const Index = () => {
               title="Our Sponsors"
               subtitle="Backed by industry leaders"
             />
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
-              {sponsors.map((sponsor, index) => (
-                <motion.div
-                  key={sponsor.name}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-50px" }}
-                  variants={fadeIn}
-                  transition={{ delay: index * 0.1, duration: 0.4 }}
-                  className="w-full sm:w-80"
-                >
-                  <GlassCard
-                    className="text-center aspect-video flex items-center justify-center bg-white p-4"
-                    glow={sponsor.tier === 1 ? "primary" : "none"}
-                  >
-                    <img
-                      src={sponsor.logo}
-                      alt={sponsor.name}
-                      className="max-h-full max-w-full object-contain"
-                    />
-                  </GlassCard>
-                </motion.div>
-              ))}
-            </div>
-            <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center py-20 min-h-64 flex flex-col items-center justify-center"
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                <span className="gradient-text">Sponsors will be revealed soon</span>
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+                We're excited to announce our partners. Stay tuned for updates!
+              </p>
               <Button asChild variant="outline" size="lg">
                 <Link to="/sponsors">
                   View All Sponsors <ChevronRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
-            </div>
+            </motion.div>
           </div>
         </section>
 
