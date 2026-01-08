@@ -347,7 +347,7 @@ export const iiitsData: IIIT[] = [
     location: "Una, Himachal Pradesh",
     coordinates: [76.2659, 31.4685],
     established: 2014,
-    students: 600,
+    students: 900,
     spoc: {
       name: "Nikhil Arora",
       phone: "9350419261",
@@ -500,5 +500,204 @@ export const iiitsData: IIIT[] = [
       instagram: "localhost_iiitp",
       linkedin: "https://www.linkedin.com/company/localhost-iiitp/",
     },
+  },
+];
+
+export const spocsData = [
+  {
+    id: 87,
+    name: "Bhupendra Kumar",
+    iiit: "IIIT Surat",
+    role: "SPoC",
+    email: "errorbhupendra481@gmail.com",
+    linkedin: "https://www.linkedin.com/in/bhupendra-kumar-217923294/",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch1/Bhupendrakumar_IIITSURAT - Bhupendra Kumar.jpg",
+  },
+  {
+    id: 88,
+    name: "Sharad Kumar Dubey",
+    iiit: "IIITDM Kancheepuram",
+    role: "SPoC",
+    email: "cs23i1052@iiitdm.ac.in",
+    linkedin: "https://www.linkedin.com/in/sharad-kumar-dubey/",
+    instagram: "__sha_ey__",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch2/SHARAD - CS23I1052 SHARAD KUMAR DUBEY.png",
+  },
+  {
+    id: 89,
+    name: "Hasini Mende",
+    iiit: "IIIT Sricity",
+    role: "SPoC",
+    email: "hasini.m25@iiits.in",
+    instagram: "hasini.mende",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch2/IMG_20251227_113252 - Hasini Mende.jpg",
+  },
+  {
+    id: 90,
+    name: "Shivansh Agrawal",
+    iiit: "IIIT Sonepat",
+    role: "SPoC",
+    email: "shivansh.agrprof@gmail.com",
+    linkedin: "https://www.linkedin.com/in/shivansh-agrawal-0920b5214/",
+    instagram: "shivanshagr08",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch3/Shivansh_Agrawal_12312003 - Shivansh Agrawal.jpg",
+  },
+  {
+    id: 91,
+    name: "Ayush Soni",
+    iiit: "IIIT Tiruchirappalli",
+    role: "SPoC",
+    email: "soniayush312@gmail.com",
+    linkedin: "https://www.linkedin.com/in/soniayush12",
+    instagram: "soniayush_12",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch1/Ayush soni IIIT Trichy - Ayush Soni.jpg",
+  },
+  {
+    id: 92,
+    name: "Sujal Negi",
+    iiit: "IIITDM Kurnool",
+    role: "SPoC",
+    email: "sujalnegi2805@gmail.com",
+    linkedin: "https://in.linkedin.com/in/sujalnegi128005",
+    instagram: "sujal128005",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch1/20250726_155518 - Sujal.jpg",
+  },
+  {
+    id: 93,
+    name: "Darsh Dave",
+    iiit: "IIIT Bhopal",
+    role: "SPoC",
+    email: "darsh.dave999@gmail.com",
+    linkedin: "https://www.linkedin.com/in/darsh-dave-120062291/",
+    instagram: "darsh_theway10",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch1/Darsh Dave_IIIT_Bhopal - DARSH DAVE.JPG",
+  },
+  {
+    id: 94,
+    name: "Jugal Kakkat",
+    iiit: "IIIT Kottayam",
+    role: "SPoC",
+    email: "jugal23bcs41@iiitkottayam.ac.in",
+    linkedin: "https://www.linkedin.com/in/jugal-kakkat",
+    instagram: "jugxl",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch2/Jugal_IIIT_Kottayam - JUGAL KAKKAT -IIITK.JPG",
+  },
+  {
+    id: 95,
+    name: "Shivansh Sisodia",
+    iiit: "IIIT Bhubaneswar",
+    role: "SPoC",
+    email: "b123120@iiit-bh.ac.in",
+    linkedin: "https://www.linkedin.com/in/shivansh-sisodia-541391284",
+    instagram: "kyayaarshivansh",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch3/Shivansh_IIIT_Bhubaneswar - Shivansh Sisodia.jpeg",
+  },
+  {
+    id: 96,
+    name: "Darshan Patel",
+    iiit: "IIIT Vadodara",
+    role: "SPoC",
+    email: "darshanpatelgdh@gmail.com",
+    linkedin: "https://www.linkedin.com/in/darshan-patel-1713062a4",
+    instagram: "mrquantum_1915",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch1/DarshanPatel_IIIT_Vadodara - Darshan Patel.jpeg",
+  },
+  {
+    id: 97,
+    name: "Prem Sagar",
+    iiit: "IIIT Dharwad",
+    role: "SPoC",
+    email: "23bds065@iiitdwd.ac.in",
+    linkedin: "https://www.linkedin.com/in/prem-sagar-t-k",
+    instagram: "premsagar.tk",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch2/IMG_20260101_094650 - THIRUPATI KOPPERA PREM SAGAR IIIT Dharwad.jpg",
+  },
+  {
+    id: 98,
+    name: "Sanidhya Madeshia",
+    iiit: "IIIT Kota",
+    role: "SPoC",
+    email: "sanidhyamadheshia@gmail.com",
+    linkedin: "https://www.linkedin.com/in/sanidhya-madeshia-620099293/",
+    instagram: "ig._sanidhya",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch2/IMG_20251116_121916347_HDR - Sanidhya Madheshia.jpg",
+  },
+  {
+    id: 99,
+    name: "Shivang Tonde",
+    iiit: "IIIT Nagpur",
+    role: "SPoC",
+    email: "ts@iiitn.ac.in",
+    linkedin: "https://www.linkedin.com/in/shivang-tonde-56757528a/",
+    instagram: "shivang_tonde_18",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch3/ShivangTonde_IIIT_Nagpur - Technical Master.jpeg",
+  },
+  {
+    id: 100,
+    name: "Savya Sanchi Sharma",
+    iiit: "IIIT Dharwad",
+    role: "SPoC",
+    email: "dsaisoc@iiitdwd.ac.in",
+    linkedin: "https://www.linkedin.com/in/savyasanchi-sharma",
+    instagram: "dsaisoc_iiitdwd",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch3/Savya_Sanchi_Sharma_IIIT_Dharwad - Data Science and Artificial Intelligence Society IIIT Dharwad.png",
+  },
+  {
+    id: 101,
+    name: "Siddharth",
+    iiit: "IIIT Naya Raipur",
+    role: "SPoC",
+    email: "siddharth24102@iiitnr.edu.in",
+    linkedin: "https://www.linkedin.com/in/siddharth-a35a36324",
+    instagram: "_siddhrthh",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch3/Siddharth_IIIT_Naya_Raipur - Siddharth Siddharth.jpg",
+  },
+  {
+    id: 102,
+    name: "Srishant Kumar",
+    iiit: "IIIT Agartala",
+    role: "SPoC",
+    email: "srishant054@gmail.com",
+    linkedin: "https://linkedin.com/in/iamsrishant",
+    instagram: "iamsrishant",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch3/Srishant_Kumar_IIIT_AGARTALA - Srishant Kumar.jpeg",
+  },
+  {
+    id: 103,
+    name: "Amrita Kadam",
+    iiit: "IIIT Raichur",
+    role: "SPoC",
+    email: "amrita0205kadam@gmail.com",
+    linkedin: "https://www.linkedin.com/in/amrita-kadam-2a293b287/",
+    instagram: "anomaly4509902",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch1/Amrita_IIIT_Raichur - Sujata C.jpg",
+  },
+  {
+    id: 104,
+    name: "S. Varun Raj",
+    iiit: "IIIT Ranchi",
+    role: "SPoC",
+    email: "varunrajss07@gmail.com",
+    linkedin: "https://www.linkedin.com/in/varun-rajss",
+    instagram: "varunn_raaajj",
+    image:
+      "/drive-download-20260106T151449Z-1-001/batch3/VarunRaj_IIIT Ranchi - VarunRaj.jpg",
   },
 ];
