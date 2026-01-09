@@ -133,10 +133,16 @@ const IIITs = () => {
               className="mb-16"
             >
               <SectionHeading
-                title="Interactive Map"
+                title="Map of IIITs"
                 subtitle="Click on any marker to explore the IIIT"
               />
-              <IndiaMap3D />
+
+              {/* Responsive Map Wrapper */}
+              <div className="relative w-full max-w-6xl mx-auto">
+                <div className="relative w-full aspect-[4/3] sm:aspect-[16/9]">
+                  <IndiaMap3D />
+                </div>
+              </div>
             </motion.section>
           )}
 
