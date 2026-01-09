@@ -1,9 +1,18 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Play, Users } from 'lucide-react';
+import { AlertCircle, ExternalLink, Github, Play, Users } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
 import SectionHeading from '@/components/SectionHeading'; 
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
+
+const rules = [
+  "Each team has been evaluated by two judges",
+  "Each judge scores teams out of 45 marks",
+  "Final total score is out of 90 marks (45 + 45)",
+  "Original work only - all submissions verified",
+  "Any technology stack is allowed",
+  "AI-generated content without significant modification results in negative scoring",
+];
 
 const projects = [
   {
@@ -271,9 +280,41 @@ const Projects = () => {
               <span className="gradient-text">Projects</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Innovative solutions built by India's brightest minds during UDBHAV
+              Innovative solutions built by India's brightest minds during
+              UDBHAV
             </p>
           </motion.div>
+
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mb-12"
+          >
+            <GlassCard className="max-w-4xl mx-auto">
+              <div className="flex items-start gap-4">
+                <AlertCircle className="w-6 h-6 text-warning shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-bold mb-3">
+                    Evaluation Criteria
+                  </h3>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {rules.map((rule, index) => (
+                      <div
+                        key={index}
+                        className="flex items-start gap-2 text-sm text-muted-foreground"
+                      >
+                        <span className="text-primary font-mono">
+                          {String(index + 1).padStart(2, "0")}.
+                        </span>
+                        <span>{rule}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </GlassCard>
+          </motion.section>
 
           {/* Stats */}
           <motion.div
@@ -283,13 +324,17 @@ const Projects = () => {
             className="grid grid-cols-3 gap-6 max-w-2xl mx-auto mb-16"
           >
             {[
-              { label: 'Total Projects', value: projects.length },
-              { label: 'Domains', value: 3 },
-              { label: 'Teams', value: projects.length },
+              { label: "Total Projects", value: projects.length },
+              { label: "Domains", value: 3 },
+              { label: "Teams", value: projects.length },
             ].map((stat) => (
               <GlassCard key={stat.label} className="text-center">
-                <div className="text-2xl font-bold gradient-text">{stat.value}</div>
-                <div className="text-xs text-muted-foreground">{stat.label}</div>
+                <div className="text-2xl font-bold gradient-text">
+                  {stat.value}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {stat.label}
+                </div>
               </GlassCard>
             ))}
           </motion.div>
@@ -304,7 +349,10 @@ const Projects = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <GlassCard className="h-full flex flex-col group" glow="primary">
+                <GlassCard
+                  className="h-full flex flex-col group"
+                  glow="primary"
+                >
                   {/* Image Placeholder */}
                   <div className="aspect-video rounded-lg bg-gradient-to-br from-primary/10 to-accent/10 mb-4 overflow-hidden relative group-hover:from-primary/20 group-hover:to-accent/20 transition-colors">
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -318,7 +366,11 @@ const Projects = () => {
                   {/* Content */}
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${domainColors[project.domain]}`}>
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          domainColors[project.domain]
+                        }`}
+                      >
                         {project.domain}
                       </span>
                     </div>
@@ -342,30 +394,58 @@ const Projects = () => {
                   {/* Links */}
                   <div className="flex gap-2 pt-3 border-t border-border/50">
                     {project.github ? (
-                      <Button asChild variant="outline" size="sm" className="flex-1">
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="flex-1"
+                      >
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <Github className="w-4 h-4 mr-1" />
                           Code
                         </a>
                       </Button>
                     ) : (
-                      <Button variant="outline" size="sm" className="flex-1 opacity-50 cursor-not-allowed" disabled>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 opacity-50 cursor-not-allowed"
+                        disabled
+                      >
                         <Github className="w-4 h-4 mr-1" />
                         Code
                       </Button>
                     )}
-                    
+
                     {project.demo ? (
-                      <Button asChild variant="glow" size="sm" className="flex-1">
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        asChild
+                        variant="glow"
+                        size="sm"
+                        className="flex-1"
+                      >
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <ExternalLink className="w-4 h-4 mr-1" />
                           Demo
                         </a>
                       </Button>
                     ) : (
-                      <Button variant="glow" size="sm" className="flex-1 opacity-50 cursor-not-allowed" disabled>
-                         <ExternalLink className="w-4 h-4 mr-1" />
-                         Demo
+                      <Button
+                        variant="glow"
+                        size="sm"
+                        className="flex-1 opacity-50 cursor-not-allowed"
+                        disabled
+                      >
+                        <ExternalLink className="w-4 h-4 mr-1" />
+                        Demo
                       </Button>
                     )}
                   </div>
