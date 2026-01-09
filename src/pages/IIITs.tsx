@@ -1,43 +1,48 @@
-import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { MapPin, ExternalLink, Star, Map, User, Phone, Instagram, Linkedin, Search, X, Mail } from 'lucide-react';
-import PageTransition from '@/components/PageTransition';
-import SectionHeading from '@/components/SectionHeading';
-import GlassCard from '@/components/GlassCard';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import IndiaMap3D from '@/components/IndiaMap3D';
-import { iiitsData } from '@/data/iiits';
-import { spocsData } from '@/data/iiits';
+import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import {
+  MapPin,
+  ExternalLink,
+  Star,
+  Map,
+  User,
+  Phone,
+  Instagram,
+  Linkedin,
+  Search,
+  X,
+  Mail,
+} from "lucide-react";
+import PageTransition from "@/components/PageTransition";
+import SectionHeading from "@/components/SectionHeading";
+import GlassCard from "@/components/GlassCard";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import IndiaMap3D from "@/components/IndiaMap3D";
+import { iiitsData } from "@/data/iiits";
+import { spocsData } from "@/data/iiits";
 
 const IIITs = () => {
-  const [viewMode, setViewMode] = useState<'map' | 'grid' | 'spocs'>('map');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState<"map" | "grid" | "spocs">("map");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredIIITs = useMemo(() => {
     if (!searchQuery.trim()) return iiitsData;
     const query = searchQuery.toLowerCase();
-    return iiitsData.filter(iiit => 
-      iiit.name.toLowerCase().includes(query) ||
-      iiit.location.toLowerCase().includes(query) ||
-      iiit.club.name.toLowerCase().includes(query) ||
-      iiit.spoc.name.toLowerCase().includes(query) ||
-      iiit.spoc.department?.toLowerCase().includes(query) ||
-      iiit.spoc.email?.toLowerCase().includes(query)
+    return iiitsData.filter(
+      (iiit) =>
+        iiit.name.toLowerCase().includes(query) ||
+        iiit.location.toLowerCase().includes(query) ||
+        iiit.club.name.toLowerCase().includes(query) ||
+        iiit.spoc.name.toLowerCase().includes(query) ||
+        iiit.spoc.department?.toLowerCase().includes(query) ||
+        iiit.spoc.email?.toLowerCase().includes(query)
     );
   }, [searchQuery]);
 
-  const organizingIIIT = filteredIIITs.find(iiit => iiit.organizing);
-  const otherIIITs = filteredIIITs.filter(iiit => !iiit.organizing);
-
-  const normalizeIIIT = (name: string) =>
-    name
-      .replace(/iiitdm/gi, "IIITDM")
-      .replace(/iiit/gi, "IIIT")
-      .replace(/\s+/g, " ")
-      .trim();
-
+  const organizingIIIT = filteredIIITs.find((iiit) => iiit.organizing);
+  const otherIIITs = filteredIIITs.filter((iiit) => !iiit.organizing);
 
   return (
     <PageTransition>
@@ -265,7 +270,7 @@ const IIITs = () => {
                       "iiit-manipur": "/photos/IIIT_Manipur.png",
                       "iiit-naya-raipur": "/photos/iiit naya raipur.jpg",
                       "iiit-pune": "/photos/iiitpune_logo.jpeg",
-                      "iiit-raichur": "/photos/iiit-raichur.jpeg",
+                      "iiit-raichur": "/photos/IIIT Raichur.png",
                       "iiit-sonepat":
                         "/photos/Indian_Institute_of_Information_Technology,_Sonepat_logo.png",
                       "iiit-surat": "/photos/IIIT_Surat_logo.jpg",
@@ -368,90 +373,79 @@ const IIITs = () => {
                 title="Single Points of Contact (SPOCs)"
                 subtitle="Representatives from each participating IIIT"
               />
-
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {spocsData.map((spoc, index) => (
+                {spocsData.map((person, index) => (
                   <motion.div
-                    key={spoc.id}
+                    key={person.id}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.03 }}
                   >
-                    <GlassCard className="h-full">
+                    <GlassCard
+                      className="h-full"
+                      glow={person.id === "iiit-sri-city" ? "primary" : "none"}
+                    >
+                      {person.id === "iiit-sri-city" && (
+                        <span className="inline-block px-2 py-1 text-[10px] font-medium bg-primary/20 text-primary rounded-full mb-3">
+                          Organizing IIIT
+                        </span>
+                      )}
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden">
-                          {spoc.image ? (
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden border border-primary/20">
+                          {person.image ? (
                             <img
-                              src={spoc.image}
-                              alt={spoc.name}
+                              src={person.image}
+                              alt={person.name}
                               className="w-full h-full object-cover"
-                              loading="lazy"
-                              onError={(e) => {
-                                (
-                                  e.currentTarget as HTMLImageElement
-                                ).style.display = "none";
-                              }}
                             />
                           ) : (
                             <User className="w-5 h-5 text-primary" />
                           )}
                         </div>
-
                         <div className="flex-1 min-w-0">
                           <h4 className="font-semibold text-sm truncate">
-                            {spoc.name}
+                            {person.name}
                           </h4>
                           <p className="text-xs text-muted-foreground truncate">
-                            SPOC – {normalizeIIIT(spoc.iiit)}
+                            {person.role} - {person.iiit}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
+                      {person.department && (
+                        <p className="text-xs font-medium text-primary mb-2 truncate">
+                          {person.department}
+                        </p>
+                      )}
+
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
                         <MapPin className="w-3 h-3" />
                         <span className="truncate">
-                          {normalizeIIIT(spoc.iiit)}
+                          {person.city}, {person.state}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {spoc.email && (
+                      <div className="flex items-center gap-2 flex-wrap mt-auto">
+                        {person.phone && (
                           <a
-                            href={`mailto:${spoc.email}`}
+                            href={`tel:${person.phone}`}
+                            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors"
+                          >
+                            <Phone className="w-3 h-3 text-primary" />
+                            <span className="text-xs font-medium text-primary">
+                              Call
+                            </span>
+                          </a>
+                        )}
+                        {person.email && (
+                          <a
+                            href={`mailto:${person.email}`}
                             className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-card border border-border hover:border-primary/40 transition-colors"
                           >
                             <Mail className="w-3 h-3 text-muted-foreground" />
-                            <span className="text-xs font-medium truncate">
+                            <span className="text-xs font-medium text-foreground truncate">
                               Email
-                            </span>
-                          </a>
-                        )}
-
-                        {spoc.linkedin && (
-                          <a
-                            href={spoc.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors"
-                          >
-                            <Linkedin className="w-3 h-3 text-primary" />
-                            <span className="text-xs font-medium text-primary">
-                              LinkedIn
-                            </span>
-                          </a>
-                        )}
-
-                        {spoc.instagram && (
-                          <a
-                            href={`https://instagram.com/${spoc.instagram}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-card border border-border hover:border-accent/40 transition-colors"
-                          >
-                            <Instagram className="w-3 h-3 text-muted-foreground" />
-                            <span className="text-xs font-medium">
-                              Instagram
                             </span>
                           </a>
                         )}
