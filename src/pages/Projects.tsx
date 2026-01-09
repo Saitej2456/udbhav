@@ -6,13 +6,11 @@ import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
 
 const rules = [
-  "Each team has been evaluated by two judges",
-  "Each judge scores teams out of 45 marks",
-  "Final total score is out of 90 marks (45 + 45)",
-  "Original work only - all submissions verified",
-  "Any technology stack is allowed",
-  "AI-generated content without significant modification results in negative scoring",
+  "The full details of your respective projects will be reflected once Round 3 ends.",
+  "The name of your respective project will be reflected only if you have shared the project name with the organizing team.",
+  "If there are any queries regarding the project information, please contact your respective PICs.",
 ];
+
 
 const projects = [
   {
@@ -296,7 +294,7 @@ const Projects = () => {
                 <AlertCircle className="w-6 h-6 text-warning shrink-0 mt-1" />
                 <div>
                   <h3 className="text-lg font-bold mb-3">
-                    Evaluation Criteria
+                    Project Details Note
                   </h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     {rules.map((rule, index) => (
