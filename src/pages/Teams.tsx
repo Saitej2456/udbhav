@@ -119,10 +119,10 @@ const teamMembers = [
   { id: 82, name: 'Joshith VR', role: 'Ground Design - IIIT SRICITY', category: 'Ground Design', email: 'joshith.v25@iiits.in', instagram: 'joshith.vr', image: '/drive-download-20260106T151449Z-1-001/batch1/29787d1a-f437-470d-84cc-4b907bdf9b00 - Joshith chowdary Vunnam reddy.jpeg' },
 
   // Video Team
-  { id: 83, name: 'Andhavarapu Gayatri Devi', role: 'Video - IIIT Sricity', category: 'Video Team', email: 'gayatridevi.a25@iiits.in', instagram: 'gayatridevi_andhavarapu', image: '/drive-download-20260106T151449Z-1-001/Gayatri_devi_IIIT_sricity - Gayatri Devi Andhavarapu.jpg' },
-  { id: 84, name: 'A Thirumala Sai', role: 'Video - IIIT Sricity', category: 'Video Team', email: 'jamalanaik.a25@gmail.com', instagram: 'M.r_sai_naik', image: '/drive-download-20260106T151449Z-1-001/batch2/IMG_2954 - Thirumala Sai Jamla Naik Ajmeer.jpeg' },
-  { id: 85, name: 'Harshavarshan', role: 'Video - IIIT SRICITY', category: 'Video Team', email: 'harshavardhannaik.d25@iiits.in', instagram: 'Harshaa_34_', image: '/drive-download-20260106T151449Z-1-001/batch1/Gemini_Generated_Image_8klkf98klkf98klk - HARSHAVARDHAN NAIK DARAVATH.jpeg' },
-  { id: 86, name: 'Srishant Kumar', role: 'Video - IIIT Agartala', category: 'Video Team', linkedin: 'https://linkedin.com/in/iamsrishant', email: 'srishant054@gmail.com', instagram: 'iamsrishant', image: '/drive-download-20260106T151449Z-1-001/batch3/Srishant_Kumar_IIIT_AGARTALA - Srishant Kumar.jpeg' },
+  { id: 83, name: 'Andhavarapu Gayatri Devi', role: 'Video - IIIT Sricity', category: 'Video', email: 'gayatridevi.a25@iiits.in', instagram: 'gayatridevi_andhavarapu', image: '/drive-download-20260106T151449Z-1-001/batch1/Gayatri_devi_IIIT_sricity - Gayatri Devi Andhavarapu.jpg' },
+  { id: 84, name: 'A Thirumala Sai', role: 'Video - IIIT Sricity', category: 'Video', email: 'jamalanaik.a25@gmail.com', instagram: 'M.r_sai_naik', image: '/drive-download-20260106T151449Z-1-001/batch2/IMG_2954 - Thirumala Sai Jamla Naik Ajmeer.jpeg' },
+  { id: 85, name: 'Harshavarshan', role: 'Video - IIIT SRICITY', category: 'Video', email: 'harshavardhannaik.d25@iiits.in', instagram: 'Harshaa_34_', image: '/drive-download-20260106T151449Z-1-001/batch1/Gemini_Generated_Image_8klkf98klkf98klk - HARSHAVARDHAN NAIK DARAVATH.jpeg' },
+  { id: 86, name: 'Srishant Kumar', role: 'Video - IIIT Agartala', category: 'Video', linkedin: 'https://linkedin.com/in/iamsrishant', email: 'srishant054@gmail.com', instagram: 'iamsrishant', image: '/drive-download-20260106T151449Z-1-001/batch3/Srishant_Kumar_IIIT_AGARTALA - Srishant Kumar.jpeg' },
 
   // SPoC
   { id: 87, name: 'Bhupendra Kumar', role: 'SPoC - IIIT SURAT', category: 'SPoC', linkedin: 'https://www.linkedin.com/in/bhupendra-kumar-217923294/', email: 'errorbhupendra481@gmail.com', image: '/drive-download-20260106T151449Z-1-001/batch1/Bhupendrakumar_IIITSURAT - Bhupendra Kumar.jpg' },

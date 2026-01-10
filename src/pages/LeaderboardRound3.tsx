@@ -308,7 +308,7 @@ const LeaderboardRound3 = () => {
           </div>
 
           {/* Rest of Finalists */}
-          <motion.section
+       {/* {   <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -353,7 +353,7 @@ const LeaderboardRound3 = () => {
                 </tbody>
               </table>
             </div>
-          </motion.section>
+          </motion.section>} */}
 
           
         </div>
