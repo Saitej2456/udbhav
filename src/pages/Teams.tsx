@@ -12,7 +12,7 @@ const teamCategories = [
   'Sponsorship',
   'Marketing',
   'Design',
-  'Ground Team',
+  'Ground ',
   'Video',
   'Ground Design',
   'Website',
@@ -21,15 +21,16 @@ const teamCategories = [
 
 const teamMembers = [
   // Organizing Team (IIIT Sri City Core)
-  { id: 1, name: 'Sripathy Siddartha', role: 'Organiser', category: 'Organizing Team' },
-  { id: 2, name: 'K Sidharth', role: 'Head - Operations', category: 'Organizing Team', linkedin: 'https://www.linkedin.com/in/siddharth-k-48b408219/', email: 'siddharth@iiits.in', instagram: 'siddharth_k_576', image: '/drive-download-20260106T151449Z-1-001/batch3/Siddharth_K_IIITSRICITY - SIDDHARTH KANCHARLA.JPG' },
-  { id: 3, name: 'Shounak Banerjee', role: 'Head - Finance', category: 'Organizing Team', linkedin: 'https://www.linkedin.com/in/shounak-banerjee-819007324', email: 'shounakbanerjee.2006@gmail.com', instagram: 'notshounak06', image: '/drive-download-20260106T151449Z-1-001/batch1/DSC_0273 - SHOUNAK BANERJEE.JPG' },
-  { id: 4, name: 'Raniel Babu Chintha', role: 'Chief of Records', category: 'Organizing Team', linkedin: 'Raniel Babu Chinta', email: 'babuchinta.r25@iiits.in', instagram: 'raniel_babu_chinta', image: '/drive-download-20260106T151449Z-1-001/batch3/profile photo - Raniel Babu Chinta.png' },
-  { id: 5, name: 'Saptarsi', role: 'Head - Social Media', category: 'Organizing Team', linkedin: 'https://www.linkedin.com/in/saptarsi-saha-72029a358', email: 'saptarsi.s24@iiits.in', instagram: 'itz_sapta_07', image: '/drive-download-20260106T151449Z-1-001/batch3/Saptarsi_IIIT_Sricity - Saptarsi Saha.jpg' },
-  { id: 6, name: 'Sai Tej', role: 'Program Director', category: 'Organizing Team' },
+  { id: 1, name: 'Sripathy Siddartha', role: 'Organiser', category: 'Organizing Team', email: 'sripathysiddartha.k24@iiits.in', image: '/drive-download-20260106T151449Z-1-001/batch1/Sripathy_img.jpeg' },
+  { id: 2, name: 'Sai Tej', role: 'Program Director', category: 'Organizing Team', linkedin: 'https://www.linkedin.com/in/sai-tej-405a7128a/', email: 'saitej.r23@iiits.in', image: '/drive-download-20260106T151449Z-1-001/batch1/saitej_img.jpeg' },
+  { id: 3, name: 'K Sidharth', role: 'Executive Producer', category: 'Organizing Team', linkedin: 'https://www.linkedin.com/in/siddharth-k-48b408219/', email: 'siddharth@iiits.in', instagram: 'siddharth_k_576', image: '/drive-download-20260106T151449Z-1-001/batch3/Siddharth_K_IIITSRICITY - SIDDHARTH KANCHARLA.JPG' },
+  { id: 4, name: 'Shounak Banerjee', role: 'Head - Finance', category: 'Organizing Team', linkedin: 'https://www.linkedin.com/in/shounak-banerjee-819007324', email: 'shounakbanerjee.2006@gmail.com', instagram: 'notshounak06', image: '/drive-download-20260106T151449Z-1-001/batch1/DSC_0273 - SHOUNAK BANERJEE.JPG' },
+  { id: 5, name: 'Raniel Babu Chintha', role: 'Chief of Records', category: 'Organizing Team', linkedin: 'Raniel Babu Chinta', email: 'babuchinta.r25@iiits.in', instagram: 'raniel_babu_chinta', image: '/drive-download-20260106T151449Z-1-001/batch3/profile photo - Raniel Babu Chinta.png' },
+  { id: 6, name: 'Saptarsi', role: 'Head - Social Media', category: 'Organizing Team', linkedin: 'https://www.linkedin.com/in/saptarsi-saha-72029a358', email: 'saptarsi.s24@iiits.in', instagram: 'itz_sapta_07', image: '/drive-download-20260106T151449Z-1-001/batch3/Saptarsi_IIIT_Sricity - Saptarsi Saha.jpg' },
   { id: 7, name: 'Sujai', role: 'Core Member', category: 'Organizing Team', email: 'sujaishukla55555@gmail.com', instagram: 'serious_sometimes_', image: '/drive-download-20260106T151449Z-1-001/batch3/Sujai_IIIT_Sricity - sujai shukla.jpg' },
 
-  // Sponsor Team
+
+  // Sponsorship
   { id: 8, name: 'Polepalli Ranga Pallavi', role: 'Sponsorship Lead', category: 'Sponsorship', linkedin: 'Ranga Pallavi Polepalli', email: 'rangapallavi.p25@iiits.in', instagram: 'Simply.pallavi_', image: '/drive-download-20260106T151449Z-1-001/batch2/Pallavi_IIIT Sricity - ranga Pallavi Polepalli.jpg' },
   { id: 9, name: 'Khyati Jayani Manne', role: 'Sponsorship', category: 'Sponsorship', linkedin: 'khyati-jayani-manne', email: 'khyati.m25@iiits.in', instagram: 'khyatijayani_07', image: '/drive-download-20260106T151449Z-1-001/batch2/Khyati_IIIT_SriCity - Khyati Jayani Manne.jpg' },
   { id: 10, name: 'Himanshu Jaiswal', role: 'Sponsorship - IIIT Agartala', category: 'Sponsorship' },
@@ -101,15 +102,15 @@ const teamMembers = [
   { id: 68, name: 'Raj Gopal', role: 'Marketing - IIIT Una', category: 'Marketing', linkedin: 'https://www.linkedin.com/in/raj-gopal-lavuri', email: 'rajlavuri077@gmail.com', instagram: 'bobby__xox__', image: '/drive-download-20260106T151449Z-1-001/batch2/IMG_3346 - Raj Lavuri.JPG' },
   { id: 69, name: 'S.VarunRaj', role: 'Marketing - IIIT Ranchi', category: 'Marketing', linkedin: 'https://www.linkedin.com/in/varun-rajss', email: 'varunrajss07@gmail.com', instagram: 'varunn_raaajj', image: '/drive-download-20260106T151449Z-1-001/batch3/VarunRaj_IIIT Ranchi - VarunRaj.jpg' },
 
-  // Ground Team
-  { id: 70, name: 'Khyati Jayani Manne', role: 'Ground Team - IIIT Sri City', category: 'Ground Team', linkedin: 'https://www.linkedin.com/in/khyati-jayani-manne', email: 'khyati.m25@iiits.in', instagram: 'khyatijayani_07', image: '/drive-download-20260106T151449Z-1-001/batch2/Khyati_IIIT_SriCity - Khyati Jayani Manne.jpg' },
-  { id: 71, name: 'Namish Bishnoi', role: 'Ground Team - IIITS', category: 'Ground Team', linkedin: 'https://www.linkedin.com/in/namish-bishnoi-0a38b3390', email: 'namish.b25@iiits.in', image: '/drive-download-20260106T151449Z-1-001/batch1/20251206_200727 - Namish Bishnoi.jpg' },
-  { id: 72, name: 'Polepalli Ranga Pallavi', role: 'Ground Team - IIIT Sricity', category: 'Ground Team', linkedin: 'https://www.linkedin.com/in/ranga-pallavi-polepalli', email: 'rangapallavi.p25@iiits.in', instagram: 'Simply.pallavi_', image: '/drive-download-20260106T151449Z-1-001/batch2/Pallavi_IIIT Sricity - ranga Pallavi Polepalli.jpg' },
-  { id: 73, name: 'Kakumani Subba Sai Sahasra', role: 'Ground Team - IIIT Sricity', category: 'Ground Team', linkedin: 'https://www.linkedin.com/in/sai-sahasra-k-s', email: 'subbasaisahasra.k25@iiits.in', instagram: 'sahasraa__02', image: '/drive-download-20260106T151449Z-1-001/batch2/Sai_Sahasra_IIITS - SUBBA SAI SAHASRA KAKUMANI.jpg' },
-  { id: 74, name: 'Hamsini Uppalapati', role: 'Ground Team - IIIT Sricity', category: 'Ground Team', linkedin: 'https://www.linkedin.com/in/hamsini-uppalapati-451631389', email: 'hamsini.u25@iiits.in', instagram: '_hxmsinii_', image: '/drive-download-20260106T151449Z-1-001/batch1/Hamsini_iiitsricity - Hamsini Uppalapati.jpg' },
-  { id: 75, name: 'Naga Hanvitha Gurram', role: 'Ground Team - IIIT Sricity', category: 'Ground Team', email: 'nagahanvitha.g25@iiits.in', instagram: 'lm0_honeyy', image: '/drive-download-20260106T151449Z-1-001/batch1/Hanvitha_IIIT - NAGA HANVITHA GURRAM.png' },
-  { id: 76, name: 'A Thirumala Sai', role: 'Ground Team - IIIT Sricity', category: 'Ground Team', email: 'jamalanaik.a25@gmail.com', instagram: 'M.r_sai_naik', image: '/drive-download-20260106T151449Z-1-001/batch2/IMG_2954 - Thirumala Sai Jamla Naik Ajmeer.jpeg' },
-  { id: 77, name: 'Tanvi Mudili', role: 'Ground Team - IIIT Sricity', category: 'Ground Team', linkedin: 'https://www.linkedin.com/in/tanvi-mudili-b64aa9380', email: 'mudilitanvi@gmail.com', instagram: 'tanvi.131', image: '/drive-download-20260106T151449Z-1-001/batch1/68e00e75-1b33-446b-96a1-7ce3a5c1b049-1_all_14129 - MUDILI TANVI.jpg' },
+  // Ground 
+  { id: 70, name: 'Khyati Jayani Manne', role: 'Ground  - IIIT Sri City', category: 'Ground ', linkedin: 'https://www.linkedin.com/in/khyati-jayani-manne', email: 'khyati.m25@iiits.in', instagram: 'khyatijayani_07', image: '/drive-download-20260106T151449Z-1-001/batch2/Khyati_IIIT_SriCity - Khyati Jayani Manne.jpg' },
+  { id: 71, name: 'Namish Bishnoi', role: 'Ground  - IIITS', category: 'Ground ', linkedin: 'https://www.linkedin.com/in/namish-bishnoi-0a38b3390', email: 'namish.b25@iiits.in', image: '/drive-download-20260106T151449Z-1-001/batch1/20251206_200727 - Namish Bishnoi.jpg' },
+  { id: 72, name: 'Polepalli Ranga Pallavi', role: 'Ground  - IIIT Sricity', category: 'Ground ', linkedin: 'https://www.linkedin.com/in/ranga-pallavi-polepalli', email: 'rangapallavi.p25@iiits.in', instagram: 'Simply.pallavi_', image: '/drive-download-20260106T151449Z-1-001/batch2/Pallavi_IIIT Sricity - ranga Pallavi Polepalli.jpg' },
+  { id: 73, name: 'Kakumani Subba Sai Sahasra', role: 'Ground  - IIIT Sricity', category: 'Ground ', linkedin: 'https://www.linkedin.com/in/sai-sahasra-k-s', email: 'subbasaisahasra.k25@iiits.in', instagram: 'sahasraa__02', image: '/drive-download-20260106T151449Z-1-001/batch2/Sai_Sahasra_IIITS - SUBBA SAI SAHASRA KAKUMANI.jpg' },
+  { id: 74, name: 'Hamsini Uppalapati', role: 'Ground  - IIIT Sricity', category: 'Ground ', linkedin: 'https://www.linkedin.com/in/hamsini-uppalapati-451631389', email: 'hamsini.u25@iiits.in', instagram: '_hxmsinii_', image: '/drive-download-20260106T151449Z-1-001/batch1/Hamsini_iiitsricity - Hamsini Uppalapati.jpg' },
+  { id: 75, name: 'Naga Hanvitha Gurram', role: 'Ground  - IIIT Sricity', category: 'Ground ', email: 'nagahanvitha.g25@iiits.in', instagram: 'lm0_honeyy', image: '/drive-download-20260106T151449Z-1-001/batch1/Hanvitha_IIIT - NAGA HANVITHA GURRAM.png' },
+  { id: 76, name: 'A Thirumala Sai', role: 'Ground  - IIIT Sricity', category: 'Ground ', email: 'jamalanaik.a25@gmail.com', instagram: 'M.r_sai_naik', image: '/drive-download-20260106T151449Z-1-001/batch2/IMG_2954 - Thirumala Sai Jamla Naik Ajmeer.jpeg' },
+  { id: 77, name: 'Tanvi Mudili', role: 'Ground  - IIIT Sricity', category: 'Ground ', linkedin: 'https://www.linkedin.com/in/tanvi-mudili-b64aa9380', email: 'mudilitanvi@gmail.com', instagram: 'tanvi.131', image: '/drive-download-20260106T151449Z-1-001/batch1/68e00e75-1b33-446b-96a1-7ce3a5c1b049-1_all_14129 - MUDILI TANVI.jpg' },
 
   // Ground Design
   { id: 78, name: 'Polepalli Ranga Pallavi', role: 'Ground Design - IIIT Sricity', category: 'Ground Design', linkedin: 'https://www.linkedin.com/in/ranga-pallavi-polepalli', email: 'rangapallavi.p25@iiits.in', instagram: 'Simply.pallavi_', image: '/drive-download-20260106T151449Z-1-001/batch2/Pallavi_IIIT Sricity - ranga Pallavi Polepalli.jpg' },
@@ -127,7 +128,7 @@ const teamMembers = [
   // SPoC
   { id: 87, name: 'Bhupendra Kumar', role: 'SPoC - IIIT SURAT', category: 'SPoC', linkedin: 'https://www.linkedin.com/in/bhupendra-kumar-217923294/', email: 'errorbhupendra481@gmail.com', image: '/drive-download-20260106T151449Z-1-001/batch1/Bhupendrakumar_IIITSURAT - Bhupendra Kumar.jpg' },
   { id: 88, name: 'Sharad Kumar Dubey', role: 'SPoC - IIITDM Kancheepuram', category: 'SPoC', linkedin: 'https://www.linkedin.com/in/sharad-kumar-dubey/', email: 'cs23i1052@iiitdm.ac.in', instagram: '__sha_ey__', image: '/drive-download-20260106T151449Z-1-001/batch2/SHARAD - CS23I1052 SHARAD KUMAR DUBEY.png' },
-  { id: 89, name: 'Hasini Mende', role: 'SPoC - IIIT Sricity', category: 'SPoC', email: 'hasini.m25@iiits.in', instagram: 'hasini.mende', image: '/drive-download-20260106T151449Z-1-001/batch2/IMG_20251227_113252 - Hasini Mende.jpg' },
+  { id: 89, name: 'Sripathy Siddartha', role: 'SPoC - IIIT Sricity', category: 'SPoC', email: 'sripathysiddartha.k24@iiits.in', image: '/drive-download-20260106T151449Z-1-001/batch1/Sripathy_img.jpeg' },
   { id: 90, name: 'Shivansh Agrawal', role: 'SPoC - IIIT Sonepat', category: 'SPoC', linkedin: 'https://www.linkedin.com/in/shivansh-agrawal-0920b5214/', email: 'shivansh.agrprof@gmail.com', instagram: 'shivanshagr08', image: '/drive-download-20260106T151449Z-1-001/batch3/Shivansh_Agrawal_12312003 - Shivansh Agrawal.jpg' },
   { id: 91, name: 'Ayush Soni', role: 'SPoC - IIIT Tiruchirappalli', category: 'SPoC', linkedin: 'https://www.linkedin.com/in/soniayush12', email: 'soniayush312@gmail.com', instagram: 'soniayush_12', image: '/drive-download-20260106T151449Z-1-001/batch1/Ayush soni IIIT Trichy - Ayush Soni.jpg' },
   { id: 92, name: 'Sujal Negi', role: 'SPoC - IIITDM Kurnool', category: 'SPoC', linkedin: 'https://in.linkedin.com/in/sujalnegi128005', email: 'sujalnegi2805@gmail.com', instagram: 'sujal128005', image: '/drive-download-20260106T151449Z-1-001/batch1/20250726_155518 - Sujal.jpg' },
@@ -145,10 +146,10 @@ const teamMembers = [
   { id: 104, name: 'S.VarunRaj', role: 'SPoC - IIIT Ranchi', category: 'SPoC', linkedin: 'https://www.linkedin.com/in/varun-rajss', email: 'varunrajss07@gmail.com', instagram: 'varunn_raaajj', image: '/drive-download-20260106T151449Z-1-001/batch3/VarunRaj_IIIT Ranchi - VarunRaj.jpg' },
 
   // Additional Sponsorship Members
-  { id: 105, name: 'Anand Khumkar', role: 'Sponsorship - IIIT SRI CITY', category: 'Sponsor Team', linkedin: 'https://www.linkedin.com/in/anand-khumkar-62aa1a37a', email: 'khumkaranand.s25@iiits.in', instagram: 'i_m_just_ask', image: '/drive-download-20260106T151449Z-1-001/batch2/IMG-20251209-WA0269~2 - Anand Khumkar.jpg' },
-  { id: 106, name: 'V V Sasidhar', role: 'Sponsorship - IIIT Sricity', category: 'Sponsor Team', linkedin: 'https://www.linkedin.com/in/sasidhar-07-', email: 'venkatasasidhar.v25@iiits.in', instagram: '_sasidhar_07_', image: '/drive-download-20260106T151449Z-1-001/batch3/Sasidhar_IIIT_Sricity - Venkata Sasidhar Vanapamula.jpg' },
-  { id: 107, name: 'Sricharan', role: 'Sponsorship - IIIT Sri city', category: 'Sponsor Team', linkedin: 'https://www.linkedin.com/in/sricharan-k', email: 'Sricharan.k25@iiits.in', instagram: 'sk7770z', image: '/drive-download-20260106T151449Z-1-001/batch3/Screenshot 2025-12-28 230918 - Sricharan Kancharla.png' },
-  { id: 108, name: 'Tanvi Mudili', role: 'Sponsorship - IIIT Sricity', category: 'Sponsor Team', linkedin: 'https://www.linkedin.com/in/tanvi-mudili-b64aa9380', email: 'mudilitanvi@gmail.com', instagram: 'tanvi.131', image: '/drive-download-20260106T151449Z-1-001/batch1/68e00e75-1b33-446b-96a1-7ce3a5c1b049-1_all_14129 - MUDILI TANVI.jpg' },
+  { id: 105, name: 'Anand Khumkar', role: 'Sponsorship - IIIT SRI CITY', category: 'Sponsorship', linkedin: 'https://www.linkedin.com/in/anand-khumkar-62aa1a37a', email: 'khumkaranand.s25@iiits.in', instagram: 'i_m_just_ask', image: '/drive-download-20260106T151449Z-1-001/batch2/IMG-20251209-WA0269~2 - Anand Khumkar.jpg' },
+  { id: 106, name: 'V V Sasidhar', role: 'Sponsorship - IIIT Sricity', category: 'Sponsorship', linkedin: 'https://www.linkedin.com/in/sasidhar-07-', email: 'venkatasasidhar.v25@iiits.in', instagram: '_sasidhar_07_', image: '/drive-download-20260106T151449Z-1-001/batch3/Sasidhar_IIIT_Sricity - Venkata Sasidhar Vanapamula.jpg' },
+  { id: 107, name: 'Sricharan', role: 'Sponsorship - IIIT Sri city', category: 'Sponsorship', linkedin: 'https://www.linkedin.com/in/sricharan-k', email: 'Sricharan.k25@iiits.in', instagram: 'sk7770z', image: '/drive-download-20260106T151449Z-1-001/batch3/Screenshot 2025-12-28 230918 - Sricharan Kancharla.png' },
+  { id: 108, name: 'Tanvi Mudili', role: 'Sponsorship - IIIT Sricity', category: 'Sponsorship', linkedin: 'https://www.linkedin.com/in/tanvi-mudili-b64aa9380', email: 'mudilitanvi@gmail.com', instagram: 'tanvi.131', image: '/drive-download-20260106T151449Z-1-001/batch1/68e00e75-1b33-446b-96a1-7ce3a5c1b049-1_all_14129 - MUDILI TANVI.jpg' },
 
   // Additional Design Members
   { id: 109, name: 'Piyali Barman', role: 'Design - IIIT Sri city', category: 'Design', linkedin: 'https://www.linkedin.com/in/piyali-barman-424085381', email: 'piyali.b25@iiits.in', instagram: '@piyalii__', image: '/drive-download-20260106T151449Z-1-001/batch2/Piyali_Barman_IIIT_Sricity - Piyali Barman.jpg' },
@@ -158,6 +159,8 @@ const teamMembers = [
   // Additional Website Members
   { id: 112, name: 'Gandra Rithvik Rao', role: 'Website Dev - IIIT SriCity', category: 'Website', linkedin: 'https://www.linkedin.com/in/rithvik-rao-8600882a2/', email: 'rithvikrao.g23@iiits.in', instagram: 'rithvik1101', image: '/drive-download-20260106T151449Z-1-001/batch2/Rithvik_IIIT_SRICITY - RITHVIK RAO GANDRA.jpeg' },
   { id: 113, name: 'Shivansh Agrawal', role: 'Website Dev - IIIT Sonepat', category: 'Website', linkedin: 'https://www.linkedin.com/in/shivansh-agrawal-0920b5214/', email: 'shivansh.agrprof@gmail.com', instagram: 'shivanshagr08', image: '/drive-download-20260106T151449Z-1-001/batch3/Shivansh_Agrawal_12312003 - Shivansh Agrawal.jpg' },
+  // Additional Website Members
+  { id: 114, name: 'Soham Biswas', role: 'Core Member', category: 'Organizing Team', linkedin: 'https://www.linkedin.com/in/soham-biswas-13948a202/', email: 'sohambiswas63@gmail.com', instagram: 'shttps://www.instagram.com/sohamb_42?utm_source=qr&igsh=MTNyMzI1Mno3YXh6dw==', image: '/drive-download-20260106T151449Z-1-001/batch1/SohamBiswas_IIIT_Sri_City - SOHAM BISWAS.jpeg' },
 ];
 
 const Teams = () => {
