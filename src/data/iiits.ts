@@ -506,16 +506,16 @@ export const iiitsData: IIIT[] = [
 export const spocsData = [
   {
     "id": "iiit-sri-city",
-    "name": "Hasini Mende",
+    "name": "Sripathy Siddartha",
     "iiit": "IIIT Sri City",
     "city": "Sri City",
     "state": "Andhra Pradesh",
     "role": "SPoC",
     "department": "",
     "phone": "8790327970",
-    "email": "hasini.m25@iiits.in",
-    "instagram": "hasini.mende",
-    "image": "/drive-download-20260106T151449Z-1-001/batch2/IMG_20251227_113252 - Hasini Mende.jpg"
+    "email": "sripathysiddartha.k24@iiits.in",
+    
+    "image": "/drive-download-20260106T151449Z-1-001/batch1/Sripathy_img.jpeg"
   },
   {
     "id": "iiit-agartala",
