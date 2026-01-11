@@ -241,28 +241,45 @@ const IndiaMap3D = ({ className = "" }: IndiaMap3DProps) => {
       <AnimatePresence>
         {selectedData && (
           <motion.div
-            className="absolute top-4 right-4 z-50 w-80"
             initial={{ opacity: 0, x: 30, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 30, scale: 0.9 }}
+            transition={{ type: "spring", damping: 20 }}
+            className="absolute top-4 right-4 z-50 w-80"
           >
-            <GlassCard glow={selectedData.organizing ? "accent" : "primary"}>
+            <GlassCard className="relative" glow={selectedData.organizing ? 'accent' : 'primary'}>
               <button
                 onClick={() => setSelectedIIIT(null)}
-                className="absolute top-3 right-3"
+                className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-muted transition-colors"
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4 text-muted-foreground" />
               </button>
-              <h3 className="text-xl font-bold gradient-text">
-                {selectedData.name}
-              </h3>
-              <p className="text-sm text-muted-foreground flex items-center gap-1">
-                <MapPin className="w-4 h-4" /> {selectedData.location}
-              </p>
+
+              <div className="mb-4">
+                {selectedData.organizing && (
+                  <span className="inline-block px-2.5 py-1 text-[10px] font-semibold bg-accent/20 text-accent rounded-full mb-2">
+                    ⭐ Organizing Institute
+                  </span>
+                )}
+                <h3 className="text-xl font-bold gradient-text">{selectedData.name}</h3>
+                <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1.5">
+                  <MapPin className="w-4 h-4" />
+                  <span>{selectedData.location}</span>
+                </div>
+              </div>
+
+              <Link
+                to={`/iiits/${selectedData.id}`}
+                className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-primary/25"
+              >
+                View Full Profile
+                <ExternalLink className="w-4 h-4" />
+              </Link>
             </GlassCard>
           </motion.div>
         )}
       </AnimatePresence>
+      
       {/* Legend */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

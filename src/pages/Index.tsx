@@ -40,14 +40,14 @@ const domains = [
     name: "Blockchain",
     icon: Coins,
     description:
-      "Protecting computer systems, networks, and data from digital threats like attacks, damage, or unauthorized access.",
+          "Decentralized, immutable digital ledger that securely records transactions across a network of computers, building trust and transparency without needing a central authority.",
     color: "from-secondary to-secondary-glow",
   },
   {
     name: "Cybersecurity",
     icon: Shield,
     description:
-      "Decentralized, immutable digital ledger that securely records transactions across a network of computers, building trust and transparency without needing a central authority.",
+          "Protecting computer systems, networks, and data from digital threats like attacks, damage, or unauthorized access.",
     color: "from-accent to-accent-glow",
   },
 ];
