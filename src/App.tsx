@@ -23,6 +23,8 @@ import Teams from "./pages/Teams";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import SPOCVerification from "./pages/SPOCVerification";
+import SPOCDashboard from "./pages/SPOCDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +54,8 @@ const App = () => (
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/teams" element={<Teams />} />
                   <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/spoc/verify" element={<SPOCVerification />} />
+                  <Route path="/spoc/dashboard" element={<SPOCDashboard />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="*" element={<NotFound />} />

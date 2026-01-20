@@ -8,12 +8,13 @@ import GlassCard from '@/components/GlassCard';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
+import { teamsData } from '@/data/teams';
 
 const TeamJoin = () => {
     const [teamCode, setTeamCode] = useState('');
     const [loading, setLoading] = useState(false);
     const { toast } = useToast();
-    const { user, refreshProfile } = useAuth();
+    const { user, profile, refreshProfile } = useAuth();
 
     const handleJoinTeam = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,15 +31,15 @@ const TeamJoin = () => {
         setLoading(true);
 
         try {
-            // Find team with this code
-            const { data: teamData, error: teamError } = await supabase
+            // Find team leader with this code
+            const { data: teamLeader, error: teamError } = await supabase
                 .from('user_profiles')
-                .select('id, team_id, name')
+                .select('id, team_id, name, email')
                 .eq('team_code', teamCode.trim())
                 .eq('role', 'team_leader')
                 .single();
 
-            if (teamError || !teamData) {
+            if (teamError || !teamLeader) {
                 toast({
                     title: 'Invalid team code',
                     description: 'No team found with this code. Please check and try again.',
@@ -48,12 +49,57 @@ const TeamJoin = () => {
                 return;
             }
 
-            // Update current user's profile to join team
+            // Find the team in teams.ts by leader's email
+            const teamInfo = teamsData.find(t => 
+                t.representativeEmail.toLowerCase() === teamLeader.email.toLowerCase()
+            );
+
+            if (!teamInfo) {
+                toast({
+                    title: 'Team not found',
+                    description: 'This team is not registered in the system.',
+                    variant: 'destructive',
+                });
+                setLoading(false);
+                return;
+            }
+
+            // Check if current user's email is in the team's member list
+            const isAuthorizedMember = teamInfo.members.some(
+                member => member.email.toLowerCase() === profile?.email?.toLowerCase()
+            );
+
+            if (!isAuthorizedMember) {
+                toast({
+                    title: 'Unauthorized',
+                    description: 'You are not registered as a member of this team. Contact your team leader if this is a mistake.',
+                    variant: 'destructive',
+                });
+                setLoading(false);
+                return;
+            }
+
+            // Check if user is trying to join as the team leader
+            const memberInfo = teamInfo.members.find(
+                member => member.email.toLowerCase() === profile?.email?.toLowerCase()
+            );
+
+            if (memberInfo?.role === 'leader') {
+                toast({
+                    title: 'Already a leader',
+                    description: 'You are registered as the team leader. You cannot join your own team.',
+                    variant: 'destructive',
+                });
+                setLoading(false);
+                return;
+            }
+
+            // Update current user's profile to request to join team (pending approval)
             const { error: updateError } = await supabase
                 .from('user_profiles')
                 .update({
-                    team_id: teamData.team_id || teamData.id,
-                    has_joined_team: true, // Auto-approve for now
+                    team_id: teamLeader.team_id || teamLeader.id,
+                    has_joined_team: false, // Set to false for pending approval
                 })
                 .eq('id', user?.id);
 
@@ -68,8 +114,8 @@ const TeamJoin = () => {
             }
 
             toast({
-                title: 'Successfully joined team!',
-                description: `You are now part of ${teamData.name}'s team.`,
+                title: 'Join request sent!',
+                description: `Your request to join ${teamInfo.name} has been sent to the team leader for approval.`,
             });
 
             // Refresh profile to update context

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -19,6 +19,9 @@ import PageTransition from "@/components/PageTransition";
 import GlassCard from "@/components/GlassCard";
 import { Button } from "@/components/ui/button";
 import { iiitsData } from "@/data/iiits";
+import SPOCEditSection from "@/components/SPOCEditSection";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/contexts/AuthContext";
 
 // Import IIIT images
 import iiitAgartala1 from "@/assets/photos/iiit-agartala-1.jpg";
@@ -854,7 +857,12 @@ const getDefaultIIIT = (id: string) => {
 
 const IIITProfile = () => {
   const { id } = useParams<{ id: string }>();
+  const { profile } = useAuth();
   const [activeImage, setActiveImage] = useState(0);
+  const [spocData, setSpocData] = useState<any>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const isSPOC = profile?.role === 'spoc';
 
   const iiit = useMemo(() => {
     if (id && iiitDetails[id]) {
@@ -862,6 +870,38 @@ const IIITProfile = () => {
     }
     return getDefaultIIIT(id || "");
   }, [id]);
+
+  const iiitData = useMemo(() => iiitsData.find(i => i.id === id), [id]);
+
+  // Merge SPOC campus gallery with default images
+  const campusImages = useMemo(() => {
+    const defaultImages = iiit.images || [];
+    const spocImages = spocData?.campus_gallery || [];
+    // SPOC images take priority, followed by default images
+    return spocImages.length > 0 ? spocImages : defaultImages;
+  }, [iiit.images, spocData]);
+
+  useEffect(() => {
+    if (id) {
+      loadSpocData();
+    }
+  }, [id, refreshKey]);
+
+  const loadSpocData = async () => {
+    const { data } = await supabase
+      .from('iiit_edits')
+      .select('*')
+      .eq('iiit_id', id)
+      .single();
+
+    if (data) {
+      setSpocData(data);
+    }
+  };
+
+  const handleUpdate = () => {
+    setRefreshKey(prev => prev + 1);
+  };
 
   const isOrganizing = id === "iiit-sri-city";
 
@@ -894,11 +934,11 @@ const IIITProfile = () => {
               glow={isOrganizing ? "primary" : "none"}
             >
               {/* Image Gallery */}
-              {iiit.images.length > 0 ? (
+              {campusImages.length > 0 ? (
                 <div className="relative h-64 md:h-80 lg:h-96 overflow-hidden">
                   <motion.img
                     key={activeImage}
-                    src={iiit.images[activeImage]}
+                    src={campusImages[activeImage]}
                     alt={`${iiit.name} campus`}
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0, scale: 1.1 }}
@@ -908,9 +948,9 @@ const IIITProfile = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
 
                   {/* Image Thumbnails */}
-                  {iiit.images.length > 1 && (
+                  {campusImages.length > 1 && (
                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                      {iiit.images.map((img, index) => (
+                      {campusImages.map((img, index) => (
                         <button
                           key={index}
                           onClick={() => setActiveImage(index)}
@@ -1013,13 +1053,37 @@ const IIITProfile = () => {
                 transition={{ delay: 0.1 }}
               >
                 <GlassCard>
-                  <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <BookOpen className="w-6 h-6 text-primary" />
-                    About
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {iiit.description}
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-2xl font-bold flex items-center gap-2">
+                      <BookOpen className="w-6 h-6 text-primary" />
+                      About
+                    </h2>
+                    {isSPOC && (
+                      <SPOCEditSection 
+                        iiit={iiitData || iiit as any}
+                        section="about"
+                        existingData={spocData}
+                        defaultData={iiit}
+                        onUpdate={handleUpdate}
+                      />
+                    )}
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                    {spocData?.about_section || iiit.description}
                   </p>
+                  {spocData?.about_section && (
+                    <div className="mt-3 text-xs text-primary/70">
+                      Updated by SPOC
+                    </div>
+                  )}
+                  {spocData?.description && (
+                    <div className="mt-4 pt-4 border-t border-border/50">
+                      <p className="text-sm text-primary font-semibold mb-2">Additional Note:</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {spocData.description}
+                      </p>
+                    </div>
+                  )}
                 </GlassCard>
               </motion.div>
 
@@ -1030,10 +1094,21 @@ const IIITProfile = () => {
                 transition={{ delay: 0.2 }}
               >
                 <GlassCard>
-                  <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <Award className="w-6 h-6 text-primary" />
-                    Achievements
-                  </h2>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-2xl font-bold flex items-center gap-2">
+                      <Award className="w-6 h-6 text-primary" />
+                      Achievements
+                    </h2>
+                    {isSPOC && (
+                      <SPOCEditSection 
+                        iiit={iiitData || iiit as any}
+                        section="achievements"
+                        existingData={spocData}
+                        defaultData={iiit}
+                        onUpdate={handleUpdate}
+                      />
+                    )}
+                  </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {iiit.achievements.map((achievement, index) => (
                       <div
@@ -1042,6 +1117,17 @@ const IIITProfile = () => {
                       >
                         <div className="w-2 h-2 mt-2 rounded-full bg-primary shrink-0" />
                         <span className="text-muted-foreground">
+                          {achievement}
+                        </span>
+                      </div>
+                    ))}
+                    {spocData?.achievements && spocData.achievements.length > 0 && spocData.achievements.map((achievement: string, index: number) => (
+                      <div
+                        key={`spoc-${index}`}
+                        className="flex items-start gap-3 p-3 rounded-lg bg-primary/10 border border-primary/30"
+                      >
+                        <div className="w-2 h-2 mt-2 rounded-full bg-primary shrink-0" />
+                        <span className="text-foreground">
                           {achievement}
                         </span>
                       </div>
@@ -1057,31 +1143,42 @@ const IIITProfile = () => {
                 transition={{ delay: 0.25 }}
               >
                 <GlassCard glow="secondary">
-                  <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <Building className="w-6 h-6 text-secondary" />
-                    Tech Club/Society: {iiit.club.name}
-                  </h2>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-2xl font-bold flex items-center gap-2">
+                      <Building className="w-6 h-6 text-secondary" />
+                      Tech Club/Society: {spocData?.club_name || iiit.club.name}
+                    </h2>
+                    {isSPOC && (
+                      <SPOCEditSection 
+                        iiit={iiitData || iiit as any}
+                        section="club"
+                        existingData={spocData}
+                        defaultData={iiit}
+                        onUpdate={handleUpdate}
+                      />
+                    )}
+                  </div>
                   <p className="text-muted-foreground mb-4">
                     The official tech club representing {iiit.name} at UDBHAV
                     2025.
                   </p>
                   <div className="flex gap-3">
-                    {iiit.club.instagram && (
+                    {(spocData?.club_instagram || iiit.club.instagram) && (
                       <Button asChild variant="outline" size="sm">
                         <a
-                          href={`https://instagram.com/${iiit.club.instagram}`}
+                          href={`https://instagram.com/${spocData?.club_instagram || iiit.club.instagram}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <Instagram className="mr-2 h-4 w-4" />@
-                          {iiit.club.instagram}
+                          {spocData?.club_instagram || iiit.club.instagram}
                         </a>
                       </Button>
                     )}
-                    {iiit.club.linkedin && (
+                    {(spocData?.club_linkedin || iiit.club.linkedin) && (
                       <Button asChild variant="outline" size="sm">
                         <a
-                          href={iiit.club.linkedin}
+                          href={spocData?.club_linkedin || iiit.club.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -1143,30 +1240,41 @@ const IIITProfile = () => {
                 transition={{ delay: 0.2 }}
               >
                 <GlassCard>
-                  <h2 className="text-xl font-bold mb-4">Point of Contact</h2>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-bold">Point of Contact</h2>
+                    {isSPOC && (
+                      <SPOCEditSection 
+                        iiit={iiitData || iiit as any}
+                        section="poc"
+                        existingData={spocData}
+                        defaultData={iiit}
+                        onUpdate={handleUpdate}
+                      />
+                    )}
+                  </div>
                   <div className="space-y-4">
                     <div className="p-4 rounded-lg bg-card/50 border border-border/50">
-                      <div className="font-medium mb-1">{iiit.contact.poc}</div>
+                      <div className="font-medium mb-1">{spocData?.spoc_name || iiit.contact.poc}</div>
                       <div className="text-sm text-muted-foreground">
-                        IIIT SPOC for UDBHAV
+                        {spocData?.spoc_department ? `${spocData.spoc_department} | ` : ''}IIIT SPOC for UDBHAV
                       </div>
                     </div>
                     <div className="flex items-center gap-3 text-muted-foreground">
                       <Mail className="w-5 h-5 text-primary" />
                       <a
-                        href={`mailto:${iiit.contact.email}`}
+                        href={`mailto:${spocData?.spoc_email || iiit.contact.email}`}
                         className="hover:text-primary transition-colors"
                       >
-                        {iiit.contact.email}
+                        {spocData?.spoc_email || iiit.contact.email}
                       </a>
                     </div>
                     <div className="flex items-center gap-3 text-muted-foreground">
                       <Phone className="w-5 h-5 text-primary" />
                       <a
-                        href={`tel:${iiit.contact.phone}`}
+                        href={`tel:${spocData?.spoc_phone || iiit.contact.phone}`}
                         className="hover:text-primary transition-colors"
                       >
-                        {iiit.contact.phone}
+                        {spocData?.spoc_phone || iiit.contact.phone}
                       </a>
                     </div>
                   </div>
@@ -1186,7 +1294,7 @@ const IIITProfile = () => {
                       { label: "Established", value: iiit.established },
                       { label: "Total Students", value: `${iiit.students}+` },
                       { label: "State", value: iiit.state },
-                      { label: "Tech Club", value: iiit.club.name },
+                      { label: "Tech Club", value: spocData?.club_name || iiit.club.name },
                     ].map((item) => (
                       <div
                         key={item.label}
@@ -1205,16 +1313,30 @@ const IIITProfile = () => {
               </motion.div>
 
               {/* Image Gallery Preview */}
-              {iiit.images.length > 0 && (
+              {campusImages.length > 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 }}
                 >
                   <GlassCard>
-                    <h2 className="text-xl font-bold mb-4">Campus Gallery</h2>
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-xl font-bold">Campus Gallery</h2>
+                      {isSPOC && (
+                        <SPOCEditSection 
+                          iiit={iiitData || iiit as any}
+                          section="gallery"
+                          existingData={spocData}
+                          defaultData={iiit}
+                          onUpdate={handleUpdate}
+                        />
+                      )}
+                    </div>
+                    {spocData?.campus_gallery && spocData.campus_gallery.length > 0 && (
+                      <p className="text-xs text-primary/70 mb-3">Updated by SPOC</p>
+                    )}
                     <div className="grid grid-cols-3 gap-2">
-                      {iiit.images.map((img, index) => (
+                      {campusImages.map((img, index) => (
                         <button
                           key={index}
                           onClick={() => setActiveImage(index)}

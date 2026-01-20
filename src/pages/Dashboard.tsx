@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Edit2, Bell, Trophy, Mail, Phone, Calendar, ExternalLink, Github, Copy, Check, Key, UserCheck, UserX, Loader2 } from 'lucide-react';
+import { Trophy } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import PageTransition from '@/components/PageTransition';
-import GlassCard from '@/components/GlassCard';
-import { Button } from '@/components/ui/button';
 import TeamJoin from '@/components/TeamJoin';
 import PendingApproval from '@/components/PendingApproval';
 import { useAuth } from '@/contexts/AuthContext';
@@ -21,28 +20,49 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
-const announcements = [
-  { id: 1, title: 'Grand Finale Schedule Released', date: '2024-03-15', type: 'info' },
-  { id: 2, title: 'Project Submission Deadline Extended', date: '2024-03-10', type: 'warning' },
-  { id: 3, title: 'Congratulations on Qualifying to Finals!', date: '2024-03-05', type: 'success' },
-  { id: 4, title: 'Round 2 Results Announced', date: '2024-03-01', type: 'info' },
-];
+// Dashboard Components
+import TeamCodeSection from './Dashboard/TeamCodeSection';
+import PendingApprovals from './Dashboard/PendingApprovals';
+import TeamInfoCard from './Dashboard/TeamInfoCard';
+import TeamMembersCard from './Dashboard/TeamMembersCard';
+import ProjectDetailsCard from './Dashboard/ProjectDetailsCard';
+import CompetitionProgress from './Dashboard/CompetitionProgress';
+import AnnouncementsCard from './Dashboard/AnnouncementsCard';
+import EditDialogs from './Dashboard/EditDialogs';
 
 const Dashboard = () => {
   const { user, profile, refreshProfile } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [teamCode, setTeamCode] = useState<string>('');
   const [copied, setCopied] = useState(false);
   const [teamData, setTeamData] = useState<Team | null>(null);
   const [loading, setLoading] = useState(true);
   const [pendingMembers, setPendingMembers] = useState<any[]>([]);
   const [removingMember, setRemovingMember] = useState<string | null>(null);
+  const [editingTeamInfo, setEditingTeamInfo] = useState(false);
+  const [editingProject, setEditingProject] = useState(false);
+  const [teamInfoForm, setTeamInfoForm] = useState({ name: '', iiit: '', representative: '' });
+  const [projectForm, setProjectForm] = useState({
+    name: '',
+    description: '',
+    domain: '',
+    github: '',
+    demo: '',
+    techStack: '',
+  });
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (profile) {
+      // If user is SPOC, redirect to SPOC dashboard
+      if (profile.role === 'spoc') {
+        navigate('/spoc/dashboard');
+        return;
+      }
       loadTeamData();
     }
-  }, [profile]);
+  }, [profile, navigate]);
 
   const loadTeamData = async () => {
     setLoading(true);
@@ -61,9 +81,27 @@ const Dashboard = () => {
         .or(`id.eq.${user?.id},team_id.eq.${user?.id}`)
         .eq('has_joined_team', true);
 
+      // Fetch saved team info from database
+      const { data: savedTeamInfo } = await supabase
+        .from('team_info')
+        .select('*')
+        .eq('user_id', user?.id)
+        .single();
+
+      // Fetch saved project info from database
+      const { data: savedProjectInfo } = await supabase
+        .from('project_info')
+        .select('*')
+        .eq('user_id', user?.id)
+        .single();
+
       // Merge database members with static team data
       const mergedTeam = {
         ...leaderTeam,
+        // Use saved data if available, otherwise use static data
+        name: savedTeamInfo?.team_name || leaderTeam.name,
+        iiit: savedTeamInfo?.iiit || leaderTeam.iiit,
+        representative: savedTeamInfo?.representative || leaderTeam.representative,
         members: leaderTeam.members.map(staticMember => {
           // Check if this member has an actual database account
           const dbMember = dbMembers?.find(db => db.email.toLowerCase() === staticMember.email.toLowerCase());
@@ -72,7 +110,15 @@ const Dashboard = () => {
             hasAccount: !!dbMember,
             isActive: !!dbMember
           };
-        }).filter(m => m.email === profile?.email || m.hasAccount) // Show leader + active members
+        }).filter(m => m.email === profile?.email || m.hasAccount), // Show leader + active members
+        project: savedProjectInfo ? {
+          name: savedProjectInfo.project_name,
+          description: savedProjectInfo.description,
+          domain: savedProjectInfo.domain,
+          github: savedProjectInfo.github_url || '',
+          demo: savedProjectInfo.demo_url || '',
+          techStack: savedProjectInfo.tech_stack || [],
+        } : leaderTeam.project,
       };
 
       setTeamData(mergedTeam);
@@ -92,7 +138,36 @@ const Dashboard = () => {
         );
         
         if (memberTeam) {
-          setTeamData(memberTeam);
+          // Fetch saved team info for the leader
+          const { data: savedTeamInfo } = await supabase
+            .from('team_info')
+            .select('*')
+            .eq('user_id', profile.team_id)
+            .single();
+
+          // Fetch saved project info for the leader
+          const { data: savedProjectInfo } = await supabase
+            .from('project_info')
+            .select('*')
+            .eq('user_id', profile.team_id)
+            .single();
+
+          const updatedTeam = {
+            ...memberTeam,
+            name: savedTeamInfo?.team_name || memberTeam.name,
+            iiit: savedTeamInfo?.iiit || memberTeam.iiit,
+            representative: savedTeamInfo?.representative || memberTeam.representative,
+            project: savedProjectInfo ? {
+              name: savedProjectInfo.project_name,
+              description: savedProjectInfo.description,
+              domain: savedProjectInfo.domain,
+              github: savedProjectInfo.github_url || '',
+              demo: savedProjectInfo.demo_url || '',
+              techStack: savedProjectInfo.tech_stack || [],
+            } : memberTeam.project,
+          };
+
+          setTeamData(updatedTeam);
         }
       }
     }
@@ -205,6 +280,132 @@ const Dashboard = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const openTeamInfoEdit = () => {
+    if (teamData) {
+      setTeamInfoForm({
+        name: teamData.name,
+        iiit: teamData.iiit,
+        representative: teamData.representative,
+      });
+      setEditingTeamInfo(true);
+    }
+  };
+
+  const openProjectEdit = () => {
+    if (teamData?.project) {
+      setProjectForm({
+        name: teamData.project.name,
+        description: teamData.project.description,
+        domain: teamData.project.domain,
+        github: teamData.project.github,
+        demo: teamData.project.demo,
+        techStack: teamData.project.techStack.join(', '),
+      });
+      setEditingProject(true);
+    }
+  };
+
+  const saveTeamInfo = async () => {
+    setSaving(true);
+    try {
+      // Update in Supabase
+      const { error } = await supabase
+        .from('team_info')
+        .upsert({
+          user_id: user?.id,
+          team_name: teamInfoForm.name,
+          iiit: teamInfoForm.iiit,
+          representative: teamInfoForm.representative,
+          updated_at: new Date().toISOString(),
+        }, {
+          onConflict: 'user_id'
+        });
+
+      if (error) throw error;
+
+      // Update local state
+      if (teamData) {
+        setTeamData({
+          ...teamData,
+          name: teamInfoForm.name,
+          iiit: teamInfoForm.iiit,
+          representative: teamInfoForm.representative,
+        });
+      }
+
+      toast({
+        title: 'Team info updated!',
+        description: 'Your team information has been saved successfully.',
+      });
+      setEditingTeamInfo(false);
+    } catch (error: any) {
+      toast({
+        title: 'Failed to save',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const saveProject = async () => {
+    setSaving(true);
+    try {
+      const techStackArray = projectForm.techStack
+        .split(',')
+        .map(tech => tech.trim())
+        .filter(tech => tech.length > 0);
+
+      // Update in Supabase
+      const { error } = await supabase
+        .from('project_info')
+        .upsert({
+          user_id: user?.id,
+          project_name: projectForm.name,
+          description: projectForm.description,
+          domain: projectForm.domain,
+          github_url: projectForm.github,
+          demo_url: projectForm.demo,
+          tech_stack: techStackArray,
+          updated_at: new Date().toISOString(),
+        }, {
+          onConflict: 'user_id'
+        });
+
+      if (error) throw error;
+
+      // Update local state
+      if (teamData) {
+        setTeamData({
+          ...teamData,
+          project: {
+            name: projectForm.name,
+            description: projectForm.description,
+            domain: projectForm.domain,
+            github: projectForm.github,
+            demo: projectForm.demo,
+            techStack: techStackArray,
+          },
+        });
+      }
+
+      toast({
+        title: 'Project updated!',
+        description: 'Your project details have been saved successfully.',
+      });
+      setEditingProject(false);
+    } catch (error: any) {
+      toast({
+        title: 'Failed to save',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   // Check if user is a team leader (by email match in teams data)
   const isTeamLeader = teamsData.some(t => 
     t.representativeEmail.toLowerCase() === profile?.email?.toLowerCase()
@@ -277,315 +478,54 @@ const Dashboard = () => {
 
           {/* Team Leader Code Section */}
           {isTeamLeader && teamCode && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mb-8"
-            >
-              <GlassCard glow="secondary">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-bold mb-1 flex items-center gap-2">
-                      <Key className="w-5 h-5 text-secondary" />
-                      Your Team Code
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      Share this code with your team members to let them join
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="px-4 py-2 rounded-lg bg-secondary/20 border border-secondary/50 font-mono text-xl font-bold text-secondary">
-                      {teamCode}
-                    </div>
-                    <Button
-                      onClick={copyTeamCode}
-                      variant="outline"
-                      size="icon"
-                      className="hover:bg-secondary/20"
-                    >
-                      {copied ? (
-                        <Check className="w-4 h-4 text-success" />
-                      ) : (
-                        <Copy className="w-4 h-4" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              </GlassCard>
-            </motion.div>
+            <TeamCodeSection 
+              teamCode={teamCode}
+              copied={copied}
+              onCopy={copyTeamCode}
+            />
           )}
 
           {/* Pending Member Approvals */}
-          {isTeamLeader && pendingMembers.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
-              className="mb-8"
-            >
-              <GlassCard glow="secondary">
-                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                  <Bell className="w-5 h-5 text-warning" />
-                  Pending Member Requests ({pendingMembers.length})
-                </h3>
-                <div className="space-y-3">
-                  {pendingMembers.map((member) => (
-                    <div key={member.id} className="flex items-center justify-between p-3 rounded-lg bg-warning/10 border border-warning/20">
-                      <div>
-                        <p className="font-semibold">{member.name}</p>
-                        <p className="text-sm text-muted-foreground">{member.email}</p>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          onClick={() => approveMember(member.id, member.name)}
-                          className="bg-success hover:bg-success/80"
-                        >
-                          <UserCheck className="w-4 h-4 mr-1" />
-                          Approve
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          onClick={() => setRemovingMember(member.id)}
-                        >
-                          <UserX className="w-4 h-4 mr-1" />
-                          Reject
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </GlassCard>
-            </motion.div>
+          {isTeamLeader && (
+            <PendingApprovals
+              pendingMembers={pendingMembers}
+              onApprove={approveMember}
+              onReject={setRemovingMember}
+            />
           )}
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Left Column - Team Info */}
             <div className="lg:col-span-1 space-y-6">
               {/* Team Card */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <GlassCard glow="primary">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-bold flex items-center gap-2">
-                      <Users className="w-5 h-5 text-primary" />
-                      Team Info
-                    </h2>
-                    <Button variant="ghost" size="icon">
-                      <Edit2 className="w-4 h-4" />
-                    </Button>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm text-muted-foreground">Team Name</p>
-                      <p className="font-semibold text-lg">{teamData?.name}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">IIIT</p>
-                      <p className="font-semibold">{teamData?.iiit}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">Team Representative</p>
-                      <p className="font-semibold">{teamData?.representative}</p>
-                    </div>
-                  </div>
-                </GlassCard>
-              </motion.div>
+              <TeamInfoCard
+                teamData={teamData!}
+                isTeamLeader={isTeamLeader}
+                onEdit={openTeamInfoEdit}
+              />
 
               {/* Team Members */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <GlassCard>
-                  <h2 className="text-xl font-bold mb-6">Team Members</h2>
-                  <div className="space-y-4">
-                    {teamData?.members?.length > 0 ? (
-                      teamData.members.map((member: any) => (
-                        <div key={member.email} className="p-4 rounded-lg bg-card/50 border border-border/50">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-1">
-                                <p className="font-semibold">{member.name}</p>
-                                {member.role === 'leader' && (
-                                  <span className="px-2 py-0.5 rounded text-xs bg-primary/20 text-primary">
-                                    Lead
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-sm text-muted-foreground">Batch {member.batch}</p>
-                              <div className="mt-2 space-y-1 text-sm">
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Mail className="w-3 h-3" />
-                                  <span className="truncate">{member.email}</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Phone className="w-3 h-3" />
-                                  <span>{member.phone}</span>
-                                </div>
-                              </div>
-                            </div>
-                            {isTeamLeader && member.role !== 'leader' && (
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => setRemovingMember(member.email)}
-                                className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                              >
-                                <UserX className="w-4 h-4" />
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-sm text-muted-foreground text-center py-4">
-                        No team members yet
-                      </p>
-                    )}
-                  </div>
-                </GlassCard>
-              </motion.div>
+              <TeamMembersCard
+                teamData={teamData!}
+                isTeamLeader={isTeamLeader}
+                onRemoveMember={setRemovingMember}
+              />
             </div>
 
             {/* Right Column - Project & Announcements */}
             <div className="lg:col-span-2 space-y-6">
               {/* Project Info */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.15 }}
-              >
-                <GlassCard glow="accent">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-bold">Project Details</h2>
-                    <Button variant="outline" size="sm">
-                      <Edit2 className="w-4 h-4 mr-2" />
-                      Edit
-                    </Button>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-2xl font-bold gradient-text">{teamData?.project?.name}</h3>
-                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary">
-                          {teamData?.project?.domain}
-                        </span>
-                      </div>
-                      <p className="text-muted-foreground">{teamData?.project?.description}</p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-3">Tech Stack</p>
-                      <div className="flex flex-wrap gap-2">
-                        {teamData?.project?.techStack?.map((tech: string) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 rounded-full bg-card border border-border text-sm"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {(teamData?.project?.github || teamData?.project?.demo) && (
-                      <div className="flex gap-3 pt-4 border-t border-border">
-                        {teamData?.project?.github && (
-                          <Button asChild variant="neon">
-                            <a href={teamData.project.github} target="_blank" rel="noopener noreferrer">
-                              <Github className="w-4 h-4 mr-2" />
-                              View Code
-                            </a>
-                          </Button>
-                        )}
-                        {teamData?.project?.demo && (
-                          <Button asChild variant="cyber">
-                            <a href={teamData.project.demo} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              Live Demo
-                            </a>
-                          </Button>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </GlassCard>
-              </motion.div>
+              <ProjectDetailsCard
+                teamData={teamData!}
+                isTeamLeader={isTeamLeader}
+                onEdit={openProjectEdit}
+              />
 
               {/* Ranking */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <GlassCard>
-                  <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                    <Trophy className="w-5 h-5 text-primary" />
-                    Competition Progress
-                  </h2>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="text-center p-4 rounded-lg bg-success/10 border border-success/20">
-                      <p className="text-3xl font-bold text-success mb-1">#{teamData?.rank || '-'}</p>
-                      <p className="text-xs text-muted-foreground">Current Rank</p>
-                    </div>
-                    <div className="text-center p-4 rounded-lg bg-primary/10 border border-primary/20">
-                      <p className="text-3xl font-bold text-primary mb-1">{teamData?.members?.length || 0}</p>
-                      <p className="text-xs text-muted-foreground">Team Members</p>
-                    </div>
-                    <div className="text-center p-4 rounded-lg bg-secondary/10 border border-secondary/20">
-                      <p className="text-3xl font-bold text-secondary mb-1">-</p>
-                      <p className="text-xs text-muted-foreground">Rounds Cleared</p>
-                    </div>
-                  </div>
-                </GlassCard>
-              </motion.div>
+              <CompetitionProgress teamData={teamData!} />
 
               {/* Announcements */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.25 }}
-              >
-                <GlassCard>
-                  <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                    <Bell className="w-5 h-5 text-primary" />
-                    Announcements
-                  </h2>
-                  <div className="space-y-4">
-                    {announcements.map((announcement) => (
-                      <div
-                        key={announcement.id}
-                        className={`p-4 rounded-lg border-l-4 ${
-                          announcement.type === 'success'
-                            ? 'bg-success/10 border-success'
-                            : announcement.type === 'warning'
-                            ? 'bg-warning/10 border-warning'
-                            : 'bg-primary/10 border-primary'
-                        }`}
-                      >
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <p className="font-semibold">{announcement.title}</p>
-                            <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
-                              <Calendar className="w-3 h-3" />
-                              <span>{announcement.date}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </GlassCard>
-              </motion.div>
+              <AnnouncementsCard />
             </div>
           </div>
         </div>
@@ -617,6 +557,21 @@ const Dashboard = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Edit Dialogs */}
+      <EditDialogs
+        editingTeamInfo={editingTeamInfo}
+        editingProject={editingProject}
+        teamInfoForm={teamInfoForm}
+        projectForm={projectForm}
+        saving={saving}
+        onTeamInfoChange={setTeamInfoForm}
+        onProjectChange={setProjectForm}
+        onSaveTeamInfo={saveTeamInfo}
+        onSaveProject={saveProject}
+        onCloseTeamInfo={() => setEditingTeamInfo(false)}
+        onCloseProject={() => setEditingProject(false)}
+      />
     </PageTransition>
   );
 };

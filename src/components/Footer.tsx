@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Github, Twitter, Linkedin, Instagram, Mail } from "lucide-react";
+import { Github, Twitter, Linkedin, Instagram, Mail, Shield } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/logo.png";
 import PacManGame from "./PacManGame";
 
 const Footer = () => {
   const [showGame, setShowGame] = useState(false);
+  const { user, profile } = useAuth();
   const currentYear = new Date().getFullYear();
   const socialLinks = [
     {
@@ -151,6 +153,15 @@ const Footer = () => {
             reserved.
           </p>
           <div className="flex items-center gap-6">
+            {user && profile?.role !== 'spoc' && (
+              <Link 
+                to="/spoc/verify"
+                className="text-xs text-muted-foreground/70 hover:text-primary transition-colors flex items-center gap-1"
+              >
+                <Shield className="w-3 h-3" />
+                SPOC Access
+              </Link>
+            )}
             <span className="font-mono text-xs text-muted-foreground/50">
               First Edition
             </span>
