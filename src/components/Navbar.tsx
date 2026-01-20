@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { Menu, X, Home, Info, Award, Building2, Trophy, FolderKanban, Users, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Home, Info, Award, Building2, Trophy, FolderKanban, Users, LayoutDashboard, LogIn, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 
 const navLinks = [
   { name: 'Home', path: '/', icon: Home },
@@ -12,18 +13,24 @@ const navLinks = [
   { name: 'Leaderboard', path: '/leaderboard/round-2', icon: Trophy },
   { name: 'Projects', path: '/projects', icon: FolderKanban },
   { name: 'Teams', path: '/teams', icon: Users },
-  //{ name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
 ];
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const location = useLocation();
-  
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+
+  // Dynamic nav links based on auth status
+  const displayLinks = user 
+    ? [...navLinks, { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard }]
+    : navLinks;
+
   // Scroll-based motion values
   const scrollY = useMotionValue(0);
   const scrollYSmooth = useSpring(scrollY, { stiffness: 100, damping: 30 });
-  
+
   // Transform scroll into various properties
   const navPadding = useTransform(scrollYSmooth, [0, 100], [20, 8]);
   const navScale = useTransform(scrollYSmooth, [0, 100], [1, 0.98]);
@@ -45,6 +52,11 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/');
+  };
+
   return (
     <>
       <motion.nav
@@ -61,7 +73,7 @@ const Navbar = () => {
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Desktop Navigation */}
-          <motion.div 
+          <motion.div
             className="hidden lg:flex items-center gap-0.5 rounded-full border overflow-hidden"
             style={{
               padding: navPadding,
@@ -69,22 +81,22 @@ const Navbar = () => {
               WebkitBackdropFilter: useTransform(navBlur, (v) => `blur(${v}px)`),
               backgroundColor: useTransform(navBgOpacity, (v) => `hsl(var(--background) / ${v})`),
               borderColor: useTransform(borderOpacity, (v) => `hsl(var(--border) / ${v})`),
-              boxShadow: isHovered 
-                ? '0 8px 32px -8px hsl(var(--primary) / 0.2), 0 0 0 1px hsl(var(--primary) / 0.1)' 
+              boxShadow: isHovered
+                ? '0 8px 32px -8px hsl(var(--primary) / 0.2), 0 0 0 1px hsl(var(--primary) / 0.1)'
                 : '0 8px 32px -8px hsl(var(--background) / 0.3)',
             }}
             animate={{
-              boxShadow: isHovered 
-                ? '0 8px 32px -8px hsl(var(--primary) / 0.2), 0 0 0 1px hsl(var(--primary) / 0.1)' 
+              boxShadow: isHovered
+                ? '0 8px 32px -8px hsl(var(--primary) / 0.2), 0 0 0 1px hsl(var(--primary) / 0.1)'
                 : '0 8px 32px -8px hsl(var(--background) / 0.3)',
             }}
             transition={{ duration: 0.3 }}
           >
-            {navLinks.map((link, index) => {
-              const isActive = location.pathname === link.path || 
+            {displayLinks.map((link, index) => {
+              const isActive = location.pathname === link.path ||
                 (link.path !== '/' && location.pathname.startsWith(link.path.split('/')[1] ? `/${link.path.split('/')[1]}` : link.path));
               const Icon = link.icon;
-              
+
               return (
                 <Link
                   key={link.path}
@@ -92,11 +104,10 @@ const Navbar = () => {
                   className="relative"
                 >
                   <motion.div
-                    className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
-                      isActive 
-                        ? 'text-primary' 
+                    className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${isActive
+                        ? 'text-primary'
                         : 'text-muted-foreground hover:text-foreground'
-                    }`}
+                      }`}
                     initial={false}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -118,10 +129,36 @@ const Navbar = () => {
                 </Link>
               );
             })}
+
+            {/* Auth Button - Desktop */}
+            <div className="ml-2 pl-2 border-l border-border/50">
+              {user ? (
+                <Button
+                  onClick={handleLogout}
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-full"
+                >
+                  <LogOut size={16} />
+                  <span>Logout</span>
+                </Button>
+              ) : (
+                <Link to="/login">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary rounded-full"
+                  >
+                    <LogIn size={16} />
+                    <span>Login</span>
+                  </Button>
+                </Link>
+              )}
+            </div>
           </motion.div>
 
           {/* Mobile Menu Button */}
-          <motion.div 
+          <motion.div
             className="lg:hidden flex items-center justify-center rounded-full border px-4 py-2"
             style={{
               backdropFilter: useTransform(navBlur, (v) => `blur(${v}px)`),
@@ -157,8 +194,8 @@ const Navbar = () => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            <motion.div 
-              className="absolute inset-0 bg-background/90 backdrop-blur-xl" 
+            <motion.div
+              className="absolute inset-0 bg-background/90 backdrop-blur-xl"
               onClick={() => setIsMobileMenuOpen(false)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -172,11 +209,11 @@ const Navbar = () => {
               className="relative mt-20 mx-4 bg-card/80 backdrop-blur-xl rounded-2xl overflow-hidden border border-border/50 shadow-2xl"
             >
               <div className="p-3 space-y-1">
-                {navLinks.map((link, index) => {
+                {displayLinks.map((link, index) => {
                   const isActive = location.pathname === link.path ||
                     (link.path !== '/' && location.pathname.startsWith(link.path.split('/')[1] ? `/${link.path.split('/')[1]}` : link.path));
                   const Icon = link.icon;
-                  
+
                   return (
                     <motion.div
                       key={link.path}
@@ -186,16 +223,15 @@ const Navbar = () => {
                     >
                       <Link
                         to={link.path}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                          isActive
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
                             ? 'bg-primary/15 text-primary'
                             : 'text-muted-foreground hover:bg-card hover:text-foreground'
-                        }`}
+                          }`}
                       >
                         <Icon size={18} />
                         <span className="font-medium">{link.name}</span>
                         {isActive && (
-                          <motion.div 
+                          <motion.div
                             className="ml-auto w-1.5 h-1.5 rounded-full bg-primary"
                             layoutId="mobile-indicator"
                           />
@@ -204,6 +240,30 @@ const Navbar = () => {
                     </motion.div>
                   );
                 })}
+              </div>
+
+              {/* Auth Button - Mobile */}
+              <div className="px-3 pb-3 pt-2 border-t border-border/50">
+                {user ? (
+                  <Button
+                    onClick={handleLogout}
+                    variant="ghost"
+                    className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-card hover:text-foreground"
+                  >
+                    <LogOut size={18} />
+                    <span className="font-medium">Logout</span>
+                  </Button>
+                ) : (
+                  <Link to="/login" className="block">
+                    <Button
+                      variant="ghost"
+                      className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-card hover:text-primary"
+                    >
+                      <LogIn size={18} />
+                      <span className="font-medium">Login</span>
+                    </Button>
+                  </Link>
+                )}
               </div>
             </motion.div>
           </motion.div>
