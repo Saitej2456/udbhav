@@ -1,267 +1,17 @@
 import { motion } from 'framer-motion';
 import { AlertCircle, ExternalLink, Github, Play, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import PageTransition from '@/components/PageTransition';
 import SectionHeading from '@/components/SectionHeading'; 
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
+import { projects, domainColors } from '@/data/projects';
 
 const rules = [
   "The full details of your respective projects will be reflected once Round 3 ends.",
   "The name of your respective project will be reflected only if you have shared the project name with the organizing team.",
   "If there are any queries regarding the project information, please contact your respective PICs.",
 ];
-
-
-const projects = [
-  {
-    id: 1,
-    name: 'Bhumi',
-    team: 'DAOMINATORS',
-    iiit: 'IIIT Allahabad',
-    description: '',
-    domain: 'Blockchain',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 2,
-    name: 'Problem Statement: 1',
-    team: 'Bancode',
-    iiit: 'IIIT Bhubaneswar',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 3,
-    name: 'GenAI-Powered Clinical Note Summarization and Hypothesis Generation',
-    team: 'Nocturnal_Code',
-    iiit: 'IIIT Kurnool',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 4,
-    name: 'Problem Statement: 1',
-    team: 'SINISTER-6',
-    iiit: 'IIIT Dharwad',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 5,
-    name: 'E-parchi',
-    team: 'Kaizen',
-    iiit: 'IIIT Manipur',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 6,
-    name: 'Med-Insight-AI',
-    team: 'Zero-Deadlock',
-    iiit: 'IIIT Raichur',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 7,
-    name: 'Problem Statement: 1',
-    team: 'KanyaRaasi',
-    iiit: 'IIIT Kottayam',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 8,
-    name: 'Problem Statement: 2',
-    team: "Bohar's Bit",
-    iiit: 'IIIT Sri City',
-    description: '',
-    domain: 'Blockchain',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 9,
-    name: 'Divflow',
-    team: 'DivFlow',
-    iiit: 'IIIT Vadodara-ICD',
-    description: '',
-    domain: 'Blockchain',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 10,
-    name: 'Problem Statement: 1',
-    team: 'HackSmith',
-    iiit: 'IIIT Kota',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 11,
-    name: 'NodeHealth',
-    team: 'Team notFound',
-    iiit: 'IIIT Bhagalpur',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 12,
-    name: 'Problem Statement: 1',
-    team: 'CBOW',
-    iiit: 'IIIT Naya Raipur',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 13,
-    name: 'Problem Statement: 1',
-    team: 'The Hawkings',
-    iiit: 'IIIT Tiruchirappalli',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 14,
-    name: 'Problem Statement: 1',
-    team: '404 Found',
-    iiit: 'IIIT Bhopal',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 15,
-    name: 'LandTrust',
-    team: 'DBDT',
-    iiit: 'IIIT Surat',
-    description: '',
-    domain: 'Blockchain',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 16,
-    name: 'Problem Statement: 1',
-    team: 'SnackOverflow',
-    iiit: 'IIIT Kancheepuram',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 17,
-    name: 'NeoMed',
-    team: 'PromptOps',
-    iiit: 'IIIT Una',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 18,
-    name: 'SecureEdge',
-    team: 'Techtonics_IIITA',
-    iiit: 'IIIT Agartala',
-    description: '',
-    domain: 'Cybersecurity',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 19,
-    name: 'Problem Statement: 2',
-    team: 'Block E-state',
-    iiit: 'IIIT Delhi',
-    description: '',
-    domain: 'Blockchain',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 20,
-    name: 'Problem Statement: 1',
-    team: 'Swarnprasth Super',
-    iiit: 'IIIT Sonepat',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 21,
-    name: 'Medora',
-    team: 'Neuronix',
-    iiit: 'IIIT Nagpur',
-    description: '',
-    domain: 'AI/ML',
-    github: '',
-    demo: '',
-    image: null,
-  },
-  {
-    id: 22,
-    name: 'TitleVault',
-    team: 'Zodiac Z408',
-    iiit: 'IIIT Vadodara',
-    description: '',
-    domain: 'Blockchain',
-    github: '',
-    demo: '',
-    image: null,
-  },
-];
-
-const domainColors: Record<string, string> = {
-  'AI/ML': 'bg-primary/20 text-primary',
-  'Blockchain': 'bg-secondary/20 text-secondary',
-  'Cybersecurity': 'bg-accent/20 text-accent',
-};
 
 const Projects = () => {
   return (
@@ -347,10 +97,11 @@ const Projects = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <GlassCard
-                  className="h-full flex flex-col group"
-                  glow="primary"
-                >
+                <Link to={`/projects/${project.id}`}>
+                  <GlassCard
+                    className="h-full flex flex-col group cursor-pointer"
+                    glow="primary"
+                  >
                   {/* Image Placeholder */}
                   <div className="aspect-video rounded-lg bg-gradient-to-br from-primary/10 to-accent/10 mb-4 overflow-hidden relative group-hover:from-primary/20 group-hover:to-accent/20 transition-colors">
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -448,6 +199,7 @@ const Projects = () => {
                     )}
                   </div>
                 </GlassCard>
+                </Link>
               </motion.div>
             ))}
           </div>

@@ -19,6 +19,7 @@ import IIITProfile from "./pages/IIITProfile";
 import LeaderboardRound2 from "./pages/LeaderboardRound2";
 import LeaderboardRound3 from "./pages/LeaderboardRound3";
 import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
 import Teams from "./pages/Teams";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
@@ -52,6 +53,7 @@ const App = () => (
                   <Route path="/leaderboard/round-2" element={<LeaderboardRound2 />} />
                   <Route path="/leaderboard/round-3" element={<LeaderboardRound3 />} />
                   <Route path="/projects" element={<Projects />} />
+                  <Route path="/projects/:id" element={<ProjectDetail />} />
                   <Route path="/teams" element={<Teams />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/spoc/verify" element={<SPOCVerification />} />
