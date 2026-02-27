@@ -10,13 +10,32 @@ import {
   Code2,
   AlertTriangle,
   TrendingUp,
-  CheckCircle2
+  CheckCircle2,
+  Brain,
+  Lock,
+  LinkIcon
 } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
 import GlassCard from '@/components/GlassCard';
 import { Button } from '@/components/ui/button';
 import { projects, domainColors } from '@/data/projects';
 import { Badge } from '@/components/ui/badge';
+
+// Domain-specific visual configurations
+const domainVisuals: Record<string, { gradient: string; icon: typeof Brain }> = {
+  'AI/ML': { 
+    gradient: 'from-purple-500/20 via-blue-500/20 to-cyan-500/20', 
+    icon: Brain 
+  },
+  'Blockchain': { 
+    gradient: 'from-amber-500/20 via-orange-500/20 to-yellow-500/20', 
+    icon: LinkIcon 
+  },
+  'Cybersecurity': { 
+    gradient: 'from-red-500/20 via-rose-500/20 to-pink-500/20', 
+    icon: Lock 
+  },
+};
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,6 +44,9 @@ const ProjectDetail = () => {
   if (!project) {
     return <Navigate to="/projects" replace />;
   }
+
+  const DomainIcon = domainVisuals[project.domain]?.icon || Brain;
+  const gradientClass = domainVisuals[project.domain]?.gradient || 'from-primary/10 to-accent/10';
 
   return (
     <PageTransition>
@@ -51,17 +73,60 @@ const ProjectDetail = () => {
             className="mb-12"
           >
             <GlassCard className="overflow-hidden">
-              {/* Project Image */}
-              <div className="aspect-video w-full bg-gradient-to-br from-primary/10 to-accent/10 relative overflow-hidden">
-                <div className="absolute inset-0 grid-overlay opacity-30" />
+              {/* Enhanced Project Image with Domain-specific Gradient */}
+              <div className={`aspect-video w-full bg-gradient-to-br ${gradientClass} relative overflow-hidden`}>
+                {/* Animated background pattern */}
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
+                  <div className="absolute inset-0 grid-overlay" />
+                </div>
+                
+                {/* Floating particles effect */}
+                <div className="absolute inset-0">
+                  {[...Array(20)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-white/30 rounded-full"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                      }}
+                      animate={{
+                        y: [0, -30, 0],
+                        opacity: [0.3, 0.6, 0.3],
+                      }}
+                      transition={{
+                        duration: 3 + Math.random() * 2,
+                        repeat: Infinity,
+                        delay: Math.random() * 2,
+                      }}
+                    />
+                  ))}
+                </div>
+                
+                {/* Center content */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-card/80 flex items-center justify-center">
-                      <Code2 className="w-12 h-12 text-primary" />
-                    </div>
-                    <p className="text-sm text-muted-foreground">Project Showcase</p>
+                    <motion.div 
+                      className="w-32 h-32 mx-auto mb-6 rounded-2xl bg-background/90 backdrop-blur-sm flex items-center justify-center shadow-2xl"
+                      animate={{ 
+                        rotate: [0, 5, -5, 0],
+                      }}
+                      transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <DomainIcon className="w-16 h-16 text-primary" />
+                    </motion.div>
+                    <h2 className="text-2xl font-bold mb-2">{project.name}</h2>
+                    <p className="text-sm text-muted-foreground">#{String(project.id).padStart(2, '0')} - {project.domain} Solution</p>
                   </div>
                 </div>
+                
+                {/* Bottom gradient overlay */}
+                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
               </div>
 
               {/* Project Header */}

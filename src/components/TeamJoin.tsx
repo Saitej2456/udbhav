@@ -54,37 +54,8 @@ const TeamJoin = () => {
                 t.representativeEmail.toLowerCase() === teamLeader.email.toLowerCase()
             );
 
-            if (!teamInfo) {
-                toast({
-                    title: 'Team not found',
-                    description: 'This team is not registered in the system.',
-                    variant: 'destructive',
-                });
-                setLoading(false);
-                return;
-            }
-
-            // Check if current user's email is in the team's member list
-            const isAuthorizedMember = teamInfo.members.some(
-                member => member.email.toLowerCase() === profile?.email?.toLowerCase()
-            );
-
-            if (!isAuthorizedMember) {
-                toast({
-                    title: 'Unauthorized',
-                    description: 'You are not registered as a member of this team. Contact your team leader if this is a mistake.',
-                    variant: 'destructive',
-                });
-                setLoading(false);
-                return;
-            }
-
             // Check if user is trying to join as the team leader
-            const memberInfo = teamInfo.members.find(
-                member => member.email.toLowerCase() === profile?.email?.toLowerCase()
-            );
-
-            if (memberInfo?.role === 'leader') {
+            if (profile?.email?.toLowerCase() === teamLeader.email.toLowerCase()) {
                 toast({
                     title: 'Already a leader',
                     description: 'You are registered as the team leader. You cannot join your own team.',
@@ -93,6 +64,8 @@ const TeamJoin = () => {
                 setLoading(false);
                 return;
             }
+
+            // Allow any email with valid team code to join (leader will approve/reject)
 
             // Update current user's profile to request to join team (pending approval)
             const { error: updateError } = await supabase
@@ -172,7 +145,6 @@ const TeamJoin = () => {
                                     onChange={(e) => setTeamCode(e.target.value.toUpperCase())}
                                     required
                                     className="pl-10 bg-background/50 border-border/50 focus:border-primary transition-colors uppercase"
-                                    maxLength={8}
                                 />
                             </div>
                             <p className="text-xs text-muted-foreground">

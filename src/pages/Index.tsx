@@ -375,19 +375,61 @@ const Index = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center py-20 min-h-64 flex flex-col items-center justify-center"
+              className="py-12"
             >
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-                <span className="gradient-text">Sponsors will be revealed soon</span>
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-                We're excited to announce our partners. Stay tuned for updates!
-              </p>
-              <Button asChild variant="outline" size="lg">
-                <Link to="/sponsors">
-                  View All Sponsors <ChevronRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
+              <div className="relative overflow-hidden">
+                <div className="flex">
+                  <motion.div
+                    className="flex gap-20 items-center whitespace-nowrap flex-shrink-0"
+                    animate={{
+                      x: [0, "-100%"],
+                    }}
+                    transition={{
+                      x: {
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        duration: 35,
+                        ease: "linear",
+                      },
+                    }}
+                  >
+                    <img src="/hacktour.png" alt="Hacktour India" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/Hackhalt.jpg" alt="Hackhalt" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/unstop.jpg" alt="Unstop" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/doonmerchandise.png" alt="Doon Merchandise" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/velcric.jpeg" alt="Velric" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/goclasses.png" alt="GoClasses" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                  </motion.div>
+                  <motion.div
+                    className="flex gap-20 items-center whitespace-nowrap flex-shrink-0"
+                    animate={{
+                      x: [0, "-100%"],
+                    }}
+                    transition={{
+                      x: {
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        duration: 35,
+                        ease: "linear",
+                      },
+                    }}
+                  >
+                    <img src="/hacktour.png" alt="Hacktour India" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/Hackhalt.jpg" alt="Hackhalt" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/unstop.jpg" alt="Unstop" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/doonmerchandise.png" alt="Doon Merchandise" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/velcric.jpeg" alt="Velric" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <img src="/goclasses.png" alt="GoClasses" className="h-16 sm:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity flex-shrink-0" />
+                  </motion.div>
+                </div>
+              </div>
+              <div className="text-center mt-8">
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/sponsors">
+                    View All Sponsors <ChevronRight className="ml-2 w-4 h-4" />
+                  </Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </section>

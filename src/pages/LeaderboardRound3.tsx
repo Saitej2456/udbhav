@@ -266,17 +266,16 @@ const LeaderboardRound3 = () => {
                   <div className="text-4xl font-bold text-slate-400 mb-2">
                     2nd
                   </div>
-                  <h3 className="text-xl font-bold mb-1">To Be Announced</h3>
-                  <p className="text-sm text-muted-foreground mb-2">—</p>
+                  <h3 className="text-xl font-bold mb-1">Neuronix</h3>
+                  <p className="text-sm text-muted-foreground mb-2">IIIT Nagpur</p>
                   <div className="text-2xl font-bold gradient-text mb-1">
-                    Prize TBA
+                    ₹50,000
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Details will be revealed
+                    Certificate
                   </p>
                   <div className="mt-4 text-xs text-muted-foreground">
-                    <span className="font-medium">Project:</span> To Be
-                    Announced
+                    <span className="font-medium">Project:</span> Medora
                   </div>
                 </GlassCard>
               </motion.div>
@@ -310,18 +309,17 @@ const LeaderboardRound3 = () => {
                     1st
                   </div>
                   <h3 className="text-2xl font-bold mb-1">
-                    Winner To Be Announced
+                    SINISTER-6
                   </h3>
-                  <p className="text-muted-foreground mb-2">—</p>
+                  <p className="text-muted-foreground mb-2">IIIT Dharwad</p>
                   <div className="text-3xl font-bold gradient-text mb-1">
-                    Prize TBA
+                    ₹75,000
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Stay tuned for results
+                    Certificate + Trophy
                   </p>
                   <div className="mt-4 text-sm text-muted-foreground">
-                    <span className="font-medium">Project:</span> To Be
-                    Announced
+                    <span className="font-medium">Project:</span> Problem Statement: 1
                   </div>
                 </GlassCard>
               </motion.div>
@@ -346,17 +344,16 @@ const LeaderboardRound3 = () => {
                   <div className="text-4xl font-bold text-amber-600 mb-2">
                     3rd
                   </div>
-                  <h3 className="text-xl font-bold mb-1">To Be Announced</h3>
-                  <p className="text-sm text-muted-foreground mb-2">—</p>
+                  <h3 className="text-xl font-bold mb-1">Bohar's Bit</h3>
+                  <p className="text-sm text-muted-foreground mb-2">IIIT Sri City</p>
                   <div className="text-2xl font-bold gradient-text mb-1">
-                    Prize TBA
+                    ₹25,000
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Will be announced soon
+                    Certificate
                   </p>
                   <div className="mt-4 text-xs text-muted-foreground">
-                    <span className="font-medium">Project:</span> To Be
-                    Announced
+                    <span className="font-medium">Project:</span> Problem Statement: 2
                   </div>
                 </GlassCard>
               </motion.div>
@@ -365,58 +362,10 @@ const LeaderboardRound3 = () => {
 
           <div
             className="mb-8 sm:mb-10 animate-fade-in"
-            style={{ animationDelay: "0.5s" }}
+            style={{ animationDelay: '0.5s' }}
           >
             <CountdownTimer />
           </div>
-
-          {/* Rest of Finalists */}
-       {/* {   <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-2xl font-bold mb-8 text-center">
-              <span className="gradient-text">All Finalists</span>
-            </h2>
-            <div className="overflow-x-auto">
-              <table className="w-full max-w-4xl mx-auto">
-                <thead>
-                  <tr className="border-b border-border">
-                    <th className="text-left py-4 px-4 text-sm font-medium text-muted-foreground">Rank</th>
-                    <th className="text-left py-4 px-4 text-sm font-medium text-muted-foreground">Team</th>
-                    <th className="text-left py-4 px-4 text-sm font-medium text-muted-foreground">IIIT</th>
-                    <th className="text-left py-4 px-4 text-sm font-medium text-muted-foreground">Project</th>
-                    <th className="text-left py-4 px-4 text-sm font-medium text-muted-foreground">Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rest.map((team, index) => (
-                    <motion.tr
-                      key={team.team}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.05 }}
-                      className="border-b border-border/50 hover:bg-card/50 transition-colors"
-                    >
-                      <td className="py-4 px-4">
-                        <span className="font-mono text-muted-foreground">{team.rank}</span>
-                      </td>
-                      <td className="py-4 px-4">
-                        <span className="font-semibold">{team.team}</span>
-                      </td>
-                      <td className="py-4 px-4 text-muted-foreground">{team.iiit}</td>
-                      <td className="py-4 px-4 text-sm text-muted-foreground">{team.project}</td>
-                      <td className="py-4 px-4">
-                        <span className="font-mono text-primary">{team.score}</span>
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </motion.section>} */}
 
           
         </div>

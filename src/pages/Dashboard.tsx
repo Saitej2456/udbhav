@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
 import { teamsData, Team } from '@/data/teams';
+import { projects } from '@/data/projects';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -67,19 +68,20 @@ const Dashboard = () => {
   const loadTeamData = async () => {
     setLoading(true);
     
-    // Check if user is a team leader (by representative email match)
+    // Check if user is a team leader (by role or email match)
+    const isTeamLeaderRole = profile?.role === 'team_leader';
     const leaderTeam = teamsData.find(t => 
       t.representativeEmail.toLowerCase() === profile?.email?.toLowerCase()
     );
 
-    if (leaderTeam) {
-      // User is a team leader - full access
-      // Fetch actual team members from database who have joined
-      const { data: dbMembers } = await supabase
+    if (isTeamLeaderRole || leaderTeam) {
+      // User is a team leader - fetch their data
+      
+      // Fetch ALL team members from database (both pending and joined)
+      const { data: allDbMembers } = await supabase
         .from('user_profiles')
         .select('*')
-        .or(`id.eq.${user?.id},team_id.eq.${user?.id}`)
-        .eq('has_joined_team', true);
+        .or(`id.eq.${user?.id},team_id.eq.${user?.id}`);
 
       // Fetch saved team info from database
       const { data: savedTeamInfo } = await supabase
@@ -95,33 +97,91 @@ const Dashboard = () => {
         .eq('user_id', user?.id)
         .single();
 
-      // Merge database members with static team data
-      const mergedTeam = {
-        ...leaderTeam,
-        // Use saved data if available, otherwise use static data
-        name: savedTeamInfo?.team_name || leaderTeam.name,
-        iiit: savedTeamInfo?.iiit || leaderTeam.iiit,
-        representative: savedTeamInfo?.representative || leaderTeam.representative,
-        members: leaderTeam.members.map(staticMember => {
-          // Check if this member has an actual database account
-          const dbMember = dbMembers?.find(db => db.email.toLowerCase() === staticMember.email.toLowerCase());
-          return {
-            ...staticMember,
-            hasAccount: !!dbMember,
-            isActive: !!dbMember
-          };
-        }).filter(m => m.email === profile?.email || m.hasAccount), // Show leader + active members
-        project: savedProjectInfo ? {
-          name: savedProjectInfo.project_name,
-          description: savedProjectInfo.description,
-          domain: savedProjectInfo.domain,
-          github: savedProjectInfo.github_url || '',
-          demo: savedProjectInfo.demo_url || '',
-          techStack: savedProjectInfo.tech_stack || [],
-        } : leaderTeam.project,
-      };
+      // Find team members from projects.ts based on team name
+      let projectTeamMembers: any[] = [];
+      let projectRank: number | string = '-';
+      if (savedTeamInfo) {
+        const projectData = projects.find(p => 
+          p.team.toLowerCase() === savedTeamInfo.team_name.toLowerCase()
+        );
+        if (projectData) {
+          projectRank = projectData.rank || '-';
+          if (projectData.teamMembers) {
+            projectTeamMembers = projectData.teamMembers.map(tm => ({
+              name: tm.name,
+              email: tm.email,
+              role: tm.role.toLowerCase().includes('leader') ? 'leader' : 'member',
+              batch: '', // Not in projects.ts
+              phone: '' // Not in projects.ts
+            }));
+          }
+        }
+      } else if (leaderTeam) {
+        // Fallback to leaderTeam members
+        projectTeamMembers = leaderTeam.members;
+        projectRank = leaderTeam.rank || '-';
+      }
 
-      setTeamData(mergedTeam);
+      // Merge static team members with database status
+      const mergedMembers = projectTeamMembers.map(staticMember => {
+        const dbMember = allDbMembers?.find(db => 
+          db.email.toLowerCase() === staticMember.email.toLowerCase()
+        );
+        return {
+          ...staticMember,
+          hasAccount: !!dbMember,
+          isActive: dbMember?.has_joined_team || false
+        };
+      });
+
+      // Build team data - prioritize database data, fallback to static data
+      if (savedTeamInfo && savedProjectInfo) {
+        // We have database data - use it!
+        const mergedTeam = {
+          name: savedTeamInfo.team_name,
+          iiit: savedTeamInfo.iiit,
+          representative: savedTeamInfo.representative,
+          rank: projectRank,
+          status: leaderTeam?.status || 'Active',
+          members: mergedMembers.length > 0 ? mergedMembers : [{
+            name: profile?.name || savedTeamInfo.representative,
+            email: profile?.email || '',
+            role: 'leader',
+            hasAccount: true,
+            isActive: true
+          }],
+          project: {
+            name: savedProjectInfo.project_name,
+            description: savedProjectInfo.description,
+            domain: savedProjectInfo.domain,
+            github: savedProjectInfo.github_url || '',
+            demo: savedProjectInfo.demo_url || '',
+            techStack: savedProjectInfo.tech_stack || [],
+          },
+        };
+
+        setTeamData(mergedTeam);
+      } else if (leaderTeam) {
+        // Fallback to static data from teams.ts
+        const mergedTeam = {
+          ...leaderTeam,
+          name: savedTeamInfo?.team_name || leaderTeam.name,
+          iiit: savedTeamInfo?.iiit || leaderTeam.iiit,
+          representative: savedTeamInfo?.representative || leaderTeam.representative,
+          rank: projectRank,
+          members: mergedMembers,
+          project: savedProjectInfo ? {
+            name: savedProjectInfo.project_name,
+            description: savedProjectInfo.description,
+            domain: savedProjectInfo.domain,
+            github: savedProjectInfo.github_url || '',
+            demo: savedProjectInfo.demo_url || '',
+            techStack: savedProjectInfo.tech_stack || [],
+          } : leaderTeam.project,
+        };
+        setTeamData(mergedTeam);
+      }
+
       await ensureTeamCode();
       await loadPendingMembers();
     } else if (profile?.has_joined_team && profile?.team_id) {
@@ -406,10 +466,13 @@ const Dashboard = () => {
     }
   };
 
-  // Check if user is a team leader (by email match in teams data)
-  const isTeamLeader = teamsData.some(t => 
+  // Check if user is a team leader (by role OR email match in teams data)
+  const isTeamLeader = profile?.role === 'team_leader' || teamsData.some(t => 
     t.representativeEmail.toLowerCase() === profile?.email?.toLowerCase()
   );
+
+  // Team leaders are automatically redirected to their dashboard - no team code needed
+  // Only non-leaders need to join via team code
 
   // If user is not a team leader and hasn't properly joined a team, show TeamJoin
   if (!isTeamLeader && (!profile?.has_joined_team || !profile?.team_id)) {

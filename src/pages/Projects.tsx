@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { AlertCircle, ExternalLink, Github, Play, Users } from 'lucide-react';
+import { AlertCircle, ExternalLink, Github, Play, Users, Brain, Lock, LinkIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageTransition from '@/components/PageTransition';
 import SectionHeading from '@/components/SectionHeading'; 
@@ -12,6 +12,22 @@ const rules = [
   "The name of your respective project will be reflected only if you have shared the project name with the organizing team.",
   "If there are any queries regarding the project information, please contact your respective PICs.",
 ];
+
+// Domain-specific gradient and icon configurations
+const domainVisuals: Record<string, { gradient: string; icon: typeof Brain }> = {
+  'AI/ML': { 
+    gradient: 'from-purple-500/20 via-blue-500/20 to-cyan-500/20', 
+    icon: Brain 
+  },
+  'Blockchain': { 
+    gradient: 'from-amber-500/20 via-orange-500/20 to-yellow-500/20', 
+    icon: LinkIcon 
+  },
+  'Cybersecurity': { 
+    gradient: 'from-red-500/20 via-rose-500/20 to-pink-500/20', 
+    icon: Lock 
+  },
+};
 
 const Projects = () => {
   return (
@@ -89,7 +105,11 @@ const Projects = () => {
 
           {/* Projects Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {projects.map((project, index) => {
+              const DomainIcon = domainVisuals[project.domain]?.icon || Brain;
+              const gradientClass = domainVisuals[project.domain]?.gradient || 'from-primary/10 to-accent/10';
+              
+              return (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -102,14 +122,33 @@ const Projects = () => {
                     className="h-full flex flex-col group cursor-pointer"
                     glow="primary"
                   >
-                  {/* Image Placeholder */}
-                  <div className="aspect-video rounded-lg bg-gradient-to-br from-primary/10 to-accent/10 mb-4 overflow-hidden relative group-hover:from-primary/20 group-hover:to-accent/20 transition-colors">
+                  {/* Enhanced Image with Domain-specific Gradient */}
+                  <div className={`aspect-video rounded-lg bg-gradient-to-br ${gradientClass} mb-4 overflow-hidden relative group-hover:scale-105 transition-transform duration-300`}>
+                    {/* Animated background pattern */}
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
+                      <div className="absolute inset-0 grid-overlay" />
+                    </div>
+                    
+                    {/* Domain Icon */}
+                    <div className="absolute top-4 left-4 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center">
+                      <DomainIcon className="w-6 h-6 text-primary" />
+                    </div>
+                    
+                    {/* Project Number Badge */}
+                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm text-xs font-mono font-bold">
+                      #{String(project.id).padStart(2, '0')}
+                    </div>
+                    
+                    {/* Hover Play Button */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-card/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                        <Play className="w-8 h-8 text-primary" />
+                      <div className="w-16 h-16 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 cursor-pointer shadow-lg">
+                        <Play className="w-8 h-8 text-primary fill-primary" />
                       </div>
                     </div>
-                    <div className="absolute inset-0 grid-overlay opacity-30" />
+                    
+                    {/* Bottom gradient overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background/80 to-transparent" />
                   </div>
 
                   {/* Content */}
@@ -201,7 +240,8 @@ const Projects = () => {
                 </GlassCard>
                 </Link>
               </motion.div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </div>
