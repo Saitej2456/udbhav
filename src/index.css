@@ -758,3 +758,424 @@
     animation-play-state: paused;
   }
 }
+
+/* ==========================================================================
+   ANIMATED BEAM BORDER + FEATURED CARD TREATMENT
+   --------------------------------------------------------------------------
+   Two independent modifiers, applied to a <GlassCard> in Teams.tsx:
+
+     card--beam      the rotating neon-blue beam border + outer glow.
+                     Adds nothing to the card's interior â€” the dark surface
+                     underneath is left exactly as it was.
+
+     card--featured  the full premium treatment (frosted surface, spotlights,
+                     avatar ring, typography, glassy social buttons).
+                     Designed to be used TOGETHER with card--beam.
+
+   Every other card is untouched: the inner hooks (.featured-avatar /
+   .featured-name / .featured-role / .featured-social) are rendered on every
+   member card, but every selector that uses them is scoped under
+   `.card--featured`.
+
+   NOTE: this block lives OUTSIDE `@layer components` on purpose. GlassCard
+   also ships `.crt-button` + `.scan-line-hover`, which set `overflow:hidden`,
+   style their own `::before` and add a glitchy hover text-shadow. Unlayered
+   rules come last in the cascade, so these overrides land without `!important`.
+   ========================================================================== */
+
+/* Shared palette + geometry. Swap these to re-tint or resize the beam. */
+.card--beam,
+.card--featured {
+  --beam-c1: #3b82f6;   /* blue   */
+  --beam-c2: #22d3ee;   /* cyan   â€” brightest point of the beam */
+  --beam-c3: #60a5fa;   /* light blue tail */
+  --beam-border: 2px;   /* beam thickness */
+  --beam-radius: 1rem;  /* MUST match GlassCard's rounded-2xl (16px) */
+  --beam-speed: 5s;     /* one full lap */
+}
+
+/* ==========================================================================
+   1. THE BEAM BORDER  â€”  .card--beam
+   ========================================================================== */
+
+/* Registering the angle as a real <angle> is what makes it animatable and
+   lets the browser interpolate it on the compositor. Without @property the
+   custom property is just a string and the beam would jump, not spin. */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes beam-spin {
+  to { --beam-angle: 360deg; }
+}
+
+.card--beam {
+  position: relative;
+  overflow: visible;  /* .crt-button sets hidden, which would clip the glow */
+
+  /* Lift the card into the positioned layer so its outward glow is not
+     painted over by the next grid card (siblings create their own stacking
+     context via backdrop-filter). Does not affect layout. */
+  z-index: 1;
+}
+
+/* Both layers share the same geometry and the same rotating gradient.
+   ::before is the crisp beam, ::after is a blurred copy for the outer glow. */
+.card--beam::before,
+.card--beam::after {
+  content: "";
+  position: absolute;
+
+  /* Bleed outward by exactly the beam width. The card's own box is never
+     resized, so grid alignment and padding stay identical to other cards. */
+  inset: calc(var(--beam-border) * -1);
+  border-radius: calc(var(--beam-radius) + var(--beam-border));
+
+  /* .scan-line-hover::before pins a 4px-tall bar â€” undo that sizing */
+  width: auto;
+  height: auto;
+  top: calc(var(--beam-border) * -1);
+
+  /* The beam: one bright arc, the rest of the sweep transparent. */
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg 200deg,
+    var(--beam-c1) 255deg,
+    var(--beam-c2) 300deg,
+    var(--beam-c3) 335deg,
+    transparent 360deg
+  );
+
+  /* Ring-only mask: fill the padding box, punch out the content box, so the
+     gradient survives ONLY as a 2px ring. The card interior stays untouched. */
+  padding: var(--beam-border);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  animation: beam-spin var(--beam-speed) linear infinite;
+  opacity: 1;
+  pointer-events: none;     /* keeps the social links clickable */
+}
+
+/* Re-assert on hover: .scan-line-hover:hover::before is more specific than a
+   plain class selector and would otherwise swap in its own scan animation. */
+.card--beam:hover::before {
+  animation: beam-spin var(--beam-speed) linear infinite;
+  opacity: 1;
+}
+
+.card--beam::before { z-index: 2; }   /* sharp edge line */
+
+.card--beam::after {                  /* soft neon bleed */
+  z-index: 1;
+  filter: blur(9px);
+  opacity: 0.85;
+  transition: filter 250ms ease, opacity 250ms ease;
+}
+
+/* glow intensifies on hover */
+.card--beam:hover::after {
+  filter: blur(14px);
+  opacity: 1;
+}
+
+/* Accessibility: freeze the beam, keep a static blue border. */
+@media (prefers-reduced-motion: reduce) {
+  .card--beam::before,
+  .card--beam::after,
+  .card--beam:hover::before {
+    animation: none;
+    background: linear-gradient(
+      135deg,
+      var(--beam-c1),
+      var(--beam-c2),
+      var(--beam-c3)
+    );
+  }
+}
+
+/* ==========================================================================
+   2. PREMIUM TREATMENT  â€”  .card--featured  (pair with .card--beam)
+   ========================================================================== */
+
+/* Pointer position inside the card, written by trackFeaturedPointer() in
+   Teams.tsx. Transitioned below, which is what makes the spotlight lag
+   softly behind the cursor instead of snapping to it. */
+@property --featured-mx {
+  syntax: "<length-percentage>";
+  initial-value: 50%;
+  inherits: false;
+}
+
+@property --featured-my {
+  syntax: "<length-percentage>";
+  initial-value: 0%;
+  inherits: false;
+}
+
+/* 0 at rest, 1 on hover â€” drives the spotlight's alpha so it fades in/out. */
+@property --featured-spot {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+
+/* Entrance for the card's contents. Uses `backwards` fill (not `both`) so the
+   final frame is NOT pinned afterwards â€” otherwise the animation would win the
+   cascade over the :hover transform on the social buttons. */
+@keyframes featured-rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes featured-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.card--featured {
+  position: relative;
+  overflow: visible;
+
+  /* frosted glass + layered light.
+     Background layers, painted front to back:
+       1. cursor spotlight â€” follows --featured-mx / --featured-my
+       2. avatar spotlight â€” static soft radial behind the avatar, top-centre
+       3. base tint        â€” very dark and semi-transparent, so the binary-code
+                             backdrop still reads through the blur           */
+  background:
+    radial-gradient(
+      220px 220px at var(--featured-mx) var(--featured-my),
+      rgb(96 165 250 / calc(0.20 * var(--featured-spot))) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      170px 130px at 50% 4%,
+      rgb(34 211 238 / 0.16) 0%,
+      transparent 72%
+    ),
+    linear-gradient(180deg, rgb(13 20 36 / 0.82) 0%, rgb(8 12 22 / 0.92) 100%);
+
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border-color: rgb(148 163 184 / 0.14);
+
+  /* real elevation: inset top highlight, coloured hairline, then three
+     stacked shadows at increasing blur â€” not one flat drop shadow. */
+  box-shadow:
+    inset 0 1px 0 rgb(226 240 255 / 0.10),
+    0 0 0 1px rgb(59 130 246 / 0.12),
+    0 2px 6px -2px rgb(2 6 23 / 0.70),
+    0 14px 30px -10px rgb(2 6 23 / 0.75),
+    0 30px 60px -24px rgb(34 211 238 / 0.35);
+
+  /* GlassCard ships `transition-all duration-300`; replace it with an explicit
+     list so the registered properties get their own easing. The lift itself is
+     driven by framer-motion (whileHover), not by this transition. */
+  transition:
+    box-shadow 250ms ease,
+    border-color 250ms ease,
+    --featured-mx 180ms ease-out,
+    --featured-my 180ms ease-out,
+    --featured-spot 300ms ease;
+}
+
+/* Hover / focus: spotlight fades in and the elevation deepens.
+   :focus-within keeps the state while a social link inside is keyboard-focused.
+   Same specificity as `.crt-button:hover`, but later in source, so this also
+   cancels that rule's red/blue glitch text-shadow. */
+.card--featured:hover,
+.card--featured:focus-within {
+  --featured-spot: 1;
+  border-color: rgb(34 211 238 / 0.28);
+  text-shadow: none;
+  box-shadow:
+    inset 0 1px 0 rgb(226 240 255 / 0.16),
+    0 0 0 1px rgb(34 211 238 / 0.28),
+    0 4px 10px -2px rgb(2 6 23 / 0.75),
+    0 20px 40px -12px rgb(2 6 23 / 0.80),
+    0 40px 80px -28px rgb(34 211 238 / 0.55);
+}
+
+.card--featured:focus-visible {
+  outline: 2px solid rgb(34 211 238 / 0.9);
+  outline-offset: 4px;
+}
+
+/* Content sits above both beam layers */
+.card--featured .featured-avatar,
+.card--featured .featured-name,
+.card--featured .featured-role,
+.card--featured .featured-social,
+.card--featured .featured-badge {
+  position: relative;
+  z-index: 3;
+}
+
+/* "Mentor" chip â€” straddles the top border. Absolutely positioned so it
+   adds zero height and cannot shift the card or its neighbours. */
+.card--featured .featured-badge {
+  position: absolute;
+  top: calc(var(--beam-border) * -1 - 0.7rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  padding: 0.2rem 0.72rem;
+  border-radius: 9999px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #cfe9ff;
+  background: linear-gradient(180deg, rgb(19 29 48 / 0.95), rgb(10 16 28 / 0.95));
+  border: 1px solid rgb(34 211 238 / 0.35);
+  box-shadow:
+    0 0 18px -4px rgb(34 211 238 / 0.6),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: featured-fade-in 500ms ease 150ms backwards;
+}
+
+/* Avatar: gradient ring in the beam colours, rotating in sync with it.
+   padding-box holds the dark fill, border-box holds the gradient, so the
+   existing `border-2` becomes the ring without changing the avatar's size. */
+.card--featured .featured-avatar {
+  border-color: transparent;
+  background:
+    linear-gradient(rgb(9 14 25), rgb(9 14 25)) padding-box,
+    conic-gradient(
+      from var(--beam-angle),
+      var(--beam-c1),
+      var(--beam-c2),
+      var(--beam-c3),
+      var(--beam-c1)
+    ) border-box;
+  box-shadow:
+    0 0 0 1px rgb(34 211 238 / 0.18),
+    0 10px 26px -8px rgb(34 211 238 / 0.55);
+  animation: beam-spin var(--beam-speed) linear infinite;
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.card--featured:hover .featured-avatar {
+  border-color: transparent;            /* beats Tailwind's group-hover:border-primary/50 */
+  transform: scale(1.04);
+  box-shadow:
+    0 0 0 1px rgb(34 211 238 / 0.45),
+    0 14px 34px -8px rgb(34 211 238 / 0.85);
+}
+
+/* Name: subtle blue gradient text */
+.card--featured .featured-name {
+  background-image: linear-gradient(100deg, #eaf4ff 0%, #93c5fd 45%, #22d3ee 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  letter-spacing: -0.01em;
+  animation: featured-rise-in 500ms ease 100ms backwards;
+}
+
+/* keep the gradient on hover â€” Tailwind's group-hover:text-primary would
+   otherwise repaint it as a flat colour */
+.card--featured:hover .featured-name {
+  color: transparent;
+}
+
+/* Role: refined tracking, quieter blue */
+.card--featured .featured-role {
+  color: rgb(191 219 254 / 0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  animation: featured-rise-in 500ms ease 180ms backwards;
+}
+
+/* Social icons: glassy circular buttons, staggered in on first paint */
+.card--featured .featured-social > a,
+.card--featured .featured-social > span {
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgb(30 41 59 / 0.75), rgb(15 23 42 / 0.75));
+  border: 1px solid rgb(148 163 184 / 0.18);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease,
+    border-color 220ms ease;
+  animation: featured-rise-in 450ms ease backwards;
+}
+
+.card--featured .featured-social > *:nth-child(1) { animation-delay: 260ms; }
+.card--featured .featured-social > *:nth-child(2) { animation-delay: 340ms; }
+.card--featured .featured-social > *:nth-child(3) { animation-delay: 420ms; }
+
+.card--featured .featured-social svg {
+  color: rgb(219 234 254 / 0.85);
+  transition: color 220ms ease;
+}
+
+.card--featured .featured-social > a:hover,
+.card--featured .featured-social > a:focus-visible {
+  transform: translateY(-2px) scale(1.12);
+  background: linear-gradient(180deg, rgb(59 130 246 / 0.38), rgb(34 211 238 / 0.28));
+  border-color: rgb(34 211 238 / 0.55);
+  box-shadow:
+    0 0 18px -2px rgb(34 211 238 / 0.75),
+    inset 0 1px 0 rgb(255 255 255 / 0.15);
+}
+
+.card--featured .featured-social > a:hover svg,
+.card--featured .featured-social > a:focus-visible svg {
+  color: #ffffff;
+}
+
+/* keyboard accessibility */
+.card--featured .featured-social > a:focus-visible {
+  outline: 2px solid rgb(34 211 238 / 0.9);
+  outline-offset: 3px;
+}
+
+/* Reduced motion: freeze the cursor spotlight and every entrance.
+   Everything stays styled â€” it just stops moving. */
+@media (prefers-reduced-motion: reduce) {
+  /* static avatar ring */
+  .card--featured .featured-avatar {
+    animation: none;
+    background:
+      linear-gradient(rgb(9 14 25), rgb(9 14 25)) padding-box,
+      linear-gradient(
+        135deg,
+        var(--beam-c1),
+        var(--beam-c2),
+        var(--beam-c3)
+      ) border-box;
+  }
+
+  /* no entrance animations */
+  .card--featured .featured-badge,
+  .card--featured .featured-name,
+  .card--featured .featured-role,
+  .card--featured .featured-social > * {
+    animation: none;
+  }
+
+  /* cursor spotlight off, and no property easing to interpolate */
+  .card--featured,
+  .card--featured:hover,
+  .card--featured:focus-within {
+    --featured-spot: 0;
+  }
+
+  .card--featured {
+    transition: box-shadow 250ms ease, border-color 250ms ease;
+  }
+}
